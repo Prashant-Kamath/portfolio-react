@@ -1,23 +1,22 @@
+import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Dock from './components/navbar';
-import Works from './pages/Works';
 import './App.css';
 
-function App() {
-    return (
-        <div className="min-h-screen bg-zinc-950">
-            <Routes>
-                {/* Define the Home route */}
-                <Route path="/" element={<div className="text-white p-10">Home Content</div>} />
-                
-                {/* Define the Works route */}
-                <Route path="/works" element={<Works />} />
-            </Routes>
+const Works = lazy(() => import('./pages/Works'));
 
-            {/* The Dock navigation bar stays fixed at the bottom */}
-            <Dock />
-        </div>
-    );
+function App() {
+	return (
+		<div className="min-h-screen bg-zinc-950">
+			<Suspense fallback={<div className="text-white p-10">Loading...</div>}>
+				<Routes>
+					<Route path="/" element={<div className="text-white p-10">Home Content</div>} />
+					<Route path="/works" element={<Works />} />
+				</Routes>
+			</Suspense>
+			<Dock />
+		</div>
+	);
 }
 
 export default App;
