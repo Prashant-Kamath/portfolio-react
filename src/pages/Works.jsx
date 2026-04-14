@@ -9,59 +9,69 @@ import '@xyflow/react/dist/style.css';
 import WorkFlowNode from '../components/WorkFlowNode';
 
 const nodeTypes = {
-  workNode: WorkFlowNode,
+	workNode: WorkFlowNode,
 };
 
 const Works = () => {
-  const [isCanvasMode, setIsCanvasMode] = useState(false);
+	const [isCanvasMode, setIsCanvasMode] = useState(false);
 
-  // Convert worksData → React Flow nodes
-  const nodes = useMemo(() => {
-    return worksData.map((project, index) => ({
-      id: project.id.toString(),
-      type: 'workNode',
-      position: {
-        x: (index % 3) * 350,
-        y: Math.floor(index / 3) * 450,
-      },
-      data: project,
-    }));
-  }, []);
+	// Convert worksData → React Flow nodes
+	const nodes = useMemo(() => {
+		return worksData.map((project, index) => ({
+			id: project.id.toString(),
+			type: 'workNode',
+			position: {
+				x: (index % 3) * 350,
+				y: Math.floor(index / 3) * 450,
+			},
+			data: project,
+		}));
+	}, []);
 
-  return (
-    <section className="bg-zinc-950 py-20 px-10">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-12">
-          <h2 className="text-white text-4xl font-bold">Works</h2>
+	return (
+		<section className="relative bg-zinc-950 py-20 px-10">
 
-          <Button
-            icon={Layout}
-            onClick={() => setIsCanvasMode((prev) => !prev)}
-          >
-            Canvas Mode
-          </Button>
-        </div>
+			{/* 🔥 FULLSCREEN CANVAS (ONLY WHEN ACTIVE) */}
+			{isCanvasMode && (
+				<div className="fixed inset-0 z-0">
+					<ReactFlow nodes={nodes} nodeTypes={nodeTypes} fitView>
+						<Background />
+						<Controls />
+					</ReactFlow>
+				</div>
+			)}
 
-        {/* 🔁 Conditional Render */}
-        {!isCanvasMode ? (
-          // GRID VIEW
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {worksData.map((project) => (
-              <WorksCard key={project.id} {...project} />
-            ))}
-          </div>
-        ) : (
-          // CANVAS VIEW
-          <div className="w-full h-[80vh] bg-black rounded-xl overflow-hidden">
-            <ReactFlow nodes={nodes} nodeTypes={nodeTypes} fitView>
-              <Background />
-              <Controls />
-            </ReactFlow>
-          </div>
-        )}
-      </div>
-    </section>
-  );
+			<div className="relative max-w-7xl mx-auto z-10">
+
+				{/* 🧊 HEADER (SAME POSITION, NOW WITH BLUR WHEN CANVAS ACTIVE) */}
+				<div
+					className={`flex items-center justify-between mb-12 px-6 py-4 rounded-xl transition-all duration-300
+					${isCanvasMode
+							? 'bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_40px_rgba(0,0,0,0.4)]'
+							: ''
+						}`}
+				>
+					<h2 className="text-white text-4xl font-bold">Works</h2>
+
+					<Button
+						icon={Layout}
+						onClick={() => setIsCanvasMode((prev) => !prev)}
+					>
+						Canvas Mode
+					</Button>
+				</div>
+
+				{/* GRID (UNCHANGED) */}
+				{!isCanvasMode && (
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+						{worksData.map((project) => (
+							<WorksCard key={project.id} {...project} />
+						))}
+					</div>
+				)}
+			</div>
+		</section>
+	);
 };
 
 export default Works;

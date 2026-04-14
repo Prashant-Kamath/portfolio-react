@@ -28,8 +28,8 @@ const NavItem = ({ icon: Icon, label, isActive, onClick, mouseX }) => {
 				onClick={onClick}
 				style={{ width, height: width }}
 				className={`flex items-center justify-center rounded-full transition-colors duration-300 shadow-sm ${isActive
-						? 'bg-black text-white'
-						: 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+					? 'bg-black text-white'
+					: 'bg-gray-100 text-gray-600 hover:bg-gray-200'
 					}`}
 			>
 				<motion.div style={{ width: iconSize, height: iconSize, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

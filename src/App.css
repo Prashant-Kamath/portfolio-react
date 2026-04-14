@@ -1,4 +1,4 @@
-html, body, *, *::before, *::after {cursor: url("./resources/arrowhead-rounded-outline.svg"), auto; scrollbar-width: none;}
+html, body, *, *::before, *::after {cursor: url("./assets/arrowhead-rounded-outline.svg"), auto; scrollbar-width: none;}
 img {-webkit-user-drag: none; user-select: none;}
 a {text-decoration: none; -webkit-user-drag: none;}
 ::selection {background: #ffd60a; color: #000000;}
