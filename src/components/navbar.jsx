@@ -35,7 +35,7 @@ const NavItem = ({ icon: Icon, label, isActive, onClick, mouseX }) => {
 					}`}
 			>
 				<motion.div style={{ width: iconSize, height: iconSize, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-					<Icon size="100%" strokeWidth={isActive ? 2.5 : 2} />
+					<Icon size="90%" strokeWidth={isActive ? 2 : 2} />
 				</motion.div>
 			</motion.button>
 		</div>
