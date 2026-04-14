@@ -10,7 +10,7 @@ function App() {
 		<div className="min-h-screen bg-zinc-950">
 			<Suspense fallback={<div className="text-white p-10">Loading...</div>}>
 				<Routes>
-					<Route path="/" element={<div className="text-white p-10">Home Content</div>} />
+					<Route path="/" />
 					<Route path="/works" element={<Works />} />
 				</Routes>
 			</Suspense>

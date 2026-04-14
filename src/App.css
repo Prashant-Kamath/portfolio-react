@@ -1,0 +1,5 @@
+html, body, *, *::before, *::after {cursor: url("./resources/arrowhead-rounded-outline.svg"), auto; scrollbar-width: none;}
+img {-webkit-user-drag: none; user-select: none;}
+a {text-decoration: none; -webkit-user-drag: none;}
+::selection {background: #ffd60a; color: #000000;}
+::-moz-selection {background: #ffd60a; color: #000000;}
