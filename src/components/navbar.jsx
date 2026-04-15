@@ -14,26 +14,29 @@ const buildDockItems = (onThemeToggle) => [
 	{ id: "works",   label: "Works",    path: "/works",   icon: Folder },
 	{ id: "about",   label: "About Me", path: "/about",   icon: User   },
 	{ id: "contact", label: "Contact",  path: "/contact", icon: Mail   },
-	{ id: "theme",   label: "Theme",    path: null,       icon: Moon, onClick: onThemeToggle },
+	{ id: "theme",   label: "Theme",    path: null,       icon: Moon,  onClick: onThemeToggle },
 ];
 
 function sizeForIndex(index, hoveredIndex) {
 	if (hoveredIndex == null) return BASE;
 	const dist = Math.abs(index - hoveredIndex);
 	const t = Math.max(0, 1 - dist / (SPREAD + 1));
-	return Math.round(BASE + (PEAK - BASE) * eased(t));
+	// No rounding — keep fractional values for smooth GPU interpolation
+	return BASE + (PEAK - BASE) * eased(t);
 }
 
-function iconSize(size) {
+// Icon scale relative to button size — no rounding
+function iconScale(size) {
 	const pct = (size - BASE) / (PEAK - BASE);
-	return Math.round(22 + (34 - 22) * pct);
+	// At BASE: scale 1.0, at PEAK: scale ~1.45 (22→32px equivalent)
+	return 1 + 0.45 * pct;
 }
 
 export default function MacDockNavbar({ logoSrc = logo, onThemeToggle }) {
 	const [hoveredIndex, setHoveredIndex] = useState(null);
 
-	const navigate  = useNavigate();
-	const location  = useLocation();
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	const dockItems = useMemo(() => buildDockItems(onThemeToggle), [onThemeToggle]);
 
@@ -43,21 +46,20 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle }) {
 	);
 
 	return (
-		<nav className="fixed bottom-6 left-1/2 z-50 flex h-[68px] -translate-x-1/2 items-end gap-4 rounded-full border border-white/60 bg-[#FFFFFF]/90 px-3.5 py-2 shadow-lg backdrop-blur-md">
+		<nav className="fixed bottom-6 left-1/2 z-50 flex h-[68px] -translate-x-1/2 items-end gap-4 rounded-full border border-white/60 bg-[#FFFFFF] px-3.5 py-2 shadow-lg backdrop-blur-md">
 
-			{/* Logo — always center-aligned, never magnified */}
+			{/* Logo — vertically centered, never magnified */}
 			<div className="flex items-center self-center">
 				<img src={logoSrc} alt="Logo" className="h-[35px] w-[35px]" />
 			</div>
 
 			<div className="h-8 w-px bg-gray-800 shrink-0 self-center" />
 
-			{/* Dock items (nav + moon) */}
 			{dockItems.map((item, index) => {
-				const size   = sizes[index];
-				const svg    = iconSize(size);
+				const size     = sizes[index];
+				const scale    = iconScale(size);
 				const isActive = item.path && location.pathname === item.path;
-				const Icon   = item.icon;
+				const Icon     = item.icon;
 
 				return (
 					<button
@@ -65,20 +67,28 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle }) {
 						onMouseEnter={() => setHoveredIndex(index)}
 						onMouseLeave={() => setHoveredIndex(null)}
 						onClick={() => item.onClick ? item.onClick() : navigate(item.path)}
-						className={`group relative flex items-center justify-center rounded-full transition-all duration-200
-							${isActive ? "bg-black" : "bg-[#E0E0E0] hover:scale-105"}
+						className={`group relative flex items-center justify-center rounded-full
+							${isActive ? "bg-black" : "hover:bg-[#F5F5F5]"}
 						`}
-						style={{ width: size, height: size }}
+						style={{
+							width: size,
+							height: size,
+							transition: "width 200ms ease, height 200ms ease",
+						}}
 					>
 						{/* Tooltip */}
-						<div className="absolute -top-12 scale-0 transition-all duration-200 rounded bg-gray-800 px-2 py-1 text-xs text-white whitespace-nowrap z-50 group-hover:scale-100">
+						<div className="absolute -top-10 scale-0 transition-transform duration-200 rounded bg-gray-800 px-2 py-1 text-xs text-white whitespace-nowrap z-50 group-hover:scale-100">
 							{item.label}
 						</div>
 
 						<Icon
-							size={svg}
-							strokeWidth={isActive ? 1 : 1}
+							size={22}
+							strokeWidth={1}
 							className={isActive ? "text-white" : "text-[#555]"}
+							style={{
+								transform: `scale(${scale})`,
+								transition: "transform 200ms ease",
+							}}
 						/>
 					</button>
 				);
