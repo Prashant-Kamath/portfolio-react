@@ -16,13 +16,19 @@ const Works = () => {
 	const [isCanvasMode, setIsCanvasMode] = useState(false);
 
 	// Convert worksData → React Flow nodes
+	const CARD_WIDTH = 360;
+	const CARD_HEIGHT = 225;
+	const GAP_X = 40;
+	const GAP_Y = 60;
+	const COLS = 4;
+
 	const nodes = useMemo(() => {
 		return worksData.map((project, index) => ({
 			id: project.id.toString(),
 			type: 'workNode',
 			position: {
-				x: (index % 3) * 350,
-				y: Math.floor(index / 3) * 450,
+				x: (index % COLS) * (CARD_WIDTH + GAP_X),
+				y: Math.floor(index / COLS) * (CARD_HEIGHT + GAP_Y),
 			},
 			data: project,
 		}));

@@ -3,8 +3,8 @@ import WorksCard from "./workscard";
 
 const WorkFlowNode = ({ data }) => {
 	return (
-		<div style={{ width: 300 }}>
-			<WorksCard {...data} />
+		<div style={{ width: 360, height: 225 }}>
+			<WorksCard {...data} forceSize="canvas" />
 		</div>
 	);
 };
