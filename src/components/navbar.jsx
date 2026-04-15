@@ -10,11 +10,11 @@ const SPREAD = 2;
 const eased = (t) => Math.pow(Math.max(0, t), 1.8);
 
 const buildDockItems = (onThemeToggle) => [
-	{ id: "home",    label: "Home",     path: "/",        icon: Home   },
-	{ id: "works",   label: "Works",    path: "/works",   icon: Folder },
-	{ id: "about",   label: "About Me", path: "/about",   icon: User   },
-	{ id: "contact", label: "Contact",  path: "/contact", icon: Mail   },
-	{ id: "theme",   label: "Theme",    path: null,       icon: Moon,  onClick: onThemeToggle },
+	{ id: "home", label: "Home", path: "/", icon: Home },
+	{ id: "works", label: "Works", path: "/works", icon: Folder },
+	{ id: "about", label: "About Me", path: "/about", icon: User },
+	{ id: "contact", label: "Contact", path: "/contact", icon: Mail },
+	{ id: "theme", label: "Theme", path: null, icon: Moon, onClick: onThemeToggle },
 ];
 
 function sizeForIndex(index, hoveredIndex) {
@@ -56,10 +56,10 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle }) {
 			<div className="h-8 w-px bg-gray-800 shrink-0 self-center" />
 
 			{dockItems.map((item, index) => {
-				const size     = sizes[index];
-				const scale    = iconScale(size);
+				const size = sizes[index];
+				const scale = iconScale(size);
 				const isActive = item.path && location.pathname === item.path;
-				const Icon     = item.icon;
+				const Icon = item.icon;
 
 				return (
 					<button
