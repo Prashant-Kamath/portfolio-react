@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import logo from "../assets/favicon.webp";
+import logo from "../assets/logo-white.webp";
 import { IoHome, IoFolder, IoPerson, IoMail, IoMoon } from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -10,11 +10,11 @@ const SPREAD = 2;
 const eased = (t) => Math.pow(Math.max(0, t), 1.8);
 
 const buildDockItems = (onThemeToggle) => [
-	{ id: "home", label: "Home", path: "/", icon: IoHome }, // Changed from Home
-	{ id: "works", label: "Works", path: "/works", icon: IoFolder }, // Changed from Folder
-	{ id: "about", label: "About Me", path: "/about", icon: IoPerson }, // Changed from User
-	{ id: "contact", label: "Contact", path: "/contact", icon: IoMail }, // Changed from Mail
-	{ id: "theme", label: "Theme", path: null, icon: IoMoon, onClick: onThemeToggle }, // Changed from Moon
+	{ id: "home", label: "Home", path: "/", icon: IoHome },
+	{ id: "works", label: "Works", path: "/works", icon: IoFolder },
+	{ id: "about", label: "About Me", path: "/about", icon: IoPerson },
+	{ id: "contact", label: "Contact", path: "/contact", icon: IoMail },
+	{ id: "theme", label: "Theme", path: null, icon: IoMoon, onClick: onThemeToggle },
 ];
 
 function sizeForIndex(index, hoveredIndex) {
@@ -49,7 +49,7 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle }) {
 				borderColor: 'var(--dock-border)',
 				boxShadow: '0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)',
 			}}
-			className="fixed bottom-6 left-1/2 z-50 flex h-[68px] -translate-x-1/2 items-end gap-4 rounded-full border px-3.5 py-2 backdrop-blur-md"
+			className="fixed bottom-6 left-1/2 z-50 flex h-[68px] -translate-x-1/2 items-end gap-4 rounded-full border px-6 py-2 backdrop-blur-md"
 		>
 			{/* Logo */}
 			<div className="flex items-center self-center">
