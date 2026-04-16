@@ -4,7 +4,11 @@ const Button = ({ icon: Icon, children, onClick, className = "" }) => {
 	return (
 		<button
 			onClick={onClick}
-			className={`flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-black transition-all hover:scale-105 active:scale-95 shadow-lg ${className}`}
+			style={{
+				backgroundColor: 'var(--black-to-white)',
+				color: 'var(--white-to-black)',
+			}}
+			className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition-all hover:scale-105 active:scale-95 shadow-lg ${className}`}
 		>
 			{Icon && <Icon size={18} />}
 			{children}

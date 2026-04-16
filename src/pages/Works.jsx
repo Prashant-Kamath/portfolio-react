@@ -15,7 +15,6 @@ const nodeTypes = {
 const Works = () => {
 	const [isCanvasMode, setIsCanvasMode] = useState(false);
 
-	// Convert worksData → React Flow nodes
 	const CARD_WIDTH = 360;
 	const CARD_HEIGHT = 225;
 	const GAP_X = 40;
@@ -36,30 +35,36 @@ const Works = () => {
 
 	return (
 		<section
-			className={`relative py-20 px-10 ${isCanvasMode ? "!bg-transparent" : "!bg-black"
-				}`}
+			style={{ backgroundColor: 'var(--background-color)' }}
+			className="relative py-20 px-10"
 		>
-
 			{isCanvasMode && (
 				<div className="fixed inset-0 z-0">
 					<ReactFlow nodes={nodes} nodeTypes={nodeTypes} fitView>
-						
 						<Controls />
 					</ReactFlow>
 				</div>
 			)}
 
 			<div className="relative max-w-7xl mx-auto z-10">
-
-				{/* 🧊 HEADER (SAME POSITION, NOW WITH BLUR WHEN CANVAS ACTIVE) */}
+				{/* Header */}
 				<div
-					className={`flex items-center justify-between mb-12 px-6 py-4 rounded-xl transition-all duration-300 
-					${isCanvasMode
-							? 'bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_40px_rgba(0,0,0,0.4)]'
-							: ''
-						}`}
+					style={isCanvasMode ? {
+						backgroundColor: 'color-mix(in srgb, var(--dock-bg) 60%, transparent)',
+						borderColor: 'var(--dock-border)',
+						backdropFilter: 'blur(16px)',
+						boxShadow: '0 8px 40px var(--dock-shadow)',
+					} : {}}
+					className={`flex items-center justify-between mb-12 px-6 py-4 rounded-xl transition-all duration-300
+						${isCanvasMode ? 'border' : ''}
+					`}
 				>
-					<h2 className="text-white text-4xl font-bold">Works</h2>
+					<h2
+						style={{ color: 'var(--text-primary)' }}
+						className="text-4xl font-bold"
+					>
+						Works
+					</h2>
 
 					<Button
 						icon={Layout}
@@ -69,7 +74,7 @@ const Works = () => {
 					</Button>
 				</div>
 
-				{/* GRID (UNCHANGED) */}
+				{/* Grid */}
 				{!isCanvasMode && (
 					<div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
 						{worksData.map((project) => (

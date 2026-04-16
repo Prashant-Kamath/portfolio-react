@@ -15,7 +15,6 @@ const WorksCard = ({ image, title, tags = [], date, size = "square", forceSize }
 			className={`group relative w-full overflow-hidden rounded-2xl
 			${isCanvas ? "w-[360px] h-[225px]" : sizeClasses[size]}`}
 		>
-
 			<img
 				src={image}
 				alt={title}
@@ -27,15 +26,27 @@ const WorksCard = ({ image, title, tags = [], date, size = "square", forceSize }
 			<div className="absolute bottom-0 left-0 right-0 p-4">
 				<div className="flex flex-wrap gap-1 mb-2">
 					{tags.map((tag, i) => (
-						<span key={i} className="text-[10px] text-white/70 border border-white/20 px-2 py-0.5 rounded-md">
+						<span
+							key={i}
+							style={{
+								color: 'var(--text-secondary)',
+								borderColor: 'var(--dock-border)',
+							}}
+							className="text-[10px] border px-2 py-0.5 rounded-md"
+						>
 							{tag}
 						</span>
 					))}
 				</div>
-				<div className="flex justify-between text-white text-sm">
-					<h3 className="truncate">{title}</h3>
-					<span className="text-white/60">{date}</span>
-				</div>				
+				<div className="flex justify-between text-sm">
+					<h3
+						style={{ color: 'var(--text-primary)' }}
+						className="truncate"
+					>
+						{title}
+					</h3>
+					<span style={{ color: 'var(--text-secondary)' }}>{date}</span>
+				</div>
 			</div>
 		</div>
 	);

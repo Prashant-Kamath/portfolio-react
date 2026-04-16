@@ -1,22 +1,23 @@
 @import "tailwindcss";
-			/* -------- DARK THEME -------- */
-			:root {
-				--background-color: #0F0F0F;
-				--dock-bg: #1A1A1A;
-				--dock-border: #2A2A2A;
-				--dock-shadow: #00000066;
-				--dock-inner-shadow: #FFFFFF1A;
-				--item-bg: #2A2A2A;
-				--icon-color: #CCCCCC;
-				--tooltip-bg: #ffffff26;
-				--tooltip-text: #ffffff;
-				--text-primary: #FFFFFF;
-				--text-secondary: #CCCCCC;
-				--white-to-black: #000000;
-				--black-to-white: #ffffff;
-			}
 
-            /* -------- LIGHT THEME (DEFAULT) -------- 
+/* -------- DARK THEME -------- */
+:root {
+    --background-color: #000000;
+    --dock-bg: #1A1A1A;
+    --dock-border: #2A2A2A;
+    --dock-shadow: #00000066;
+    --dock-inner-shadow: #FFFFFF1A;
+    --item-bg: #2A2A2A;
+    --icon-color: #CCCCCC;
+    --tooltip-bg: #ffffff26;
+    --tooltip-text: #ffffff;
+    --text-primary: #FFFFFF;
+    --text-secondary: #CCCCCC;
+    --white-to-black: #000000;
+    --black-to-white: #ffffff;
+}
+
+/* -------- LIGHT THEME (DEFAULT) -------- 
 			[data-theme="light"] {
 				--background-color: #FFFFFF;
 				--background-hover-color: #dfdfdf;
@@ -33,7 +34,6 @@
 				--white-to-black: #ffffff;
 				--black-to-white: #000000;
 			}*/
-
 html, body, *, *::before, *::after {cursor: url("./assets/arrowhead-rounded-outline.svg"), auto; scrollbar-width: none;}
 body, section {background-color: #ffffff;}
 img {-webkit-user-drag: none; user-select: none;}

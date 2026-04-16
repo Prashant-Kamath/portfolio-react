@@ -21,14 +21,11 @@ function sizeForIndex(index, hoveredIndex) {
 	if (hoveredIndex == null) return BASE;
 	const dist = Math.abs(index - hoveredIndex);
 	const t = Math.max(0, 1 - dist / (SPREAD + 1));
-	// No rounding — keep fractional values for smooth GPU interpolation
 	return BASE + (PEAK - BASE) * eased(t);
 }
 
-// Icon scale relative to button size — no rounding
 function iconScale(size) {
 	const pct = (size - BASE) / (PEAK - BASE);
-	// At BASE: scale 1.0, at PEAK: scale ~1.45 (22→32px equivalent)
 	return 1 + 0.45 * pct;
 }
 
@@ -46,14 +43,23 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle }) {
 	);
 
 	return (
-		<nav className="fixed bottom-6 left-1/2 z-50 flex h-[68px] -translate-x-1/2 items-end gap-4 rounded-full border border-white/60 bg-[#FFFFFF] px-3.5 py-2 shadow-lg backdrop-blur-md">
-
-			{/* Logo — vertically centered, never magnified */}
+		<nav
+			style={{
+				backgroundColor: 'var(--dock-bg)',
+				borderColor: 'var(--dock-border)',
+				boxShadow: '0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)',
+			}}
+			className="fixed bottom-6 left-1/2 z-50 flex h-[68px] -translate-x-1/2 items-end gap-4 rounded-full border px-3.5 py-2 backdrop-blur-md"
+		>
+			{/* Logo */}
 			<div className="flex items-center self-center">
 				<img src={logoSrc} alt="Logo" className="h-[35px] w-[35px]" />
 			</div>
 
-			<div className="h-8 w-px bg-gray-800 shrink-0 self-center" />
+			<div
+				style={{ backgroundColor: 'var(--text-secondary)' }}
+				className="h-8 w-px shrink-0 self-center opacity-30"
+			/>
 
 			{dockItems.map((item, index) => {
 				const size = sizes[index];
@@ -67,25 +73,33 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle }) {
 						onMouseEnter={() => setHoveredIndex(index)}
 						onMouseLeave={() => setHoveredIndex(null)}
 						onClick={() => item.onClick ? item.onClick() : navigate(item.path)}
-						className={`group relative flex items-center justify-center rounded-full
-							${isActive ? "bg-black" : "hover:bg-[#F5F5F5]"}
-						`}
 						style={{
 							width: size,
 							height: size,
 							transition: "width 200ms ease, height 200ms ease",
+							backgroundColor: isActive ? 'var(--white-to-black)' : undefined,
 						}}
+						className={`group relative flex items-center justify-center rounded-full
+							${!isActive ? "hover:bg-[var(--item-bg)]" : ""}
+						`}
 					>
 						{/* Tooltip */}
-						<div className="absolute -top-10 scale-0 transition-transform duration-200 rounded bg-gray-800 px-2 py-1 text-xs text-white whitespace-nowrap z-50 group-hover:scale-100">
+						<div
+							style={{
+								backgroundColor: 'var(--tooltip-bg)',
+								color: 'var(--tooltip-text)',
+								backdropFilter: 'blur(8px)',
+							}}
+							className="absolute -top-10 scale-0 transition-transform duration-200 rounded px-2 py-1 text-xs whitespace-nowrap z-50 group-hover:scale-100"
+						>
 							{item.label}
 						</div>
 
 						<Icon
 							size={22}
 							strokeWidth={1}
-							className={isActive ? "text-white" : "text-[#555]"}
 							style={{
+								color: isActive ? 'var(--black-to-white)' : 'var(--icon-color)',
 								transform: `scale(${scale})`,
 								transition: "transform 200ms ease",
 							}}
