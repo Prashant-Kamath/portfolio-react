@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import logo from "../assets/favicon.webp";
-import { Home, Folder, User, Mail, Moon } from "lucide-react";
+import { IoHome, IoFolder, IoPerson, IoMail, IoMoon } from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const BASE = 48;
@@ -10,11 +10,11 @@ const SPREAD = 2;
 const eased = (t) => Math.pow(Math.max(0, t), 1.8);
 
 const buildDockItems = (onThemeToggle) => [
-	{ id: "home", label: "Home", path: "/", icon: Home },
-	{ id: "works", label: "Works", path: "/works", icon: Folder },
-	{ id: "about", label: "About Me", path: "/about", icon: User },
-	{ id: "contact", label: "Contact", path: "/contact", icon: Mail },
-	{ id: "theme", label: "Theme", path: null, icon: Moon, onClick: onThemeToggle },
+	{ id: "home", label: "Home", path: "/", icon: IoHome }, // Changed from Home
+	{ id: "works", label: "Works", path: "/works", icon: IoFolder }, // Changed from Folder
+	{ id: "about", label: "About Me", path: "/about", icon: IoPerson }, // Changed from User
+	{ id: "contact", label: "Contact", path: "/contact", icon: IoMail }, // Changed from Mail
+	{ id: "theme", label: "Theme", path: null, icon: IoMoon, onClick: onThemeToggle }, // Changed from Moon
 ];
 
 function sizeForIndex(index, hoveredIndex) {

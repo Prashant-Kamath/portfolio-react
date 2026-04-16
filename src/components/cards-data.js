@@ -1,40 +1,40 @@
 export const worksData = [
 	{
 		id: 1,
-		title: "Mirror Shader",
-		image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_%28large%29.gif",
+		title: "The Frozen Stars",
+		image: "https://cdn.dribbble.com/userupload/41977776/file/original-9f7cb2bb13045eda37b5ae60c13d80f1.gif",
 		tags: ["WebGL"],
 		date: "Sept 2022",
 		size: "landscape" // portrait | landscape | square
 	},
 	{
 		id: 2,
-		title: "Mirror Shader",
-		image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_%28large%29.gif",
+		title: "Absent Flame",
+		image: "https://cdn.dribbble.com/userupload/42098016/file/original-95161d967fb850a082d81e3143129a34.gif",
 		tags: ["WebGL"],
 		date: "Sept 2022",
 		size: "square" // portrait | landscape | square
 	},
 	{
 		id: 3,
-		title: "Mirror Shader",
-		image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_%28large%29.gif",
+		title: "The Wizard of the Nobody",
+		image: "https://cdn.dribbble.com/userupload/42509920/file/original-036f5b603dc597ced60709e6221cb4ce.gif",
 		tags: ["WebGL"],
 		date: "Sept 2022",
 		size: "portrait" // portrait | landscape | square
 	},
 	{
 		id: 4,
-		title: "Mirror Shader",
-		image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_%28large%29.gif",
+		title: "Fallen Valley",
+		image: "https://cdn.dribbble.com/userupload/42098016/file/original-95161d967fb850a082d81e3143129a34.gif",
 		tags: ["WebGL"],
 		date: "Sept 2022",
 		size: "square" // portrait | landscape | square
 	},
 	{
 		id: 5,
-		title: "Mirror Shader",
-		image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_%28large%29.gif",
+		title: "The Dream's Destiny",
+		image: "https://cdn.dribbble.com/userupload/42100031/file/original-014456a61fa41abe2e816dd466ed4296.gif",
 		tags: ["WebGL"],
 		date: "Sept 2022",
 		size: "landscape" // portrait | landscape | square

@@ -2,7 +2,8 @@ import React, { useState, useMemo } from 'react';
 import WorksCard from '../components/workscard';
 import { worksData } from '../components/cards-data';
 import Button from '../components/button';
-import { Layout } from 'lucide-react';
+import { IoTabletLandscape } from "react-icons/io5";
+
 import { ReactFlow, Background, Controls } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
@@ -35,7 +36,9 @@ const Works = () => {
 
 	return (
 		<section
-			style={{ backgroundColor: 'var(--background-color)' }}
+			style={{
+				backgroundColor: isCanvasMode ? 'transparent' : 'var(--background-color)'
+			}}
 			className="relative py-20 px-10"
 		>
 			{isCanvasMode && (
@@ -67,7 +70,7 @@ const Works = () => {
 					</h2>
 
 					<Button
-						icon={Layout}
+						icon={IoTabletLandscape}
 						onClick={() => setIsCanvasMode((prev) => !prev)}
 					>
 						Canvas Mode
