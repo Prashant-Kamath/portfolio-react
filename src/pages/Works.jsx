@@ -35,13 +35,15 @@ const Works = () => {
 	}, []);
 
 	return (
-		<section className="relative bg-zinc-950 py-20 px-10">
+		<section
+			className={`relative py-20 px-10 ${isCanvasMode ? "!bg-transparent" : "!bg-black"
+				}`}
+		>
 
-			{/* 🔥 FULLSCREEN CANVAS (ONLY WHEN ACTIVE) */}
 			{isCanvasMode && (
 				<div className="fixed inset-0 z-0">
 					<ReactFlow nodes={nodes} nodeTypes={nodeTypes} fitView>
-						<Background />
+						
 						<Controls />
 					</ReactFlow>
 				</div>
@@ -51,7 +53,7 @@ const Works = () => {
 
 				{/* 🧊 HEADER (SAME POSITION, NOW WITH BLUR WHEN CANVAS ACTIVE) */}
 				<div
-					className={`flex items-center justify-between mb-12 px-6 py-4 rounded-xl transition-all duration-300
+					className={`flex items-center justify-between mb-12 px-6 py-4 rounded-xl transition-all duration-300 
 					${isCanvasMode
 							? 'bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_40px_rgba(0,0,0,0.4)]'
 							: ''
@@ -69,7 +71,7 @@ const Works = () => {
 
 				{/* GRID (UNCHANGED) */}
 				{!isCanvasMode && (
-					<div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+					<div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
 						{worksData.map((project) => (
 							<div key={project.id} className="break-inside-avoid">
 								<WorksCard {...project} />
