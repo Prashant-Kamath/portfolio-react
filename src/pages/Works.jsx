@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import WorksCard from '../components/workscard';
 import { worksData } from '../components/cards-data';
 import Button from '../components/button';
-import { IoTabletLandscape } from "react-icons/io5";
+import { IoTabletLandscape, IoAppsSharp } from "react-icons/io5";
 
 import { ReactFlow, Background, Controls } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
@@ -26,7 +26,7 @@ const Works = () => {
 		return worksData.map((project, index) => ({
 			id: project.id.toString(),
 			type: 'workNode',
-			position: {
+			position: project.canvasPosition || {
 				x: (index % COLS) * (CARD_WIDTH + GAP_X),
 				y: Math.floor(index / COLS) * (CARD_HEIGHT + GAP_Y),
 			},
@@ -51,30 +51,30 @@ const Works = () => {
 
 			<div className="relative max-w-7xl mx-auto z-10">
 				{/* Header */}
-				<div
-					style={isCanvasMode ? {
-						backgroundColor: 'color-mix(in srgb, var(--dock-bg) 60%, transparent)',
-						borderColor: 'var(--dock-border)',
-						backdropFilter: 'blur(16px)',
-						boxShadow: '0 8px 40px var(--dock-shadow)',
-					} : {}}
-					className={`flex items-center justify-between mb-12 px-6 py-4 rounded-xl transition-all duration-300
-						${isCanvasMode ? 'border' : ''}
-					`}
-				>
-					<h2
-						style={{ color: 'var(--text-primary)' }}
-						className="text-4xl font-bold"
-					>
-						Works
-					</h2>
+				<div className="relative max-w-7xl mx-auto z-10">
+					<div className={`flex items-center justify-between mb-12 px-6 py-4 rounded-xl transition-all duration-300 ${isCanvasMode ? 'bg-white/10 backdrop-blur-md border border-white/20' : ''}`}>
+						<h2 className="text-4xl font-bold" style={{ color: 'var(--text-primary)' }}>Works</h2>
 
-					<Button
-						icon={IoTabletLandscape}
-						onClick={() => setIsCanvasMode((prev) => !prev)}
-					>
-						Canvas Mode
-					</Button>
+						<div className="flex gap-2">
+
+							<Button
+								icon={isCanvasMode ? IoAppsSharp : IoTabletLandscape}
+								onClick={() => setIsCanvasMode((prev) => !prev)}
+							>
+								{isCanvasMode ? 'Grid Layout' : 'Canvas Mode'}
+							</Button>
+						</div>
+					</div>
+
+					{!isCanvasMode && (
+						<div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
+							{worksData.map((project) => (
+								<div key={project.id} className="break-inside-avoid">
+									{/* Your existing WorksCard */}
+								</div>
+							))}
+						</div>
+					)}
 				</div>
 
 				{/* Grid */}

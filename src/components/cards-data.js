@@ -5,7 +5,8 @@ export const worksData = [
 		image: "https://cdn.dribbble.com/userupload/41977776/file/original-9f7cb2bb13045eda37b5ae60c13d80f1.gif",
 		tags: ["WebGL"],
 		date: "Sept 2022",
-		size: "landscape" // portrait | landscape | square
+		size: "landscape",
+		canvasPosition: { x: 0, y: 0 }
 	},
 	{
 		id: 2,
@@ -13,7 +14,8 @@ export const worksData = [
 		image: "https://cdn.dribbble.com/userupload/42098016/file/original-95161d967fb850a082d81e3143129a34.gif",
 		tags: ["WebGL"],
 		date: "Sept 2022",
-		size: "square" // portrait | landscape | square
+		size: "square",
+		canvasPosition: { x: 400, y: 0 }
 	},
 	{
 		id: 3,
@@ -21,7 +23,8 @@ export const worksData = [
 		image: "https://cdn.dribbble.com/userupload/42509920/file/original-036f5b603dc597ced60709e6221cb4ce.gif",
 		tags: ["WebGL"],
 		date: "Sept 2022",
-		size: "portrait" // portrait | landscape | square
+		size: "portrait",
+		canvasPosition: { x: 800, y: 0 }
 	},
 	{
 		id: 4,
@@ -29,7 +32,8 @@ export const worksData = [
 		image: "https://cdn.dribbble.com/userupload/42098016/file/original-95161d967fb850a082d81e3143129a34.gif",
 		tags: ["WebGL"],
 		date: "Sept 2022",
-		size: "square" // portrait | landscape | square
+		size: "square",
+		canvasPosition: { x: 400, y: 270 }
 	},
 	{
 		id: 5,
@@ -37,6 +41,7 @@ export const worksData = [
 		image: "https://cdn.dribbble.com/userupload/42100031/file/original-014456a61fa41abe2e816dd466ed4296.gif",
 		tags: ["WebGL"],
 		date: "Sept 2022",
-		size: "landscape" // portrait | landscape | square
+		size: "landscape",
+		canvasPosition: { x: 0, y: 270 }
 	},
 ];
