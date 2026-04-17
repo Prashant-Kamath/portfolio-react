@@ -4,6 +4,7 @@ import Dock from './components/navbar';
 import './App.css';
 
 const Works = lazy(() => import('./pages/Works'));
+const About = lazy(() => import('./pages/About_Me'));
 
 function App() {
 	return (
@@ -12,6 +13,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={""} />
 					<Route path="/works" element={<Works />} />
+					<Route path="/about" element={<About />} />
 				</Routes>
 			</Suspense>
 			<Dock />
