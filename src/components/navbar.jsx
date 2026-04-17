@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import logo from "../assets/logo-white.webp";
-import { IoHome, IoFolder, IoPerson, IoMail, IoMoon } from "react-icons/io5";
+import { IoHome, IoFolder, IoPerson, IoMail, IoMenu } from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const BASE = 48;
@@ -14,7 +14,7 @@ const buildDockItems = (onThemeToggle) => [
 	{ id: "works", label: "Works", path: "/works", icon: IoFolder },
 	{ id: "about", label: "About Me", path: "/about", icon: IoPerson },
 	{ id: "contact", label: "Contact", path: "/contact", icon: IoMail },
-	{ id: "theme", label: "Theme", path: null, icon: IoMoon, onClick: onThemeToggle },
+	{ id: "burger-menu", label: "There's More?", icon: IoMenu },
 ];
 
 function sizeForIndex(index, hoveredIndex) {

@@ -8,7 +8,7 @@ const About = lazy(() => import('./pages/About_Me'));
 
 function App() {
 	return (
-		<div className="min-h-screen bg-zinc-950">
+		<div className="min-h-screen">
 			<Suspense fallback={<div className="text-white p-10">Loading...</div>}>
 				<Routes>
 					<Route path="/" element={""} />

@@ -3,7 +3,6 @@ import WorksCard from '../components/workscard';
 import { worksData } from '../components/cards-data';
 import Button from '../components/button';
 import { IoTabletLandscape, IoAppsSharp } from "react-icons/io5";
-
 import { ReactFlow, Background, Controls } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
@@ -36,10 +35,8 @@ const Works = () => {
 
 	return (
 		<section
-			style={{
-				backgroundColor: isCanvasMode ? 'transparent' : 'var(--background-color)'
-			}}
-			className="relative py-20 px-10"
+			
+			className="relative max-w-7xl mx-auto p-8 md:p-16" //py-20 px-10
 		>
 			{isCanvasMode && (
 				<div className="fixed inset-0 z-0">
@@ -52,8 +49,8 @@ const Works = () => {
 			<div className="relative max-w-7xl mx-auto z-10">
 				{/* Header */}
 				<div className="relative max-w-7xl mx-auto z-10">
-					<div className={`flex items-center justify-between mb-12 px-6 py-4 rounded-xl transition-all duration-300 ${isCanvasMode ? 'bg-white/10 backdrop-blur-md border border-white/20' : ''}`}>
-						<h2 className="text-4xl font-bold" style={{ color: 'var(--text-primary)' }}>Works</h2>
+					<div className={`flex items-center justify-between mb-12 py-4 rounded-xl transition-all duration-300 ${isCanvasMode ? 'bg-white/10 backdrop-blur-md border border-white/20' : ''}`}>
+						<h2 className="text-5xl md:text-7xl font-bold tracking-tighter leading-none" style={{ color: 'var(--text-primary)' }}>WORKS</h2>
 
 						<div className="flex gap-2">
 
@@ -79,7 +76,7 @@ const Works = () => {
 
 				{/* Grid */}
 				{!isCanvasMode && (
-					<div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
+					<div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4 mb-24">
 						{worksData.map((project) => (
 							<div key={project.id} className="break-inside-avoid">
 								<WorksCard {...project} />
