@@ -13,7 +13,7 @@ const WorksCard = ({ image, title, tags = [], date, size = "square", forceSize }
 	return (
 		<div
 			className={`group relative w-full overflow-hidden rounded-2xl
-			${isCanvas ? "w-[360px] h-[225px]" : sizeClasses[size]}`}
+			${isCanvas ? "w-[360px] h-[230px]" : sizeClasses[size]}`}
 		>
 			<img
 				src={image}
