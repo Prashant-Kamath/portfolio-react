@@ -34,7 +34,7 @@ function ContactModal({ show, onHide }) {
 					className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full text-xl leading-none transition hover:bg-white/10 z-10"
 					style={{ color: 'var(--text-secondary, #aaa)' }}
 				>
-					×
+					✖
 				</button>
 
 				{/* Body */}

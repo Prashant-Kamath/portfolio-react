@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '../components/button';
+import { IoDownload } from "react-icons/io5";
 
 const About = () => {
 	const skills = [
@@ -13,9 +15,9 @@ const About = () => {
 			<div className='max-w-7xl mx-auto p-8 md:p-16'>
 				{/* Header Section */}
 				<header className='border-b border-gray-600 pb-12 mb-12 flex flex-col md:flex-row justify-between items-center gap-8'>
-					<h1 className='text-5xl md:text-7xl font-bold tracking-tighter leading-none'>
-						INNOVATIVE DESIGNER <br />
-						DRIVEN BY CREATIVITY.
+					<h1 className='text-5xl md:text-7xl font-bold leading-tight'>
+						Innovative Designer <br />
+						Driven by <span style={{ fontFamily: "Kalam" }}> Creavity.</span>
 					</h1>
 					<div className='relative'>
 						<div className='w-32 h-32 md:w-40 md:h-40 rounded-full bg-pink-400 overflow-hidden border-4 border-gray-600'>
@@ -28,9 +30,9 @@ const About = () => {
 					{/* Left Column: Bio & Info */}
 					<div className='lg:col-span-4 space-y-12'>
 						<section>
-							<h2 className='mb-4'>Amelia Wong</h2>
+							<h2 className='text-2xl mb-4' style={{ fontFamily: "Kalam" }}>Prashant Kamath</h2>
 							<p>
-								I'M A PASSIONATE UX/UI DESIGNER BASED IN NEW YORK, DEDICATED TO CREATING EXCEPTIONAL USER EXPERIENCES AND BUILDING INNOVATIVE PRODUCTS. WITH YEARS OF EXPERIENCE IN THE INDUSTRY, I STRIVE TO BRING VALUE TO EVERY PROJECT AND EXCEED CLIENT EXPECTATIONS.
+								I'm a passionate UX/UI designer based in New York, dedicated to creating exceptional user experiences and building innovative products. With years of experience in the industry, I strive to bring value to every project and exceed client expectations.
 							</p>
 						</section>
 
@@ -49,9 +51,11 @@ const About = () => {
 							</div>
 						</section>
 
-						<button className='w-full bg-white text-black py-4 rounded-full flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors'>
+						<Button
+							icon={IoDownload}
+						>
 							Download My Resume
-						</button>
+						</Button>
 					</div>
 
 					{/* Right Column: Experience, Awards, Skills */}
@@ -59,7 +63,7 @@ const About = () => {
 						{/* Work Experience */}
 						<section>
 							<h3 className='flex items-center gap-4 mb-4'>
-								<span>✦</span> WORK EXPERIENCE
+								<span className='text-2xl' style={{ fontFamily: "Kalam" }}><span className='me-2'>✦</span>Work Experience</span>
 							</h3>
 							<div className='space-y-8'>
 								<div>
