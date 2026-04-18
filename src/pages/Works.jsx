@@ -3,7 +3,7 @@ import WorksCard from '../components/workscard';
 import { worksData } from '../components/cards-data';
 import Button from '../components/button';
 import { IoTabletLandscape, IoAppsSharp } from "react-icons/io5";
-import { ReactFlow, Controls } from '@xyflow/react';
+import { ReactFlow, Controls, Background, BackgroundVariant } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
 import WorkFlowNode from '../components/WorkFlowNode';
@@ -57,6 +57,7 @@ const Works = () => {
 			{isCanvasMode && (
 				<div className="fixed inset-0 z-0">
 					<ReactFlow nodes={nodes} nodeTypes={nodeTypes} fitView>
+						<Background color="#ccccccc0" variant={BackgroundVariant.Dots} gap={40} />
 						<Controls />
 					</ReactFlow>
 				</div>

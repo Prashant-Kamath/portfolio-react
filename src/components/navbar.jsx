@@ -9,11 +9,11 @@ const SPREAD = 2;
 
 const eased = (t) => Math.pow(Math.max(0, t), 1.8);
 
-const buildDockItems = (onThemeToggle) => [
+const buildDockItems = (onContactClick) => [
 	{ id: "home", label: "Home", path: "/", icon: IoHome },
 	{ id: "works", label: "Works", path: "/works", icon: IoFolder },
 	{ id: "about", label: "About Me", path: "/about", icon: IoPerson },
-	{ id: "contact", label: "Contact", path: "/contact", icon: IoMail },
+	{ id: "contact", label: "Contact", icon: IoMail, onClick: onContactClick },
 	{ id: "burger-menu", label: "There's More?", icon: IoMenu },
 ];
 
@@ -29,13 +29,15 @@ function iconScale(size) {
 	return 1 + 0.45 * pct;
 }
 
-export default function MacDockNavbar({ logoSrc = logo, onThemeToggle }) {
+
+
+export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContactClick }) {
 	const [hoveredIndex, setHoveredIndex] = useState(null);
 
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const dockItems = useMemo(() => buildDockItems(onThemeToggle), [onThemeToggle]);
+	const dockItems = useMemo(() => buildDockItems(onContactClick), [onContactClick]);
 
 	const sizes = useMemo(
 		() => dockItems.map((_, i) => sizeForIndex(i, hoveredIndex)),
@@ -72,7 +74,13 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle }) {
 						key={item.id}
 						onMouseEnter={() => setHoveredIndex(index)}
 						onMouseLeave={() => setHoveredIndex(null)}
-						onClick={() => item.onClick ? item.onClick() : navigate(item.path)}
+						onClick={() => {
+							if (item.onClick) {
+								item.onClick();
+							} else if (item.path) {
+								navigate(item.path);
+							}
+						}}
 						style={{
 							width: size,
 							height: size,
