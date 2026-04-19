@@ -12,16 +12,16 @@ const WorksCard = ({ image, title, tags = [], date, size = "square", forceSize }
 
 	return (
 		<div
-			className={`group relative w-full overflow-hidden rounded-2xl
+			className={`group relative w-full overflow-hidden rounded-2xl hover:scale-102 hover:-translate-y-1 transition-transform duration-500 
 			${isCanvas ? "w-[360px] h-[230px]" : sizeClasses[size]}`}
 		>
 			<img
 				src={image}
 				alt={title}
-				className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+				className="absolute inset-0 w-full h-full object-cover"
 			/>
 
-			<div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition" />
+			<div className="absolute inset-0 bg-black/30" />
 
 			<div className="absolute bottom-0 left-0 right-0 p-4">
 				<div className="flex flex-wrap gap-1 mb-2">
