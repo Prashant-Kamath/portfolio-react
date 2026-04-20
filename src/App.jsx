@@ -8,7 +8,7 @@ import 'lenis/dist/lenis.css'
 import './App.css';
 
 const Works = lazy(() => import('./pages/Works'));
-const About = lazy(() => import('./pages/About_Me'));
+const About = lazy(() => import('./pages/About'));
 
 function ContactModal({ show, onHide }) {
 	if (!show) return null;

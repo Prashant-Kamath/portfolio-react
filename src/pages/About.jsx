@@ -13,11 +13,10 @@ const About = () => {
 	return (
 		<div className='min-h-screen bg-black'>
 			<div className='max-w-7xl mx-auto p-8 md:p-16'>
-				{/* Header Section */}
 				<header className='border-b border-gray-600 pb-12 mb-12 flex flex-col md:flex-row justify-between items-center gap-8'>
 					<h1 className='text-5xl md:text-7xl font-bold leading-tight'>
 						Innovative Designer <br />
-						Driven by <span style={{ fontFamily: 'Kalam' }}> Creavity.</span>
+						Driven<span className='font-extralight'> by Creavity.</span>
 					</h1>
 					<div className='relative'>
 						<div className='w-32 h-32 md:w-40 md:h-40 rounded-full bg-pink-400 overflow-hidden border-4 border-gray-600'>
@@ -27,13 +26,10 @@ const About = () => {
 				</header>
 
 				<div className='grid grid-cols-1 lg:grid-cols-12 gap-16'>
-					{/* Left Column: Bio & Info */}
 					<div className='lg:col-span-4 space-y-12'>
 						<section>
-							<h2 className='text-2xl mb-4' style={{ fontFamily: 'Kalam' }}>Prashant Kamath</h2>
-							<p>
-								I'm a passionate UX/UI designer based in New York, dedicated to creating exceptional user experiences and building innovative products. With years of experience in the industry, I strive to bring value to every project and exceed client expectations.
-							</p>
+							<h2 className='text-2xl mb-4'>Prashant Kamath</h2>
+							<p>I'm a passionate UX/UI designer based in New York, dedicated to creating exceptional user experiences and building innovative products. With years of experience in the industry, I strive to bring value to every project and exceed client expectations.</p>
 						</section>
 
 						<section className='space-y-4 border-t border-gray-600 pt-8'>
@@ -50,20 +46,13 @@ const About = () => {
 								<span className='text-right'>University of Arts</span>
 							</div>
 						</section>
-
-						<Button
-							icon={IoDownload}
-						>
-							Download My Resume
-						</Button>
+						<Button icon={IoDownload}>Download My Resume</Button>
 					</div>
 
-					{/* Right Column: Experience, Awards, Skills */}
 					<div className='lg:col-span-8 space-y-16'>
-						{/* Work Experience */}
 						<section>
 							<h3 className='flex items-center gap-4 mb-4'>
-								<span className='text-2xl' style={{ fontFamily: 'Kalam' }}><span className='me-2'>✦</span>Work Experience</span>
+								<span className='text-2xl'><span className='me-2'>✦</span>Work Experience</span>
 							</h3>
 							<div className='space-y-8'>
 								<div>
@@ -84,7 +73,6 @@ const About = () => {
 							</div>
 						</section>
 
-						{/* Awards and Skills Grid */}
 						<div className='grid grid-cols-1 md:grid-cols-2 gap-12'>
 							<section>
 								<h3>Awards</h3>
@@ -113,10 +101,7 @@ const About = () => {
 												<span>[{skill.level}%]</span>
 											</div>
 											<div className='w-full bg-gray-900 h-1'>
-												<div
-													className='bg-white h-full transition-all duration-1000'
-													style={{ width: `${skill.level}%` }}
-												></div>
+												<div className='bg-white h-full transition-all duration-1000' style={{ width: `${skill.level}%` }}></div>
 											</div>
 										</div>
 									))}
@@ -124,18 +109,14 @@ const About = () => {
 							</section>
 						</div>
 
-						{/* Testimonial */}
 						<section className='bg-zinc-900 p-8 rounded-lg'>
 							<h3>Testimonials</h3>
-							<p>
-								'AMELIA IS A TALENTED DESIGNER WHO ALWAYS DELIVERS EXCEPTIONAL WORK. SHE'S PROFESSIONAL.'
-							</p>
+							<p>'AMELIA IS A TALENTED DESIGNER WHO ALWAYS DELIVERS EXCEPTIONAL WORK. SHE'S PROFESSIONAL.'</p>
 							<p className='mt-4'>— JANE SMITH, CEO OF COMPANY</p>
 						</section>
 					</div>
 				</div>
 
-				{/* Footer */}
 				<footer className='mt-20 mb-20 pt-8 border-t border-gray-600 flex justify-between items-center'>
 					<div>Resumely</div>
 					<div>© 2024 Amelia Wong — Powered by Webflow</div>

@@ -2,19 +2,15 @@ import React, { useState, useMemo } from 'react';
 import WorksCard from '../components/workscard';
 import { worksData } from '../components/cards-data';
 import Button from '../components/button';
-import { IoTabletLandscape, IoAppsSharp, IoArrowUpOutline, IoLayersOutline, IoEllipseOutline, IoRadioButtonOffOutline } from 'react-icons/io5';
+import { IoTabletLandscape, IoAppsSharp, IoArrowUpOutline, IoLayersOutline, IoAperture} from 'react-icons/io5';
 import { ReactFlow, Controls, Background, BackgroundVariant } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-
 import WorkFlowNode from '../components/WorkFlowNode';
 
-const nodeTypes = {
-	workNode: WorkFlowNode,
-};
+const nodeTypes = {	workNode: WorkFlowNode, };
 
 const Works = () => {
 	const [isCanvasMode, setIsCanvasMode] = useState(false);
-
 	const CARD_WIDTH = 360;
 	const CARD_HEIGHT = 225;
 	const GAP_X = 40;
@@ -35,97 +31,59 @@ const Works = () => {
 
 	return (
 		<section className='relative max-w-7xl mx-auto p-8 md:p-16'>
-			<div
-				className={`mb-10 transition-all duration-500
-					${isCanvasMode ? 'opacity-0 pointer-events-none -translate-y-4' : 'opacity-100 translate-y-0'}
-				`}
-			>
+			<div className={`mb-10 transition-all duration-500 ${isCanvasMode ? 'opacity-0 pointer-events-none -translate-y-4' : 'opacity-100 translate-y-0'}`}>
 				<div className='w-full mb-4'>
-					<h1
-						className='text-5xl md:text-7xl font-bold leading-none tracking-tight'
-						style={{
-							color: 'var(--text-primary)'
-						}}
-					>
+					<h1 className='text-5xl md:text-7xl font-bold leading-none tracking-tight' style={{ color: 'var(--text-primary)' }}>
 						WORKS <span className='align-top text-[0.5em]'>®</span>
 					</h1>
 				</div>
-				{/* BOTTOM: INFO PANEL */}
 				<div className='flex flex-col lg:flex-row justify-between gap-10 text-xs sm:text-sm md:text-base'>
-
-					{/* LEFT DESCRIPTION */}
 					<div className='max-w-xl'>
-
 						<p className='leading-relaxed opacity-80'>
 							Amine Zegmou is a web developer focused in animation and interaction.
 							Collaborating with companies, agencies, and individuals to create immersive online experiences.
 						</p>
 					</div>
-
-					{/* RIGHT META */}
 					<div className='flex flex-col gap-2 flex'>
-
-						{/* YEAR + DOTS */}
 						<div className='flex items-center gap-4'>
 							<span className='tracking-widest'>2025</span>
 							<div className='flex gap-2'>
-								{[...Array(4)].map((_, i) => (
-									<span key={i} className='w-2 h-2 rounded-full bg-white'></span>
-								))}
+								{[...Array(4)].map((_, i) => ( <span key={i} className='w-2 h-2 rounded-full bg-white'></span> ))}
 							</div>
 						</div>
-
-						{/* LOCATION + EMAIL */}
 						<div className='flex flex-wrap items-center gap-4'>
 							<div className='flex gap-2'>
 								<span className='opacity-60'>LOCATION:</span>
 								<span>PARIS, FR</span>
 							</div>
 						</div>
-
-						{/* ENGINE + TOOLS */}
 						<div className='flex flex-wrap items-center gap-6'>
-
 							<div className='flex items-center gap-2'>
-								<IoLayersOutline />
-								<span>ENGINE LAB 2.0</span>
+								<IoLayersOutline /><span>ENGINE LAB 2.0</span>
 							</div>
-
+							<div className='flex gap-3 text-lg'>
+								<IoAperture  />
+							</div>
 							<div className='flex items-center gap-2'>
 								<span>/ TOOLS</span>
-								<span className='opacity-70'>NUXT.OS</span>
-								<span className='opacity-70'>MOTION.KIT</span>
+								<span className='opacity-70'>REACT.JS</span>
+								<span className='opacity-70'>FRAMER MOTION</span>
 							</div>
-
-							<div className='flex gap-3 text-lg'>
-								<IoEllipseOutline />
-								<IoRadioButtonOffOutline />
-							</div>
+							
 						</div>
-
-						{/* MODE */}
 						<div className='flex items-center gap-4 flex-wrap'>
 							<span className='opacity-60'>MODE:</span>
-							<span className='tracking-widest opacity-60'>
-								//////////////////////
-							</span>
+							<span className='tracking-widest opacity-60'>//////////////////////</span>
 							<span>*BBBLACK</span>
 							<span className='opacity-50'>RRRED</span>
 						</div>
-
 					</div>
 				</div>
-
-				{/* BUTTON */}
 				<div className='flex justify-start mt-10'>
-					<Button
-						icon={isCanvasMode ? IoAppsSharp : IoTabletLandscape}
-						onClick={() => setIsCanvasMode(prev => !prev)}
-					>
+					<Button icon={isCanvasMode ? IoAppsSharp : IoTabletLandscape} onClick={() => setIsCanvasMode(prev => !prev)}>
 						{isCanvasMode ? 'Grid Layout' : 'Canvas Mode'}
 					</Button>
 				</div>
-
 			</div>
 
 			{/* CANVAS MODE */}
@@ -151,15 +109,11 @@ const Works = () => {
 
 			{isCanvasMode && (
 				<div className='fixed bottom-28 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 opacity-100 opacity-0 animate-[fadeIn_1s_forwards]'>
-					<Button
-						icon={IoAppsSharp}
-						onClick={() => setIsCanvasMode(false)}
-					>
+					<Button icon={IoAppsSharp} onClick={() => setIsCanvasMode(false)}>
 						Exit Canvas
 					</Button>
 				</div>
 			)}
-
 		</section>
 	);
 };
