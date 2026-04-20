@@ -59,7 +59,7 @@ function App() {
 			<div className='min-h-screen'>
 				<Suspense fallback={<div className='text-white p-10'>Loading...</div>}>
 					<Routes>
-						<Route path='/' element={''} />
+						<Route path='/' element={<Home />} />
 						<Route path='/works' element={<Works />} />
 						<Route path='/about' element={<About />} />
 					</Routes>
