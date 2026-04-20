@@ -2,12 +2,12 @@ import React, { useState, useMemo } from 'react';
 import WorksCard from '../components/workscard';
 import { worksData } from '../components/cards-data';
 import Button from '../components/button';
-import { IoTabletLandscape, IoAppsSharp, IoArrowUpOutline, IoLayersOutline, IoAperture} from 'react-icons/io5';
+import { IoTabletLandscape, IoAppsSharp, IoArrowUpOutline, IoLayersOutline, IoAperture } from 'react-icons/io5';
 import { ReactFlow, Controls, Background, BackgroundVariant } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import WorkFlowNode from '../components/WorkFlowNode';
 
-const nodeTypes = {	workNode: WorkFlowNode, };
+const nodeTypes = { workNode: WorkFlowNode, };
 
 const Works = () => {
 	const [isCanvasMode, setIsCanvasMode] = useState(false);
@@ -26,11 +26,11 @@ const Works = () => {
 				y: Math.floor(index / COLS) * (CARD_HEIGHT + GAP_Y),
 			},
 			data: project,
-		}));text-white
+		})); text - white
 	}, []);
 
 	return (
-		<section className='relative max-w-7xl mx-auto p-8 md:p-16'>
+		<section className='relative max-w-7xl mx-auto p-4 md:p-8'>
 			<div className={`mb-10 transition-all duration-500 ${isCanvasMode ? 'opacity-0 pointer-events-none -translate-y-4' : 'opacity-100 translate-y-0'}`}>
 				<div className='w-full mb-4'>
 					<h1 className='text-5xl md:text-7xl font-bold leading-none tracking-tight' style={{ color: 'var(--text-primary)' }}>
@@ -48,7 +48,7 @@ const Works = () => {
 						<div className='flex items-center gap-4'>
 							<span className='tracking-widest'>2025</span>
 							<div className='flex gap-2'>
-								{[...Array(4)].map((_, i) => ( <span key={i} className='w-2 h-2 rounded-full bg-white'></span> ))}
+								{[...Array(4)].map((_, i) => (<span key={i} className='w-2 h-2 rounded-full bg-white'></span>))}
 							</div>
 						</div>
 						<div className='flex flex-wrap items-center gap-4'>
@@ -62,14 +62,14 @@ const Works = () => {
 								<IoLayersOutline /><span>ENGINE LAB 2.0</span>
 							</div>
 							<div className='flex gap-3 text-lg'>
-								<IoAperture  />
+								<IoAperture />
 							</div>
 							<div className='flex items-center gap-2'>
 								<span>/ TOOLS</span>
 								<span className='opacity-70'>REACT.JS</span>
 								<span className='opacity-70'>FRAMER MOTION</span>
 							</div>
-							
+
 						</div>
 						<div className='flex items-center gap-4 flex-wrap'>
 							<span className='opacity-60'>MODE:</span>

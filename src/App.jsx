@@ -7,6 +7,7 @@ import { ReactLenis } from 'lenis/react'
 import 'lenis/dist/lenis.css'
 import './App.css';
 
+const Home = lazy(() => import('./pages/Home'));
 const Works = lazy(() => import('./pages/Works'));
 const About = lazy(() => import('./pages/About'));
 
