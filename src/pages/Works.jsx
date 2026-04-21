@@ -2,15 +2,14 @@ import React, { useState, useMemo } from 'react';
 import WorksCard from '../components/workscard';
 import { worksData } from '../components/cards-data';
 import Button from '../components/button';
-import { IoTabletLandscape, IoAppsSharp, IoArrowUpOutline, IoLayersOutline, IoAperture } from 'react-icons/io5';
+import { IoTabletLandscape, IoAppsSharp, IoLayersOutline, IoAperture } from 'react-icons/io5';
 import { ReactFlow, Controls, Background, BackgroundVariant } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import WorkFlowNode from '../components/WorkFlowNode';
 
-const nodeTypes = { workNode: WorkFlowNode, };
+const nodeTypes = { workNode: WorkFlowNode };
 
-const Works = () => {
-	const [isCanvasMode, setIsCanvasMode] = useState(false);
+const Works = ({ isCanvasMode, setIsCanvasMode }) => {
 	const CARD_WIDTH = 360;
 	const CARD_HEIGHT = 225;
 	const GAP_X = 40;
@@ -26,7 +25,7 @@ const Works = () => {
 				y: Math.floor(index / COLS) * (CARD_HEIGHT + GAP_Y),
 			},
 			data: project,
-		})); text - white
+		}));
 	}, []);
 
 	return (
@@ -69,7 +68,6 @@ const Works = () => {
 								<span className='opacity-70'>REACT.JS</span>
 								<span className='opacity-70'>FRAMER MOTION</span>
 							</div>
-
 						</div>
 						<div className='flex items-center gap-4 flex-wrap'>
 							<span className='opacity-60'>MODE:</span>
@@ -91,7 +89,6 @@ const Works = () => {
 				<div className='fixed inset-0 z-0'>
 					<ReactFlow nodes={nodes} nodeTypes={nodeTypes} fitView>
 						<Background color='#ccccccc0' variant={BackgroundVariant.Dots} gap={40} />
-						<Controls />
 					</ReactFlow>
 				</div>
 			)}
@@ -104,14 +101,6 @@ const Works = () => {
 							<WorksCard {...project} />
 						</div>
 					))}
-				</div>
-			)}
-
-			{isCanvasMode && (
-				<div className='fixed bottom-28 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 opacity-100 opacity-0 animate-[fadeIn_1s_forwards]'>
-					<Button icon={IoAppsSharp} onClick={() => setIsCanvasMode(false)}>
-						Exit Canvas
-					</Button>
 				</div>
 			)}
 		</section>
