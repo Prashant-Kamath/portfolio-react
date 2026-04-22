@@ -2,7 +2,7 @@ import { useMemo, useState, useRef, useEffect } from "react";
 import logo from "../assets/logo-white.webp";
 import { IoHome, IoFolder, IoPerson, IoMail, IoMenu, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter, IoLogoInstagram, IoClose, IoAppsSharp } from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router-dom";
-import Button from "../components/button";
+import Button from "./button";
 
 const BASE = 48;
 const PEAK = 76;
@@ -48,14 +48,12 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 		[hoveredIndex, dockItems]
 	);
 
-	useEffect(() => {
-		if (!knowMoreOpen) return;
-
+	useEffect(() => { if (isCanvasMode) setIsCanvasMode(false); }, [location.pathname]);
+	useEffect(() => { if (!knowMoreOpen) return;
 		const handle = (e) => {
 			if (e.target.closest("[data-knowmore-trigger]")) return;
 			if (popoverRef.current && !popoverRef.current.contains(e.target)) { setKnowMoreOpen(false); }
 		};
-
 		document.addEventListener("mousedown", handle);
 		return () => document.removeEventListener("mousedown", handle);
 	}, [knowMoreOpen]);
@@ -68,7 +66,7 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 
 	return (
 		<>
-			<div ref={popoverRef} style={{backgroundColor: "var(--dock-bg)", borderColor: "var(--dock-border)", boxShadow: "0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)", bottom: "calc(24px + 68px + 12px)", left: "50%", transform: "translateX(-50%)", transformOrigin: "bottom center", opacity: knowMoreOpen ? 1 : 0, scale: knowMoreOpen ? "1" : "0.92", pointerEvents: knowMoreOpen ? "all" : "none", transition: "opacity 220ms cubic-bezier(.4,0,.2,1), scale 220ms cubic-bezier(.4,0,.2,1)",}} className="fixed z-40 flex items-center gap-3 rounded-full border px-5 py-3 backdrop-blur-md">
+			<div ref={popoverRef} style={{ backgroundColor: "var(--dock-bg)", borderColor: "var(--dock-border)", boxShadow: "0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)", bottom: "calc(24px + 68px + 12px)", left: "50%", transform: "translateX(-50%)", transformOrigin: "bottom center", opacity: knowMoreOpen ? 1 : 0, scale: knowMoreOpen ? "1" : "0.92", pointerEvents: knowMoreOpen ? "all" : "none", transition: "opacity 220ms cubic-bezier(.4,0,.2,1), scale 220ms cubic-bezier(.4,0,.2,1)", }} className="fixed z-40 flex items-center gap-3 rounded-full border px-5 py-3 backdrop-blur-md">
 				{SOCIALS.map((social) => {
 					const Icon = social.icon;
 					return (
@@ -87,14 +85,14 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 			</div>
 
 			{isCanvasMode && (
-				<div className="fixed left-1/2 -translate-x-1/2 z-50" style={{bottom: exitCanvasBottom, transition: "bottom 220ms cubic-bezier(.4,0,.2,1)",}}>
+				<div className="fixed left-1/2 -translate-x-1/2 z-50" style={{ bottom: exitCanvasBottom, transition: "bottom 220ms cubic-bezier(.4,0,.2,1)", }}>
 					<Button icon={IoAppsSharp} onClick={() => setIsCanvasMode(false)}>
 						Exit Canvas
 					</Button>
 				</div>
 			)}
 
-			<nav style={{backgroundColor: "var(--dock-bg)", borderColor: "var(--dock-border)", boxShadow: "0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)",}} className="fixed bottom-6 left-1/2 z-50 flex h-[68px] -translate-x-1/2 items-end gap-4 rounded-full border px-6 py-2 backdrop-blur-md">
+			<nav style={{ backgroundColor: "var(--dock-bg)", borderColor: "var(--dock-border)", boxShadow: "0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)", }} className="fixed bottom-6 left-1/2 z-50 flex h-[68px] -translate-x-1/2 items-end gap-4 rounded-full border px-6 py-2 backdrop-blur-md">
 				<div className="flex items-center self-center">
 					<img src={logoSrc} alt="Logo" className="h-[35px] w-[35px]" />
 				</div>
@@ -116,12 +114,12 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 								else if (item.onClick) { item.onClick(); }
 								else if (item.path) { navigate(item.path); }
 							}}
-							style={{width: size, height: size, transition: "width 200ms ease, height 200ms ease", backgroundColor: (isActive || isKnowMoreActive) ? "var(--white-to-black)" : undefined,}} className={`group relative flex items-center justify-center rounded-full ${!(isActive || isKnowMoreActive) ? "hover:bg-[var(--item-bg)]" : ""}`}>
+							style={{ width: size, height: size, transition: "width 200ms ease, height 200ms ease", backgroundColor: (isActive || isKnowMoreActive) ? "var(--white-to-black)" : undefined, }} className={`group relative flex items-center justify-center rounded-full ${!(isActive || isKnowMoreActive) ? "hover:bg-[var(--item-bg)]" : ""}`}>
 							<div className="absolute -top-10 scale-0 group-hover:scale-100 transition-transform duration-200 rounded px-2 py-1 text-xs whitespace-nowrap z-50"
 								style={{ backgroundColor: "var(--tooltip-bg)", color: "var(--tooltip-text)", backdropFilter: "blur(8px)" }}>
 								{item.label}
 							</div>
-							<Icon size={22} style={{color: (isActive || isKnowMoreActive) ? "var(--black-to-white)" : "var(--icon-color)", transform: `scale(${scale})`, transition: "transform 200ms ease",}}/>
+							<Icon size={22} style={{ color: (isActive || isKnowMoreActive) ? "var(--black-to-white)" : "var(--icon-color)", transform: `scale(${scale})`, transition: "transform 200ms ease", }} />
 						</button>
 					);
 				})}

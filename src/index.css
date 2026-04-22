@@ -43,3 +43,4 @@ img {-webkit-user-drag: none; user-select: none;}
 a {text-decoration: none; -webkit-user-drag: none;}
 ::selection {background: #ffd60a; color: #000000;}
 ::-moz-selection {background: #ffd60a; color: #000000;}
+.react-flow__panel {display: none;}

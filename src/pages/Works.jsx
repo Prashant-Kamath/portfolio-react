@@ -5,7 +5,7 @@ import Button from '../components/button';
 import { IoTabletLandscape, IoAppsSharp, IoLayersOutline, IoAperture } from 'react-icons/io5';
 import { ReactFlow, Controls, Background, BackgroundVariant } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import WorkFlowNode from '../components/WorkFlowNode';
+import WorkFlowNode from '../components/worksnode';
 
 const nodeTypes = { workNode: WorkFlowNode };
 
