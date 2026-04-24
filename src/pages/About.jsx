@@ -4,10 +4,9 @@ import { IoDownload } from 'react-icons/io5';
 
 const About = () => {
 	const skills = [
-		{ name: 'GRAPHIC DESIGN', level: 80 },
-		{ name: 'LEAD GENERATION', level: 41 },
-		{ name: 'PHOTOSHOP', level: 75 },
-		{ name: 'ILLUSTRATION', level: 100 },
+		{ name: 'UI / UX', level: 80 },
+		{ name: 'WEB DESGIN / DEV', level: 70 },
+		{ name: 'GRAPHIC DESIGN', level: 85 },
 	];
 
 	return (
@@ -26,17 +25,17 @@ const About = () => {
 			<div className='grid grid-cols-1 lg:grid-cols-12 gap-16'>
 				<div className='lg:col-span-4 space-y-12'>
 					<section>
-						<h2 className='text-2xl mb-4'>Prashant Kamath</h2>
+						<h2 className='text-1xl mb-4'>Prashant Kamath</h2>
 						<p>I'm a passionate UX/UI designer based in New York, dedicated to creating exceptional user experiences and building innovative products. With years of experience in the industry, I strive to bring value to every project and exceed client expectations.</p>
 					</section>
 					<section className='space-y-4 border-t border-gray-600 pt-8'>
 						<div className='flex justify-between border-b border-gray-600 py-2'>
 							<span>[Profession]</span>
-							<span>DIGITAL DESIGNER</span>
+							<span>FREELANCE GRAPHIC DESIGN</span>
 						</div>
 						<div className='flex justify-between border-b border-gray-600 py-2'>
 							<span>[Date of Birth]</span>
-							<span>14 JULY 1994</span>
+							<span>17 JULY 1996</span>
 						</div>
 						<div className='flex justify-between border-b border-gray-600 py-2'>
 							<span>[Education]</span>
@@ -48,7 +47,7 @@ const About = () => {
 				<div className='lg:col-span-8 space-y-16'>
 					<section>
 						<h3 className='flex items-center gap-4 mb-4'>
-							<span className='text-2xl'><span className='me-2'>✦</span>Work Experience</span>
+							<span className='text-1xl'><span className='me-2'>✦</span>Work Experience</span>
 						</h3>
 						<div className='space-y-8'>
 							<div>
@@ -70,23 +69,20 @@ const About = () => {
 					</section>
 					<div className='grid grid-cols-1 md:grid-cols-2 gap-12'>
 						<section>
-							<h3>Awards</h3>
+							<h3 className='mb-4'>Education</h3>
 							<div className='space-y-2'>
 								{[
-									['Site of the Day', '05'],
-									['Developer Award', '07'],
-									['Honorable Mention', '11'],
-									['Mobile Excellence', '02']
-								].map(([title, count]) => (
+									['Maya Academy of Advanced Cinematics (MAAC)'],
+									['D.A.V Public School'],
+								].map(([title]) => (
 									<div key={title} className='flex justify-between border-b border-gray-600 py-2'>
 										<span>{title}</span>
-										<span>[{count}]</span>
 									</div>
 								))}
 							</div>
 						</section>
 						<section>
-							<h3>Skills</h3>
+							<h3 className='mb-4'>Skills</h3>
 							<div className='space-y-6'>
 								{skills.map((skill) => (
 									<div key={skill.name}>

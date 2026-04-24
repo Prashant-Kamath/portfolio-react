@@ -11,7 +11,7 @@ const nodeTypes = { workNode: WorkFlowNode };
 
 const Works = ({ isCanvasMode, setIsCanvasMode }) => {
 	const CARD_WIDTH = 360;
-	const CARD_HEIGHT = 225;
+	const CARD_HEIGHT = 230;
 	const GAP_X = 40;
 	const GAP_Y = 60;
 	const COLS = 4;
@@ -24,7 +24,7 @@ const Works = ({ isCanvasMode, setIsCanvasMode }) => {
 				x: (index % COLS) * (CARD_WIDTH + GAP_X),
 				y: Math.floor(index / COLS) * (CARD_HEIGHT + GAP_Y),
 			},
-			data: project,
+			data: { ...project, cardWidth: CARD_WIDTH, cardHeight: CARD_HEIGHT },
 		}));
 	}, []);
 
@@ -87,7 +87,7 @@ const Works = ({ isCanvasMode, setIsCanvasMode }) => {
 			{/* CANVAS MODE */}
 			{isCanvasMode && (
 				<div className='fixed inset-0 z-0'>
-					<ReactFlow nodes={nodes} nodeTypes={nodeTypes} fitView>
+					<ReactFlow nodes={nodes} nodeTypes={nodeTypes} fitView> {/* defaultViewport={{ x: window.innerWidth / 2, y: window.innerHeight / 2, zoom: 1 }} */}
 						<Background color='#ccccccc0' variant={BackgroundVariant.Dots} gap={40} />
 					</ReactFlow>
 				</div>
@@ -97,7 +97,7 @@ const Works = ({ isCanvasMode, setIsCanvasMode }) => {
 			{!isCanvasMode && (
 				<div className='columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4 mb-24'>
 					{worksData.map((project) => (
-						<div key={project.id} className='break-inside-avoid'>
+						<div key={project.id} className='break-inside-avoid' style={project.size === 'banner' ? { columnSpan: 'all', marginTop: '1rem' } : {}}>
 							<WorksCard {...project} />
 						</div>
 					))}

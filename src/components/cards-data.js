@@ -28,15 +28,6 @@ export const worksData = [
 	},
 	{
 		id: 4,
-		title: "Fallen Valley",
-		image: "https://cdn.dribbble.com/userupload/42098016/file/original-95161d967fb850a082d81e3143129a34.gif",
-		tags: ["WebGL"],
-		date: "Sept 2022",
-		size: "square",
-		canvasPosition: { x: 400, y: 270 }
-	},
-	{
-		id: 5,
 		title: "The Dream's Destiny",
 		image: "https://cdn.dribbble.com/userupload/42100031/file/original-014456a61fa41abe2e816dd466ed4296.gif",
 		tags: ["WebGL"],
@@ -44,4 +35,23 @@ export const worksData = [
 		size: "landscape",
 		canvasPosition: { x: 0, y: 270 }
 	},
+	{
+		id: 5,
+		title: "Luck of World",
+		image: "https://cdn.dribbble.com/userupload/42100031/file/original-014456a61fa41abe2e816dd466ed4296.gif",
+		tags: ["WebGL"],
+		date: "Sept 2022",
+		size: "square",
+		canvasPosition: { x: 0, y: 540 }
+	},
+	{
+		id: 6,
+		title: "Fallen Valley",
+		image: "https://cdn.dribbble.com/userupload/42098016/file/original-95161d967fb850a082d81e3143129a34.gif",
+		tags: ["WebGL"],
+		date: "Sept 2022",
+		size: "banner",
+		canvasPosition: { x: 400, y: 270 }
+	},
+	
 ];

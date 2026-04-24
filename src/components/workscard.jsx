@@ -1,18 +1,18 @@
 import React from 'react';
 
-const WorksCard = ({ image, title, tags = [], date, size = "square", forceSize }) => {
+const WorksCard = ({ image, title, tags = [], date, size = "square", forceSize, cardWidth = 360, cardHeight = 230 }) => {
 
-	const sizeClasses = {landscape: "aspect-[16/9]", portrait: "aspect-[9/16]", square: "aspect-square"};
+	const sizeClasses = { landscape: "aspect-[16/9]", portrait: "aspect-[9/16]", square: "aspect-square", banner: "aspect-[21/6]" };
 	const isCanvas = forceSize === "canvas";
 
 	return (
-		<div className={`group relative w-full overflow-hidden rounded-2xl hover:scale-102 hover:-translate-y-1 transition-transform duration-500 ${isCanvas ? "w-[360px] h-[230px]" : sizeClasses[size]}`}>
-			<img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover"/>
+		<div style={isCanvas ? { width: cardWidth, height: cardHeight } : {}} className={`group relative w-full overflow-hidden rounded-2xl hover:scale-102 hover:-translate-y-1 transition-transform duration-500 ${isCanvas ? "" : sizeClasses[size]}`}>
+			<img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover" />
 			<div className="absolute inset-0 bg-black/30" />
 			<div className="absolute bottom-0 left-0 right-0 p-4">
 				<div className="flex flex-wrap gap-1 mb-2">
 					{tags.map((tag, i) => (
-						<span key={i} style={{backgroundColor: 'var(--item-bg)', color: 'var(--text-secondary)', borderColor: 'var(--dock-border)'}} className="text-[10px] border px-2 py-0.5 rounded-md">
+						<span key={i} style={{ backgroundColor: 'var(--item-bg)', color: 'var(--text-secondary)', borderColor: 'var(--dock-border)' }} className="text-[10px] border px-2 py-0.5 rounded-md">
 							{tag}
 						</span>
 					))}

@@ -71,7 +71,7 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 					const Icon = social.icon;
 					return (
 						<a key={social.id} href={social.href} target="_blank" rel="noopener noreferrer" title={social.label} style={{ width: BASE, height: BASE, color: "var(--icon-color)" }} className="group relative flex items-center justify-center rounded-full hover:bg-[var(--item-bg)] transition-colors duration-150">
-							<div className="absolute -top-9 scale-0 group-hover:scale-100 transition-transform duration-200 rounded px-2 py-1 text-xs whitespace-nowrap z-50" style={{ backgroundColor: "var(--tooltip-bg)", color: "var(--tooltip-text)", backdropFilter: "blur(8px)" }}>
+							<div className="absolute -top-9 scale-0 group-hover:scale-100 transition-transform duration-200 rounded px-2 py-1 text-xs whitespace-nowrap z-50 pointer-events-none" style={{ backgroundColor: "var(--tooltip-bg)", color: "var(--tooltip-text)", backdropFilter: "blur(8px)" }}>
 								{social.label}
 							</div>
 							<Icon size={22} />
@@ -115,8 +115,7 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 								else if (item.path) { navigate(item.path); }
 							}}
 							style={{ width: size, height: size, transition: "width 200ms ease, height 200ms ease", backgroundColor: (isActive || isKnowMoreActive) ? "var(--white-to-black)" : undefined, }} className={`group relative flex items-center justify-center rounded-full ${!(isActive || isKnowMoreActive) ? "hover:bg-[var(--item-bg)]" : ""}`}>
-							<div className="absolute -top-10 scale-0 group-hover:scale-100 transition-transform duration-200 rounded px-2 py-1 text-xs whitespace-nowrap z-50"
-								style={{ backgroundColor: "var(--tooltip-bg)", color: "var(--tooltip-text)", backdropFilter: "blur(8px)" }}>
+							<div className="absolute -top-10 scale-0 group-hover:scale-100 transition-transform duration-200 rounded px-2 py-1 text-xs whitespace-nowrap z-50 pointer-events-none" style={{ backgroundColor: "var(--tooltip-bg)", color: "var(--tooltip-text)", backdropFilter: "blur(8px)" }}>
 								{item.label}
 							</div>
 							<Icon size={22} style={{ color: (isActive || isKnowMoreActive) ? "var(--black-to-white)" : "var(--icon-color)", transform: `scale(${scale})`, transition: "transform 200ms ease", }} />
