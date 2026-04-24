@@ -1,33 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
+import { IoTabletLandscape, IoAppsSharp, IoLayersOutline, IoAperture } from 'react-icons/io5';
 import WorksCard from '../components/workscard';
 import { worksData } from '../components/cards-data';
 import Button from '../components/button';
-import { IoTabletLandscape, IoAppsSharp, IoLayersOutline, IoAperture } from 'react-icons/io5';
-import { ReactFlow, Controls, Background, BackgroundVariant } from '@xyflow/react';
-import '@xyflow/react/dist/style.css';
-import WorkFlowNode from '../components/worksnode';
-
-const nodeTypes = { workNode: WorkFlowNode };
+import Canvas from '../components/canvas';
 
 const Works = ({ isCanvasMode, setIsCanvasMode }) => {
-	const CARD_WIDTH = 360;
-	const CARD_HEIGHT = 230;
-	const GAP_X = 40;
-	const GAP_Y = 60;
-	const COLS = 4;
-
-	const nodes = useMemo(() => {
-		return worksData.map((project, index) => ({
-			id: project.id.toString(),
-			type: 'workNode',
-			position: project.canvasPosition || {
-				x: (index % COLS) * (CARD_WIDTH + GAP_X),
-				y: Math.floor(index / COLS) * (CARD_HEIGHT + GAP_Y),
-			},
-			data: { ...project, cardWidth: CARD_WIDTH, cardHeight: CARD_HEIGHT },
-		}));
-	}, []);
-
 	return (
 		<section className='relative max-w-7xl mx-auto p-4 md:p-8'>
 			<div className={`mb-10 transition-all duration-500 ${isCanvasMode ? 'opacity-0 pointer-events-none -translate-y-4' : 'opacity-100 translate-y-0'}`}>
@@ -85,13 +63,7 @@ const Works = ({ isCanvasMode, setIsCanvasMode }) => {
 			</div>
 
 			{/* CANVAS MODE */}
-			{isCanvasMode && (
-				<div className='fixed inset-0 z-0'>
-					<ReactFlow nodes={nodes} nodeTypes={nodeTypes} fitView> {/* defaultViewport={{ x: window.innerWidth / 2, y: window.innerHeight / 2, zoom: 1 }} */}
-						<Background color='#ccccccc0' variant={BackgroundVariant.Dots} gap={40} />
-					</ReactFlow>
-				</div>
-			)}
+			{isCanvasMode && <Canvas />}
 
 			{/* GRID MODE */}
 			{!isCanvasMode && (
