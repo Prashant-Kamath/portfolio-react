@@ -68,7 +68,7 @@ const Works = ({ isCanvasMode, setIsCanvasMode }) => {
 			{/* GRID MODE */}
 			{!isCanvasMode && (
 				<div className='columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4 mb-24'>
-					{worksData.map((project) => (
+					{worksData.filter((p) => p.hidden !== "grid").map((project) => (
 						<div key={project.id} className='break-inside-avoid' style={project.size === 'banner' ? { columnSpan: 'all', marginTop: '1rem' } : {}}>
 							<WorksCard {...project} />
 						</div>

@@ -6,7 +6,7 @@ export const worksData = [
 		tags: ["WebGL"],
 		date: "Sept 2022",
 		size: "landscape",
-		canvasPosition: { x: 0, y: 0 }
+		canvasPosition: { x: 0, y: 0 },
 	},
 	{
 		id: 2,
@@ -15,7 +15,7 @@ export const worksData = [
 		tags: ["WebGL"],
 		date: "Sept 2022",
 		size: "square",
-		canvasPosition: { x: 400, y: 0 }
+		canvasPosition: { relativeTo: 1, side: "right" },
 	},
 	{
 		id: 3,
@@ -24,7 +24,7 @@ export const worksData = [
 		tags: ["WebGL"],
 		date: "Sept 2022",
 		size: "portrait",
-		canvasPosition: { x: 800, y: 0 }
+		canvasPosition: { relativeTo: 2, side: "right" },
 	},
 	{
 		id: 4,
@@ -33,16 +33,16 @@ export const worksData = [
 		tags: ["WebGL"],
 		date: "Sept 2022",
 		size: "landscape",
-		canvasPosition: { x: 0, y: 270 }
+		canvasPosition: { relativeTo: 1, side: "bottom" },
 	},
 	{
 		id: 5,
 		title: "Luck of World",
 		image: "https://i.pinimg.com/originals/83/52/39/8352391aecd2f7e11cf371a42c68dc48.gif",
-		tags: ["WebGL"],
+		tags: ["WebGL", "Figma"],
 		date: "Sept 2022",
 		size: "square",
-		canvasPosition: { x: 0, y: 540 }
+		canvasPosition: { relativeTo: 4, side: "bottom" },
 	},
 	{
 		id: 6,
@@ -51,16 +51,16 @@ export const worksData = [
 		tags: ["WebGL"],
 		date: "Sept 2022",
 		size: "banner",
-		canvasPosition: { x: 400, y: 270 }
+		hidden: "canvas",
+		canvasPosition: { relativeTo: 4, side: "right" },
 	},
 	{
 		id: 7,
-		title: "Fallen Valley 2",
+		title: "History of Beginning",
 		image: "https://cdn.dribbble.com/userupload/42098016/file/original-95161d967fb850a082d81e3143129a34.gif",
 		tags: ["WebGL"],
 		date: "Sept 2022",
 		size: "square",
-		canvasPosition: { x: 800, y: 270 }
+		canvasPosition: { relativeTo: 2, side: "bottom" },
 	},
-	
 ];
