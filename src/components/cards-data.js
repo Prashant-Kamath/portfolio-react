@@ -7,6 +7,7 @@ export const worksData = [
 		date: "Sept 2022",
 		size: "landscape",
 		canvasPosition: { x: 0, y: 0 },
+		selected: true,
 	},
 	{
 		id: 2,
@@ -25,6 +26,7 @@ export const worksData = [
 		date: "Sept 2022",
 		size: "portrait",
 		canvasPosition: { relativeTo: 2, side: "right" },
+		selected: true,
 	},
 	{
 		id: 4,
@@ -42,12 +44,13 @@ export const worksData = [
 		tags: ["WebGL", "Figma"],
 		date: "Sept 2022",
 		size: "square",
-		canvasPosition: { relativeTo: 4, side: "bottom" },
+		canvasPosition: { relativeTo: 2, side: "bottom" },
+		selected: true,
 	},
 	{
 		id: 6,
 		title: "Fallen Valley",
-		image: "https://cdn.dribbble.com/userupload/42098016/file/original-95161d967fb850a082d81e3143129a34.gif",
+		image: "https://fiverr-res.cloudinary.com/image/upload/t_main1,q_auto,f_auto,q_auto,f_auto/v1/attachments/delivery/asset/2df130c5862a23080ca153f69cd003d1-1741197216/AStrodog%20GIF.gif",
 		tags: ["WebGL"],
 		date: "Sept 2022",
 		size: "banner",
@@ -61,6 +64,6 @@ export const worksData = [
 		tags: ["WebGL"],
 		date: "Sept 2022",
 		size: "square",
-		canvasPosition: { relativeTo: 2, side: "bottom" },
+		canvasPosition: { relativeTo: 3, side: "bottom" },
 	},
 ];
