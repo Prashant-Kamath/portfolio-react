@@ -10,9 +10,7 @@ const Works = ({ isCanvasMode, setIsCanvasMode }) => {
 		<section className='relative max-w-7xl mx-auto p-4 md:p-8'>
 			<div className={`mb-10 transition-all duration-500 ${isCanvasMode ? 'opacity-0 pointer-events-none -translate-y-4' : 'opacity-100 translate-y-0'}`}>
 				<div className='w-full mb-4'>
-					<h1 className='text-5xl md:text-7xl font-bold leading-none tracking-tight' style={{ color: 'var(--text-primary)' }}>
-						WORKS <span className='align-top text-[0.5em]'>®</span>
-					</h1>
+					<h1 className='text-5xl md:text-7xl font-bold leading-none tracking-tight' style={{ color: 'var(--text-primary)' }}>ALL WORKS<span className='align-top text-[0.5em]'>®</span></h1>
 				</div>
 				<div className='flex flex-col lg:flex-row justify-between gap-10 text-xs sm:text-sm md:text-base'>
 					<div className='max-w-xl'>
@@ -23,7 +21,7 @@ const Works = ({ isCanvasMode, setIsCanvasMode }) => {
 					</div>
 					<div className='flex flex-col gap-2 flex'>
 						<div className='flex items-center gap-4'>
-							<span className='tracking-widest'>2025</span>
+							<span className='tracking-widest'>2026</span>
 							<div className='flex gap-2'>
 								{[...Array(4)].map((_, i) => (<span key={i} className='w-2 h-2 rounded-full bg-white'></span>))}
 							</div>

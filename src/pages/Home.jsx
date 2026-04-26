@@ -29,26 +29,9 @@ export default function Home() {
 					<img src={scrollDownGif} alt='Scroll down' className='w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24' />
 				</div>
 			</div>
-
-			{/* 2nd div */}
-			<div style={{ height: '100dvh', height: '100vh' }}>
-				<div>
-					{/* IMAGES WILL GO HERE FOR SCROLL TIGGER */}
-					<img src={scrollDownGif} alt='Scroll down' />
-				</div>
-				<div className='max-w-7xl mx-auto px-4 md:px-8'>
-					{/* TEXT CONTENTS WILL GO HERE*/}
-					<div className="mt-8 md:mt-12 max-w-[320px] sm:max-w-xs md:max-w-sm mx-auto bg-neutral-900/60 p-5 md:p-6 rounded-lg shadow-lg">
-						<p className="font-bold uppercase text-[10px] sm:text-[11px] md:text-xs tracking-widest leading-loose text-center text-white/90">
-							I&apos;M A DESIGN GENERALIST THAT MEANS I CRAFT USER EXPERIENCE, USER INTERFACE, WEBSITES, ANIMATIONS, INTERACTIONS, VISUALS, PROTOTYPES, PRESENTATIONS, BRANDS AND SO ON...
-						</p>
-					</div>
-				</div>
-			</div>
-
-			{/* 3rd div */}
+			{/* 2rd div */}
 			<div className='max-w-7xl mx-auto px-4 md:px-8'>
-				<section className="text-white min-h-screen px-6 py-16 md:px-12 lg:px-20">
+				<section className="text-white">
 					<p className="text-xs tracking-widest uppercase text-gray-500 mb-6 font-light">Area of Expertise</p>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
 						<div>
@@ -89,7 +72,7 @@ export default function Home() {
 						<div className="hidden md:flex items-center justify-center sticky top-24 self-start py-8">
 							<div className="relative w-full h-[70vh] flex items-center justify-center">
 								{projects.map((project, i) => (
-									<div key={i} className={`absolute transition-all duration-500 ${sizeClasses[project.size] ?? "aspect-video"} ${hoveredIndex === i ? "opacity-100 scale-85" : "opacity-0 scale-70 pointer-events-none"}`}>
+									<div key={i} className={`absolute transition-all duration-300 ${sizeClasses[project.size] ?? "aspect-video"} ${hoveredIndex === i ? "opacity-100 scale-85" : "opacity-0 scale-0 pointer-events-none"}`}>
 										<div className="w-full h-full rounded-sm overflow-hidden border border-white/10 bg-[#1a1a1a]">
 											<img src={project.gif} alt={project.name} className="w-full h-full object-cover" onError={(e) => { e.target.style.display = "none"; }} />
 										</div>
@@ -103,6 +86,24 @@ export default function Home() {
 					</div>
 				</section>
 			</div>
+
+			{/* 3nd div */}
+			<div style={{ height: '100dvh', height: '100vh' }}>
+				<div>
+					{/* IMAGES WILL GO HERE FOR SCROLL TIGGER */}
+					<img src={scrollDownGif} alt='Scroll down' />
+				</div>
+				<div className='max-w-7xl mx-auto px-4 md:px-8'>
+					{/* TEXT CONTENTS WILL GO HERE*/}
+					<div className="mt-8 md:mt-12 max-w-[320px] sm:max-w-xs md:max-w-sm mx-auto bg-neutral-900/60 p-5 md:p-6 rounded-lg shadow-lg">
+						<p className="font-bold uppercase text-[10px] sm:text-[11px] md:text-xs tracking-widest leading-loose text-center text-white/90">
+							I&apos;M A DESIGN GENERALIST THAT MEANS I CRAFT USER EXPERIENCE, USER INTERFACE, WEBSITES, ANIMATIONS, INTERACTIONS, VISUALS, PROTOTYPES, PRESENTATIONS, BRANDS AND SO ON...
+						</p>
+					</div>
+				</div>
+			</div>
+
+			
 
 		</div>
 	);

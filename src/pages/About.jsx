@@ -1,17 +1,39 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import Button from '../components/button';
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { IoDownload } from 'react-icons/io5';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const About = () => {
+	const headerRef = useRef(null);
+	const footerRef = useRef(null);
+	const leftRef = useRef(null);
 	const skills = [
 		{ name: 'UI / UX', level: 80 },
 		{ name: 'WEB DESGIN / DEV', level: 70 },
 		{ name: 'GRAPHIC DESIGN', level: 85 },
 	];
 
+	useLayoutEffect(() => {
+		const ctx = gsap.context(() => {
+			ScrollTrigger.create({
+				trigger: headerRef.current,
+				start: "bottom top",
+				endTrigger: footerRef.current,
+				end: "top top",
+				pin: leftRef.current,
+				pinSpacing: false,
+				markers: false,
+			});
+		}, headerRef);
+		return () => ctx.revert();
+	}, []);
+
 	return (
 		<div className='max-w-7xl mx-auto p-4 md:p-8'>
-			<header className='border-b border-gray-600 pb-12 mb-12 flex flex-col md:flex-row justify-between items-center gap-8'>
+			<header ref={headerRef} className='border-b border-gray-600 pb-12 mb-12 flex flex-col md:flex-row justify-between items-center gap-8'>
 				<h1 className='text-5xl md:text-7xl font-bold leading-tight'>
 					Innovative Designer <br />
 					Driven<span className='font-extralight'> by Creavity.</span>
@@ -23,7 +45,7 @@ const About = () => {
 				</div>
 			</header>
 			<div className='grid grid-cols-1 lg:grid-cols-12 gap-16'>
-				<div className='lg:col-span-4 space-y-12'>
+				<div ref={leftRef} className='lg:col-span-4 space-y-12'>
 					<section>
 						<h2 className='text-1xl mb-4'>Prashant Kamath</h2>
 						<p>I'm a passionate UX/UI designer based in New York, dedicated to creating exceptional user experiences and building innovative products. With years of experience in the industry, I strive to bring value to every project and exceed client expectations.</p>
@@ -31,7 +53,7 @@ const About = () => {
 					<section className='space-y-4 border-t border-gray-600 pt-8'>
 						<div className='flex justify-between border-b border-gray-600 py-2'>
 							<span>[Profession]</span>
-							<span>FREELANCE GRAPHIC DESIGN</span>
+							<span>FREELANCE VISUAL DESIGNER</span>
 						</div>
 						<div className='flex justify-between border-b border-gray-600 py-2'>
 							<span>[Date of Birth]</span>
@@ -105,7 +127,7 @@ const About = () => {
 					</section>
 				</div>
 			</div>
-			<footer className='mt-20 mb-20 pt-8 border-t border-gray-600 flex justify-between items-center'>
+			<footer ref={footerRef} className='mt-20 mb-20 pt-8 border-t border-gray-600 flex justify-between items-center'>
 				<div>Resumely</div>
 				<div>© 2024 Amelia Wong — Powered by Webflow</div>
 			</footer>
