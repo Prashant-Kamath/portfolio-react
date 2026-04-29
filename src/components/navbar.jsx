@@ -13,7 +13,7 @@ const buildDockItems = (onContactClick) => [
 	{ id: "home", label: "Home", path: "/", icon: IoHome },
 	{ id: "works", label: "Works", path: "/works", icon: IoFolder },
 	{ id: "about", label: "About Me", path: "/about", icon: IoPerson },
-	{ id: "contact", label: "Contact", icon: IoMail, onClick: onContactClick },
+	{ id: "contact", label: "Get in Touch", icon: IoMail, onClick: onContactClick },
 	{ id: "burger-menu", label: "Know More", icon: IoMenu },
 ];
 

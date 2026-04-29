@@ -13,6 +13,23 @@ export default function Home() {
 	return (
 		<div>
 			{/* 1st div */}
+			<div className='max-w-7xl mx-auto px-4 md:px-8 flex flex-col' style={{ height: '100dvh' }}>
+				<div className='pt-4 md:pt-8 flex items-end justify-between relative'>
+					<div className='z-10'>
+						<p className='font-black uppercase text-4xl sm:text-4xl md:text-5xl lg:text-6xl leading-none tracking-tight'>HI, I&apos;M</p>
+						<h1 className='font-black uppercase leading-none -ml-1 w-full' style={{ fontSize: 'clamp(3rem, 16vw, 13.6rem)' }}>PRASHANT</h1>
+					</div>
+				</div>
+				<div className='mt-8 md:mt-12 max-w-[280px] sm:max-w-xs md:max-w-sm pr-7'>
+					<p className='font-bold uppercase text-[12px] sm:text-[11px] md:text-xs tracking-widest leading-loose text-left'>
+						I&apos;M A DESIGN GENERALIST, THAT MEANS I CRAFT USER EXPERIENCE, USER INTERFACE, WEBSITES, INTERACTIONS, VISUALS, PROTOTYPES & SO ON...
+					</p>
+				</div>
+				<div className='mt-auto flex justify-end mb-30'>
+					<img src={scrollDownGif} alt='Scroll down' className='w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24'/>
+				</div>
+			</div>
+			{/* OLD 1st div 
 			<div className='max-w-7xl mx-auto px-4 md:px-8' style={{ height: '100dvh', height: '100vh' }}>
 				<div className='pt-4 md:pt-8 flex items-end justify-between relative' >
 					<div className='z-10'>
@@ -28,8 +45,8 @@ export default function Home() {
 				<div className='flex justify-end'>
 					<img src={scrollDownGif} alt='Scroll down' className='w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24' />
 				</div>
-			</div>
-			{/* 2rd div */}
+			</div>*/}
+			{/* 2nd div */}
 			<div className='max-w-7xl mx-auto px-4 md:px-8'>
 				<section className="text-white">
 					<p className="text-xs tracking-widest uppercase text-gray-500 mb-6 font-light">Area of Expertise</p>

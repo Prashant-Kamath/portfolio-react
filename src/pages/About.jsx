@@ -18,14 +18,17 @@ const About = () => {
 
 	useLayoutEffect(() => {
 		const ctx = gsap.context(() => {
-			ScrollTrigger.create({
-				trigger: headerRef.current,
-				start: "bottom top",
-				endTrigger: footerRef.current,
-				end: "top top",
-				pin: leftRef.current,
-				pinSpacing: false,
-				markers: false,
+			const mm = gsap.matchMedia();
+			mm.add("(min-width: 1024px)", () => {
+				ScrollTrigger.create({
+					trigger: headerRef.current,
+					start: "bottom top",
+					endTrigger: footerRef.current,
+					end: "top 600",
+					pin: leftRef.current,
+					pinSpacing: false,
+					markers: false,
+				});
 			});
 		}, headerRef);
 		return () => ctx.revert();
@@ -45,7 +48,7 @@ const About = () => {
 				</div>
 			</header>
 			<div className='grid grid-cols-1 lg:grid-cols-12 gap-16'>
-				<div ref={leftRef} className='lg:col-span-4 space-y-12'>
+				<div ref={leftRef} className='lg:col-span-4 space-y-12 self-start'>
 					<section>
 						<h2 className='text-1xl mb-4'>Prashant Kamath</h2>
 						<p>I'm a passionate UX/UI designer based in New York, dedicated to creating exceptional user experiences and building innovative products. With years of experience in the industry, I strive to bring value to every project and exceed client expectations.</p>
@@ -127,7 +130,7 @@ const About = () => {
 					</section>
 				</div>
 			</div>
-			<footer ref={footerRef} className='mt-20 mb-20 pt-8 border-t border-gray-600 flex justify-between items-center'>
+			<footer ref={footerRef} className='mt-20 mb-4 pt-8 border-t border-gray-600 flex justify-between items-center'>
 				<div>Resumely</div>
 				<div>© 2024 Amelia Wong — Powered by Webflow</div>
 			</footer>

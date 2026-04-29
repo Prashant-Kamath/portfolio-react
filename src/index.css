@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @font-face {font-family: 'Inter-Regular'; src: url('./fonts/Inter-Regular.ttf') format('truetype'); font-weight: 100 900; font-style: normal;}
 @font-face {font-family: 'Inter-Italic'; src: url('./fonts/Inter-Italic.ttf') format('truetype'); font-weight: 100 900; font-style: italic;}
+@font-face {font-family: 'DMSerifDisplay-Regular'; src: url('./fonts/DMSerifDisplay-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal;}
+@font-face {font-family: 'DMSerifDisplay-Italic'; src: url('./fonts/DMSerifDisplay-Italic.ttf') format('truetype'); font-weight: 400; font-style: italic;}
 
 /* -------- DARK THEME -------- */
 :root {
