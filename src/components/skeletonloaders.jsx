@@ -1,47 +1,41 @@
-// SkeletonLoaders.jsx
-// Install: npm install react-loading-skeleton
-// Usage: import { HomeSkeleton, WorksSkeleton, AboutSkeleton } from './SkeletonLoaders';
-
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-// Shared theme wrapper matching your dark theme (#0F0F0F bg, #1a1a1a surface)
 const DarkSkeletonTheme = ({ children }) => (
 	<SkeletonTheme baseColor="#1a1a1a" highlightColor="#2a2a2a">
 		{children}
 	</SkeletonTheme>
 );
 
-/* ─────────────────────────────────────────
-   HOME PAGE SKELETON
-   Mirrors: big name, description text, project list + image panel
-───────────────────────────────────────── */
 export const HomeSkeleton = () => (
 	<DarkSkeletonTheme>
-		<div className="max-w-7xl mx-auto px-4 md:px-8" style={{ height: '100vh' }}>
-			{/* "HI, I'M" + giant name */}
-			<div className="pt-4 md:pt-8">
-				<Skeleton width={120} height={28} borderRadius={4} />
-				<Skeleton width="80%" height={120} borderRadius={6} style={{ marginTop: 8 }} />
-			</div>
+		<div className="relative" style={{ backgroundImage: `linear-gradient(to right, rgba(158, 158, 158, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158, 158, 158, 0.08) 1px, transparent 1px)`, backgroundSize: "60px 60px", backgroundPosition: "top left", }}>
+			<div className="max-w-7xl mx-auto p-4 md:p-8 flex flex-col min-h-[100dvh]" style={{ height: "100dvh" }}>
+				<section className="flex flex-col justify-end">
+					<Skeleton width={180} height={10} style={{ marginBottom: 32 }} />
+					<Skeleton width={220} height={40} />
+					<Skeleton width="100%" height={160} style={{ marginTop: 8 }} />
 
-			{/* Description blurb */}
-			<div className="mt-8 max-w-sm">
-				<Skeleton count={3} height={10} borderRadius={4} style={{ marginBottom: 6 }} />
+					<div style={{ marginTop: 48 }}>
+						<Skeleton width="20%" height={34} />
+						<Skeleton width="20%" height={34} style={{ marginTop: 8 }} />
+					</div>
+					<div className="flex items-end justify-between mt-16 pb-10 border-t border-neutral-800 pt-6">
+						<Skeleton width={260} height={12} count={3} />
+					</div>
+				</section>
+				<div className="mt-auto border-t border-b border-neutral-800 py-3">
+					<div className="flex gap-8">
+						{[...Array(8)].map((_, i) => (<Skeleton key={i} width={120} height={10} />))}
+					</div>
+				</div>
 			</div>
-
-			{/* Scroll gif placeholder */}
-			<div className="flex justify-end mt-4">
-				<Skeleton circle width={80} height={80} />
-			</div>
+			<div className="pointer-events-none absolute bottom-0 left-0 w-full" style={{ height: "200px", background: "linear-gradient(to top, var(--background-color), transparent)", }} />
 		</div>
 
-		{/* Selected Works section */}
 		<div className="max-w-7xl mx-auto px-4 md:px-8 mt-16">
 			<Skeleton width={100} height={10} borderRadius={4} style={{ marginBottom: 24 }} />
-
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-				{/* Left: heading + project list */}
 				<div>
 					<Skeleton width={260} height={72} borderRadius={6} style={{ marginBottom: 32 }} />
 					{[...Array(5)].map((_, i) => (
@@ -55,8 +49,6 @@ export const HomeSkeleton = () => (
 					))}
 					<Skeleton width={150} height={12} borderRadius={4} style={{ marginTop: 32 }} />
 				</div>
-
-				{/* Right: image preview panel (hidden on mobile) */}
 				<div className="hidden md:flex items-center justify-center">
 					<Skeleton width="100%" height="60vh" borderRadius={8} />
 				</div>
@@ -67,12 +59,10 @@ export const HomeSkeleton = () => (
 
 /* ─────────────────────────────────────────
    WORKS PAGE SKELETON
-   Mirrors: header block + masonry card grid
 ───────────────────────────────────────── */
 export const WorksSkeleton = () => (
 	<DarkSkeletonTheme>
 		<section className="max-w-7xl mx-auto p-4 md:p-8">
-			{/* Header: title + meta */}
 			<div className="mb-10">
 				<Skeleton width="55%" height={80} borderRadius={6} style={{ marginBottom: 24 }} />
 				<div className="flex flex-col lg:flex-row justify-between gap-10">
@@ -86,7 +76,6 @@ export const WorksSkeleton = () => (
 						))}
 					</div>
 				</div>
-				{/* Button */}
 				<Skeleton width={160} height={36} borderRadius={20} style={{ marginTop: 32 }} />
 			</div>
 
