@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Button from '../components/button';
 import { worksData } from '../components/cards-data';
 import { sizeClasses } from '../components/workscard';
 import 'animate.css';
@@ -34,7 +35,6 @@ function Marquee() {
 
 export default function Home() {
 	const [hoveredIndex, setHoveredIndex] = useState(null);
-
 	return (
 		<div>
 			{/* HERO */}
@@ -42,7 +42,10 @@ export default function Home() {
 				<div className='max-w-7xl mx-auto p-4 md:p-8 flex flex-col min-h-[100dvh]'>
 					<section className='flex flex-col justify-end'>
 						<div>
-							<p className='text-xs text-neutral-600 uppercase tracking-widest mb-8 animate__animated animate__fadeInUp'>Creative Studio / Digital Craft</p>
+							<div className='flex justify-between items-center mb-8'>
+								<p className='text-xs text-neutral-500 uppercase tracking-widest animate__animated animate__fadeInUp'>Creative Studio / Digital Craft</p>
+								<Button className='font-normal' style={{ color: 'white', background: 'var(--background-color)', border: '2px solid rgba(255, 255, 255, 0.5)', filter: 'drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.25))', animation: 'flickering 2s linear infinite both' }}><span className="w-1.5 h-1.5 rounded-full bg-green-600 opacity-80 animate-pulse"></span>Available for work</Button>
+							</div>
 							<div>
 								<p className='font-black uppercase text-4xl md:text-5xl lg:text-6xl leading-none tracking-tight animate__animated animate__fadeIn'>HI, I&apos;M</p>
 								<h1 className='font-black uppercase leading-none -ml-1 w-full animate__animated animate__fadeIn' style={{ fontSize: 'clamp(3rem, 16vw, 13.6rem)' }}>PRASHANT</h1>
