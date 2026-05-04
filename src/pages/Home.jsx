@@ -61,8 +61,8 @@ export default function Home() {
 	useLayoutEffect(() => {
 		const footer = footerRef.current;
 		const button = buttonRef.current;
-		const xTo = gsap.quickTo(button, 'x', { duration: 4, ease: 'power1.out' });
-		const yTo = gsap.quickTo(button, 'y', { duration: 4, ease: 'power1.out' });
+		const xTo = gsap.quickTo(button, 'x', { duration: 8, ease: 'power1.out' });
+		const yTo = gsap.quickTo(button, 'y', { duration: 8, ease: 'power1.out' });
 
 		const handleMouseMove = (e) => {
 			const { clientX, clientY } = e;
@@ -100,14 +100,16 @@ export default function Home() {
 						<div>
 							<div className='flex justify-between items-center mb-8 animate__animated animate__fadeIn'>
 								<p className='text-xs text-neutral-500 uppercase tracking-widest'>Creative Studio / Digital Craft</p>
-								<Button className='font-normal' style={{ color: 'white', background: 'var(--background-color)', border: '2px solid rgba(255, 255, 255, 0.5)', filter: 'drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.25))', animation: 'flickering 2s linear infinite both' }}><span className='w-1.5 h-1.5 rounded-full bg-green-600 opacity-80 animate-pulse'></span>Available for work</Button>
+								<Button className='font-normal flex items-center justify-center transition-all duration-300 text-xs px-3 py-1 gap-2 md:text-sm md:px-4 md:py-2' style={{ color: 'white', background: 'var(--background-color)', border: '2px solid rgba(255, 255, 255, 0.5)', filter: 'drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.25))', animation: 'flickering 2s linear infinite both' }}>
+									<span className='w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-600 opacity-80 animate-pulse'></span>Available for work
+								</Button>
 							</div>
 							<div>
 								<p className='font-black uppercase text-4xl md:text-5xl lg:text-6xl leading-none tracking-tight animate__animated animate__fadeIn'>HI, I&apos;M</p>
 								<h1 className='font-black uppercase leading-none -ml-1 w-full animate__animated animate__fadeIn' style={{ fontSize: 'clamp(3rem, 16vw, 13.6rem)' }}>PRASHANT</h1>
 							</div>
-							<h1 className='font-black leading-[0.88] tracking-tighter mt-12 animate__animated animate__fadeIn' style={{ fontFamily: '"SpaceGrotesk", serif', fontSize: 'clamp(3.5rem,2vw,4rem)', }}>
-								<span className='block mb-4 font-thin'>Crafting<span style={{ color: 'var(--Accent)', fontWeight: '700' }}> bold<span className='animate-blink'>_</span></span></span>
+							<h1 className='leading-[0.88] mt-12 animate__animated animate__fadeIn' style={{ fontFamily: '"DMSerifDisplay-Regular", serif', fontSize: 'clamp(3.5rem,2vw,4rem)', }}>
+								<span className='block mb-4 font-thin'>Crafting<span style={{ color: 'var(--accent)', fontWeight: '700' }}> bold<span className='animate-blink'>_</span></span></span>
 								<span className='block font-thin'>Digital<span className='text-neutral-600'> things.</span></span>
 							</h1>
 						</div>
@@ -178,7 +180,7 @@ export default function Home() {
 								))}
 
 								<div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${hoveredIndex !== null ? 'opacity-0' : 'opacity-100'}`}>
-									<p className='text-white/10 text-sm tracking-widest uppercase'>
+									<p className='text-thin text-white/50 text-sm tracking-widest uppercase'>
 										Hover on a project
 									</p>
 								</div>
@@ -192,15 +194,14 @@ export default function Home() {
 				<Ruler />
 				<div className='text-center pt-10 pb-2 px-4'>
 					<p className='text-white text-sm sm:text-base font-bold tracking-[0.15em] uppercase mb-0'>are you ready?</p>
-					<span className='text-[var(--Accent)] uppercase leading-[0.85] tracking-tight whitespace-nowrap mb-14' style={{ fontWeight: 900, fontSize: 'clamp(15px, 12vw, 120px)', display: 'inline-block', transform: 'scaleY(2)', transformOrigin: 'top' }}>
+					<span className='text-[var(--accent)] uppercase leading-[0.85] whitespace-nowrap mb-14' style={{ fontWeight: 900, fontSize: 'clamp(15px, 12vw, 120px)', display: 'inline-block', transform: 'scaleY(2)', transformOrigin: 'top' }}>
 						Let&#39;s build<br />an experience
 					</span>
-
 					<div className='flex justify-center items-center mt-5 mb-8'>
 						<a ref={buttonRef} href='#contact' className='z-10 flex items-center cursor-pointer no-underline'>
-							<Button className='font-bold flex items-center gap-2 px-4 py-2 md:px-6 md:py-3' style={{ color: 'white', background: 'var(--background-color)', border: '2px solid rgba(255, 255, 255, 1)' }}>
+							<Button className='font-bold flex items-center gap-2 px-4 py-2 md:px-6 md:py-3' style={{ color: 'white', background: 'var(--background-color)', border: '2px solid rgba(255, 255, 255, 1)', filter: 'drop-shadow(0px 0px 20px rgba(26, 26, 26, 0.8))' }}>
 								<span className='rounded-full border-2 text-base px-3 py-1 md:text-2xl md:px-4 md:py-2'>CONTACT</span>
-								<IoArrowForwardCircle className='w-8 h-8 md:w-16 md:h-16' />
+								<IoArrowForwardCircle className='w-8 h-8 md:w-16 md:h-16 text-[var(--accent)]' />
 							</Button>
 						</a>
 					</div>
@@ -215,7 +216,6 @@ export default function Home() {
 					<div className='flex items-center px-8 py-7 overflow-hidden border-t border-[#222] md:border-t-0'>
 						<div className='w-full overflow-hidden'>
 							<div className='marquee-track flex items-center gap-4 whitespace-nowrap text-white font-semibold tracking-wide' style={{ fontSize: 'clamp(18px, 3vw, 36px)' }}>
-								{/* First copy */}
 								<span className='text-[#FFD600]'>✦</span>
 								<span>Click This Floating Button</span>
 								<span className='text-[#FFD600] ml-8'>✦</span>

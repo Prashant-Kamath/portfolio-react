@@ -93,11 +93,11 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 			)}
 
 			<nav style={{ backgroundColor: "var(--dock-bg)", borderColor: "var(--dock-border)", boxShadow: "0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)", }} className="fixed bottom-6 left-1/2 z-50 flex h-[68px] -translate-x-1/2 items-end gap-4 rounded-full border px-6 py-2 backdrop-blur-md">
-				<div className="flex items-center self-center">
+				{/* <div className="flex items-center self-center">
 					<img src={logoSrc} alt="Logo" className="h-[35px] w-[35px]" />
 				</div>
 
-				<div className="h-8 w-px shrink-0 self-center opacity-30" style={{ backgroundColor: "var(--text-secondary)" }} />
+				<div className="h-8 w-px shrink-0 self-center opacity-30" style={{ backgroundColor: "var(--text-secondary)" }} /> */}
 
 				{dockItems.map((item, index) => {
 					const size = sizes[index];
