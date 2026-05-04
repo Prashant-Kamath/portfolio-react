@@ -3,7 +3,6 @@ import Button from './button';
 import { IoSend } from 'react-icons/io5';
 
 // ─── BorderGlow helpers (inlined) ────────────────────────────────────────────
-
 function parseHSL(hslStr) {
 	const match = hslStr.match(/([\d.]+)\s*([\d.]+)%?\s*([\d.]+)%?/);
 	if (!match) return { h: 40, s: 80, l: 80 };
@@ -309,9 +308,9 @@ function ContactModal({ show, onHide }) {
 				<div className='relative z-[2] flex flex-col overflow-auto'>
 					<button
 						onClick={onHide}
-						className='absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full text-xl leading-none transition hover:bg-white/10 z-10'
+						className='absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full text-xl leading-none transition hover:bg-white/10 z-10 cursor-pointer'
 						style={{ color: 'var(--text-secondary, #aaa)' }}
-					>✖</button>
+						>✖</button>
 
 					<div className='p-8 md:p-12'>
 						<div className='flex flex-col gap-12 lg:flex-row lg:items-start'>
@@ -327,7 +326,7 @@ function ContactModal({ show, onHide }) {
 									<input type='email' placeholder='Email' className={inputClass} style={inputStyle} />
 									<textarea rows={5} placeholder='Write your message' className={`resize-none ${inputClass}`} style={inputStyle} />
 									<div className='mt-1'>
-										<Button icon={IoSend}>Send Message</Button>
+										<Button className='cursor-pointer' icon={IoSend}>Send Message</Button>
 									</div>
 								</div>
 							</div>

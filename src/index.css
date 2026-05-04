@@ -41,7 +41,8 @@
 	--black-to-white: #000000;
 }*/
 
-html, body, *, *::before, *::after {cursor: url('./assets/arrowhead-rounded-outline.svg'), auto; scrollbar-width: none;}
+body {cursor: url('./assets/arrowhead-rounded-outline.svg'), auto; scrollbar-width: none;} /*html, body, *, *::before, *::after*/
+.cursor-svg {cursor: url('./assets/arrowhead-rounded-outline.svg'), auto;}
 body {background: var(--background-color); color: #ffffff; font-family: 'Inter-Regular'; font-weight: 400;}
 img {-webkit-user-drag: none; user-select: none;}
 a {text-decoration: none; -webkit-user-drag: none;}

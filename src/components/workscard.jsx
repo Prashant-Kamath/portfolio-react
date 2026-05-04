@@ -5,7 +5,7 @@ const WorksCard = ({ image, title, tags = [], date, size = "square", forceSize, 
 	const isCanvas = forceSize === "canvas";
 
 	return (
-		<div style={isCanvas ? { width: cardWidth, height: cardHeight } : {}} className={`group relative w-full overflow-hidden rounded-2xl hover:scale-102 hover:-translate-y-1 transition-transform duration-500 ${isCanvas ? "" : sizeClasses[size]}`}>
+		<div style={isCanvas ? { width: cardWidth, height: cardHeight } : {}} className={`group relative w-full overflow-hidden rounded-2xl cursor-pointer hover:scale-102 hover:-translate-y-1 transition-transform duration-500 ${isCanvas ? "" : sizeClasses[size]}`}>
 			<img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover" />
 			<div className="absolute inset-0" />
 			<div className="absolute bottom-0 left-0 right-0 p-4">

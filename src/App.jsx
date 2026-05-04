@@ -28,7 +28,7 @@ function App() {
 				<Routes>
 					<Route path='/' element={
 						<Suspense fallback={<HomeSkeleton />}>
-							<Home />
+							<Home onContactClick={() => setShowContact(true)} />
 						</Suspense>
 					} />
 					<Route path='/works' element={

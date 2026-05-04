@@ -79,14 +79,14 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 					);
 				})}
 				<div className="h-8 w-px shrink-0 self-center opacity-30" style={{ backgroundColor: "var(--text-secondary)" }} />
-				<button onClick={() => setKnowMoreOpen(false)} title="Close" style={{ width: BASE, height: BASE, color: "var(--icon-color)" }} className="flex items-center justify-center rounded-full hover:bg-[var(--item-bg)] transition-colors duration-150">
+				<button onClick={() => setKnowMoreOpen(false)} title="Close" style={{ width: BASE, height: BASE, color: "var(--icon-color)" }} className="flex items-center justify-center rounded-full hover:bg-[var(--item-bg)] transition-colors duration-150 cursor-pointer">
 					<IoClose size={20} />
 				</button>
 			</div>
 
 			{isCanvasMode && (
 				<div className="fixed left-1/2 -translate-x-1/2 z-50" style={{ bottom: exitCanvasBottom, transition: "bottom 220ms cubic-bezier(.4,0,.2,1)", }}>
-					<Button icon={IoAppsSharp} onClick={() => setIsCanvasMode(false)}>
+					<Button className='cursor-pointer' icon={IoAppsSharp} onClick={() => setIsCanvasMode(false)}>
 						Exit Canvas
 					</Button>
 				</div>
@@ -114,7 +114,8 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 								else if (item.onClick) { item.onClick(); }
 								else if (item.path) { navigate(item.path); }
 							}}
-							style={{ width: size, height: size, transition: "width 200ms ease, height 200ms ease", backgroundColor: (isActive || isKnowMoreActive) ? "var(--white-to-black)" : undefined, }} className={`group relative flex items-center justify-center rounded-full ${!(isActive || isKnowMoreActive) ? "hover:bg-[var(--item-bg)]" : ""}`}>
+							style={{ width: size, height: size, transition: "width 200ms ease, height 200ms ease", backgroundColor: (isActive || isKnowMoreActive) ? "var(--white-to-black)" : undefined, }}
+							className={`group relative flex items-center justify-center rounded-full cursor-pointer ${!(isActive || isKnowMoreActive) ? "hover:bg-[var(--item-bg)]" : ""}`}>
 							<div className="absolute -top-10 scale-0 group-hover:scale-100 transition-transform duration-200 rounded px-2 py-1 text-xs whitespace-nowrap z-50 pointer-events-none" style={{ backgroundColor: "var(--tooltip-bg)", color: "var(--tooltip-text)", backdropFilter: "blur(8px)" }}>
 								{item.label}
 							</div>

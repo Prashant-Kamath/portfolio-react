@@ -41,7 +41,7 @@ function Ruler() {
 	);
 }
 
-export default function Home() {
+export default function Home({ onContactClick }) {
 	const [hoveredIndex, setHoveredIndex] = useState(null);
 	const footerRef = useRef(null);
 	const buttonRef = useRef(null);
@@ -100,7 +100,7 @@ export default function Home() {
 						<div>
 							<div className='flex justify-between items-center mb-8 animate__animated animate__fadeIn'>
 								<p className='text-xs text-neutral-500 uppercase tracking-widest'>Creative Studio / Digital Craft</p>
-								<Button className='font-normal flex items-center justify-center transition-all duration-300 text-xs px-3 py-1 gap-2 md:text-sm md:px-4 md:py-2' style={{ color: 'white', background: 'var(--background-color)', border: '2px solid rgba(255, 255, 255, 0.5)', filter: 'drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.25))', animation: 'flickering 2s linear infinite both' }}>
+								<Button className='font-normal flex items-center justify-center transition-all duration-300 text-xs px-3 py-1 gap-2 md:text-sm md:px-4 md:py-2 cursor-svg' style={{ color: 'white', background: 'var(--background-color)', border: '2px solid rgba(255, 255, 255, 0.5)', filter: 'drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.25))', animation: 'flickering 2s linear infinite both' }}>
 									<span className='w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-600 opacity-80 animate-pulse'></span>Available for work
 								</Button>
 							</div>
@@ -198,9 +198,9 @@ export default function Home() {
 						Let&#39;s build<br />an experience
 					</span>
 					<div className='flex justify-center items-center mt-5 mb-8'>
-						<a ref={buttonRef} href='#contact' className='z-10 flex items-center cursor-pointer no-underline'>
-							<Button className='font-bold flex items-center gap-2 px-4 py-2 md:px-6 md:py-3' style={{ color: 'white', background: 'var(--background-color)', border: '2px solid rgba(255, 255, 255, 1)', filter: 'drop-shadow(0px 0px 20px rgba(26, 26, 26, 0.8))' }}>
-								<span className='rounded-full border-2 text-base px-3 py-1 md:text-2xl md:px-4 md:py-2'>CONTACT</span>
+						<a onClick={onContactClick} ref={buttonRef} className='z-10 flex items-center no-underline'>
+							<Button className='font-bold flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 cursor-pointer' style={{ color: 'white', background: 'var(--background-color)', border: '2px solid rgba(255, 255, 255, 1)', filter: 'drop-shadow(0px 0px 20px rgba(26, 26, 26, 0.8))' }}>
+								<span className='text-base px-3 py-1 md:text-2xl md:px-4 md:py-2'>CONTACT</span>
 								<IoArrowForwardCircle className='w-8 h-8 md:w-16 md:h-16 text-[var(--accent)]' />
 							</Button>
 						</a>
