@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useParams } from 'react-router-dom';
 import { ReactLenis, useLenis } from 'lenis/react'
 import 'lenis/dist/lenis.css'
 import Dock from './components/NavBar';
@@ -15,6 +15,17 @@ function ScrollToTop() {
 	const lenis = useLenis();
 	useEffect(() => { lenis?.scrollTo(0, { immediate: true }); }, [pathname, lenis]);
 	return null;
+}
+
+const workPages = {
+	'the-frozen-stars': lazy(() => import('./works/the-frozen-stars')),
+};
+
+function WorkPage() {
+	const { slug } = useParams();
+	const Page = workPages[slug];
+	if (!Page) return <div>Work not found</div>;
+	return <Suspense fallback={<div>Loading...</div>}><Page /></Suspense>;
 }
 
 function App() {
@@ -41,6 +52,7 @@ function App() {
 							<About />
 						</Suspense>
 					} />
+					<Route path='/works/:slug' element={<WorkPage />} />
 				</Routes>
 				<ContactModal show={showContact} onHide={() => setShowContact(false)} />
 				<Dock onContactClick={() => setShowContact(true)} isCanvasMode={isCanvasMode} setIsCanvasMode={setIsCanvasMode} />

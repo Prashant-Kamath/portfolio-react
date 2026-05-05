@@ -75,7 +75,7 @@ const resolvePositions = (items) => {
 
 const Canvas = () => {
 	const nodes = useMemo(() => {
-		const visibleData = worksData.filter((p) => p.hidden !== "canvas");
+		const visibleData = worksData.filter(p => !p.hidden?.includes("canvas"));
 		const positions = resolvePositions(visibleData);
 
 		return visibleData.map((project) => {

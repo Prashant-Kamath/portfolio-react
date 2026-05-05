@@ -1,3 +1,8 @@
+// size: landscape, portrait, banner, square. {banner: "aspect-[21/10] is set in WorksCard}
+// selected: true or nothing, to show in home page.
+// slug: add slug to selected to it can route to. also add lazy import in App.jsx
+// hidden: 'grid' or 'canvas' to hide in either one, or both ["grid", "canvas"].
+
 export const worksData = [
 	{
 		id: 1,
@@ -8,6 +13,7 @@ export const worksData = [
 		size: "landscape",
 		canvasPosition: { x: 0, y: 0 },
 		selected: true,
+		slug: 'the-frozen-stars'
 	},
 	{
 		id: 2,
@@ -54,7 +60,7 @@ export const worksData = [
 		tags: ["WebGL"],
 		date: "Sept 2022",
 		size: "banner",
-		hidden: "canvas",
+		hidden: ["canvas"],
 		canvasPosition: { relativeTo: 4, side: "right" },
 	},
 	{

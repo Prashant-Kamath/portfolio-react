@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const sizeClasses = { landscape: "aspect-[16/9]", portrait: "aspect-[9/16]", square: "aspect-square", banner: "aspect-[21/6]" };
+export const sizeClasses = { landscape: "aspect-[16/9]", portrait: "aspect-[9/16]", square: "aspect-square", banner: "aspect-[21/10]" };
 const WorksCard = ({ image, title, tags = [], date, size = "square", forceSize, cardWidth = 360, cardHeight = 230 }) => {
 	const isCanvas = forceSize === "canvas";
 

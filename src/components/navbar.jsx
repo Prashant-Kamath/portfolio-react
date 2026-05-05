@@ -1,6 +1,6 @@
 import { useMemo, useState, useRef, useEffect } from "react";
 import logo from "../assets/logo-white.webp";
-import { IoHome, IoFolder, IoPerson, IoMail, IoAtCircle , IoLogoGithub, IoLogoLinkedin, IoLogoTwitter, IoLogoInstagram, IoClose, IoAppsSharp } from "react-icons/io5";
+import { IoHome, IoFolder, IoPerson, IoMail, IoAt, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter, IoLogoInstagram, IoClose, IoAppsSharp } from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "./Button";
 
@@ -14,7 +14,7 @@ const buildDockItems = (onContactClick) => [
 	{ id: "works", label: "Works", path: "/works", icon: IoFolder },
 	{ id: "about", label: "About Me", path: "/about", icon: IoPerson },
 	{ id: "contact", label: "Get in Touch", icon: IoMail, onClick: onContactClick },
-	{ id: "burger-menu", label: "Socials", icon: IoAtCircle  },
+	{ id: "burger-menu", label: "Socials", icon: IoAt },
 ];
 
 const SOCIALS = [

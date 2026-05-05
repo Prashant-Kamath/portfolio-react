@@ -32,6 +32,8 @@ const Works = ({ isCanvasMode, setIsCanvasMode }) => {
 		}
 	}, [isCanvasMode]);
 
+	const visibleGridData = worksData.filter(p => !p.hidden?.includes("grid"));
+
 	return (
 		<section className="relative max-w-7xl mx-auto p-4 md:p-8">
 			{/* HEADER */}
@@ -112,13 +114,11 @@ const Works = ({ isCanvasMode, setIsCanvasMode }) => {
 			{/* GRID MODE */}
 			{showGrid && (
 				<div className={`columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4 mb-24 animate__animated ${animateState === 'fadeOut' ? 'animate__fadeOutDown' : 'animate__fadeIn'}`}>
-					{worksData
-						.filter(p => p.hidden !== 'grid')
-						.map((project, index) => (
-							<div key={project.id} className="break-inside-avoid" style={project.size === 'banner' ? { columnSpan: 'all', marginTop: '1rem' } : {}} data-aos="fade-up" data-aos-delay={index * 20}>
-								<WorksCard {...project} />
-							</div>
-						))}
+					{visibleGridData.map((project, index) => (
+						<div key={project.id} className="break-inside-avoid" style={project.size === 'banner' ? { columnSpan: 'all', marginTop: '1rem' } : {}} data-aos="fade-up" data-aos-delay={index * 20}>
+							<WorksCard {...project} />
+						</div>
+					))}
 				</div>
 			)}
 

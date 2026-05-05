@@ -1,6 +1,6 @@
 import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { IoHeart, IoArrowForwardCircle } from 'react-icons/io5';
+import { Link, useNavigate } from 'react-router-dom';
+import { IoHeart, IoArrowForwardCircle, IoArrowForward } from 'react-icons/io5';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Button from '../components/Button';
@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = worksData
 	.filter(w => w.selected)
-	.map(w => ({ name: w.title, type: w.selectedType, year: w.date, gif: w.image, size: w.size, tags: w.tags }));
+	.map(w => ({ name: w.title, type: w.selectedType, year: w.date, gif: w.image, size: w.size, tags: w.tags, slug: w.slug }));
 
 function Ruler() {
 	const TICKS = 80;
@@ -39,6 +39,20 @@ export default function Home({ onContactClick }) {
 	const footerRef = useRef(null);
 	const buttonRef = useRef(null);
 	const marqRef = useRef(null);
+	const navigate = useNavigate();
+
+	const [activeIndex, setActiveIndex] = useState(null);
+	const [isTouch, setIsTouch] = useState(false);
+
+	useEffect(() => {
+		const media = window.matchMedia("(pointer: coarse)");
+		setIsTouch(media.matches);
+
+		const handler = (e) => setIsTouch(e.matches);
+		media.addEventListener("change", handler);
+
+		return () => media.removeEventListener("change", handler);
+	}, []);
 
 	useEffect(() => {
 		const ctx = gsap.context(() => {
@@ -138,28 +152,51 @@ export default function Home({ onContactClick }) {
 								{projects.map((project, i) => {
 									const isHovered = hoveredIndex === i;
 									const isOtherHovered = hoveredIndex !== null && hoveredIndex !== i;
+									const isActive = activeIndex === i;
+									const handleClick = () => {
+										if (isTouch) {
+											setActiveIndex(prev => (prev === i ? null : i));
+										}
+									};
 									return (
-										<li key={i} onMouseEnter={() => setHoveredIndex(i)} onMouseLeave={() => setHoveredIndex(null)} className={`flex items-center justify-between py-4 cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group ${isOtherHovered ? 'opacity-30' : 'opacity-100'}`}>
-											<div className='flex flex-col'>
-												<span className={`text-sm md:text-base transition-all duration-300 ${isHovered ? 'text-white font-medium tracking-wide' : 'text-slate-300 font-thin'}`}>
-													{project.name}
-												</span>
-												<div className='flex flex-wrap gap-2 overflow-hidden transition-all duration-300' style={{ maxHeight: isHovered ? '40px' : '0px', opacity: isHovered ? 1 : 0, }}>
-													{project.tags.map((tag, idx) => (
-														<span key={idx} className='text-[10px] px-2 py-[2px] border border-white/20 rounded-full text-white/60 mt-2'>
-															{tag}
-														</span>
-													))}
+										<li key={i} onMouseEnter={() => !isTouch && setHoveredIndex(i)} onMouseLeave={() => !isTouch && setHoveredIndex(null)}
+											onClick={() => {
+												if (isTouch) {
+													setActiveIndex(prev => (prev === i ? null : i));
+												} else if (project.slug) {
+													navigate(`/works/${project.slug}`);  // ← slug-based
+												}
+											}}
+											className={`flex flex-col py-4 cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group ${!isTouch && isOtherHovered ? 'opacity-30' : 'opacity-100'}`}>
+											<div className='flex items-center justify-between'>
+												<div className='flex flex-col'>
+													<span className={`text-sm md:text-base transition-all duration-300 ${isHovered || isActive ? 'text-white font-medium tracking-wide' : 'text-slate-300 font-thin'}`}>
+														{project.name}
+													</span>
+													<div className='flex flex-wrap gap-2 overflow-hidden transition-all duration-300' style={{ maxHeight: isHovered || isActive ? '40px' : '0px', opacity: isHovered || isActive ? 1 : 0, }}>
+														{project.tags.map((tag, idx) => (
+															<span key={idx} className='text-[10px] px-2 py-[2px] border border-white/20 rounded-full text-white/60 mt-2'>
+																{tag}
+															</span>
+														))}
+													</div>
+												</div>
+												<div className='flex items-center gap-3 ml-4 shrink-0'>
+													<span className={`hidden md:block h-px bg-white transition-all duration-500 ${isHovered ? 'w-24 opacity-100' : 'w-0 opacity-0'}`} />
+													<span className='text-xs text-gray-500 whitespace-nowrap'>{project.type}</span>
+													<span className='text-xs text-gray-500 whitespace-nowrap'>{project.year}</span>
+													<button onClick={(e) => {
+														e.stopPropagation();
+														if (project.slug) navigate(`/works/${project.slug}`);
+													}} className='md:hidden flex items-center justify-center'>
+														<IoArrowForward className={`text-white`} />
+													</button>
 												</div>
 											</div>
-											<div className='flex items-center gap-3 ml-4 shrink-0'>
-												<span className={`hidden md:block h-px bg-white transition-all duration-500 ${isHovered ? 'w-24 opacity-100' : 'w-0 opacity-0'}`} />
-												<span className='text-xs text-gray-500 whitespace-nowrap'>
-													{project.type}
-												</span>
-												<span className='text-xs text-gray-500 whitespace-nowrap'>
-													{project.year}
-												</span>
+											<div className={`md:hidden overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isActive ? 'mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
+												<div className={`w-full rounded-sm overflow-hidden border border-white/10 bg-[#1a1a1a] transform transition-transform duration-500 ${isActive ? 'scale-100' : 'scale-95'}`}>
+													<img src={project.gif} alt={project.name} className='w-full h-auto object-contain' />
+												</div>
 											</div>
 										</li>
 									);
