@@ -2,7 +2,7 @@ import { useMemo, useState, useRef, useEffect } from "react";
 import logo from "../assets/logo-white.webp";
 import { IoHome, IoFolder, IoPerson, IoMail, IoAtCircle , IoLogoGithub, IoLogoLinkedin, IoLogoTwitter, IoLogoInstagram, IoClose, IoAppsSharp } from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router-dom";
-import Button from "./button";
+import Button from "./Button";
 
 const BASE = 48;
 const PEAK = 76;

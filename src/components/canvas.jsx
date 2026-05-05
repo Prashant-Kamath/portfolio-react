@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { ReactFlow, Background, BackgroundVariant } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import WorkFlowNode, { CARD_WIDTH, CARD_HEIGHT } from './worksnode';
-import { worksData } from './cards-data';
+import WorkFlowNode, { CARD_WIDTH, CARD_HEIGHT } from './WorksNode';
+import { worksData } from './Cards-Data';
 
 const nodeTypes = { workNode: WorkFlowNode };
 const GAP = 40;

@@ -2,9 +2,9 @@ import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { ReactLenis, useLenis } from 'lenis/react'
 import 'lenis/dist/lenis.css'
-import Dock from './components/navbar';
-import ContactModal from './components/contactmodal';
-import { HomeSkeleton, WorksSkeleton, AboutSkeleton } from './components/skeletonloaders';
+import Dock from './components/NavBar';
+import ContactModal from './components/ContactModal';
+import { HomeSkeleton, WorksSkeleton, AboutSkeleton } from './components/SkeletonLoaders';
 
 const Home = lazy(() => import('./pages/Home'));
 const Works = lazy(() => import('./pages/Works'));

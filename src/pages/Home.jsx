@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { IoHeart, IoArrowForwardCircle } from 'react-icons/io5';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Button from '../components/button';
-import { worksData } from '../components/cards-data';
-import { sizeClasses } from '../components/workscard';
+import Button from '../components/Button';
+import { worksData } from '../components/Cards-Data';
+import { sizeClasses } from '../components/WorksCard';
 import 'animate.css';
 
 gsap.registerPlugin(ScrollTrigger);

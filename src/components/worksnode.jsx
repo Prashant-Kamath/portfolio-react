@@ -1,5 +1,5 @@
 import React from "react";
-import WorksCard from "./workscard";
+import WorksCard from "./WorksCard";
 
 export const CARD_WIDTH = 360;
 export const CARD_HEIGHT = 230;

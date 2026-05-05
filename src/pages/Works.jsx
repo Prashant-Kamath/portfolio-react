@@ -3,10 +3,10 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import 'animate.css';
 import { IoTabletLandscape, IoAppsSharp, IoLayersOutline, IoAperture, IoHeart } from 'react-icons/io5';
-import { worksData } from '../components/cards-data';
-import WorksCard from '../components/workscard';
-import Button from '../components/button';
-import Canvas from '../components/canvas';
+import { worksData } from '../components/Cards-Data';
+import WorksCard from '../components/WorksCard';
+import Button from '../components/Button';
+import Canvas from '../components/Canvas';
 
 const Works = ({ isCanvasMode, setIsCanvasMode }) => {
 	const [showGrid, setShowGrid] = useState(true);

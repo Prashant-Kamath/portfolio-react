@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState, Suspense, lazy } from 'react';
 import Modal from 'react-modal';
-import Button from '../components/button';
+import Button from '../components/Button';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { IoDownload, IoHeart, IoClose } from 'react-icons/io5';
@@ -20,7 +20,7 @@ const About = () => {
 		{ name: 'UI / UX' }, { name: 'WEB DESGIN / DEV' }, { name: 'GRAPHIC DESIGN' },
 	];
 
-	const ResumeModal = lazy(() => import('../components/resumemodal'));
+	const ResumeModal = lazy(() => import('../components/ResumeModal'));
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
 

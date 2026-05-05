@@ -1,5 +1,5 @@
 import { useRef, useCallback, useState, useEffect } from 'react';
-import Button from './button';
+import Button from './Button';
 import { IoSend } from 'react-icons/io5';
 
 // ─── BorderGlow helpers (inlined) ────────────────────────────────────────────
