@@ -94,14 +94,13 @@ const Works = ({ isCanvasMode, setIsCanvasMode }) => {
 					</div>
 				</div> */}
 
-				<div className="flex justify-start mt-10 animate__animated animate__fadeIn">
+				<div className="flex justify-start my-10 animate__animated animate__fadeIn">
 					<Button className='cursor-pointer' icon={isCanvasMode ? IoTabletLandscape : IoTabletLandscape} onClick={() => setIsCanvasMode(prev => !prev)}>
 						{isCanvasMode ? 'Canvas Mode' : 'Canvas Mode'}
 					</Button>
 				</div>
+				<div className='border mb-10 border-(--dock-border) animate__animated animate__fadeIn' />
 			</div>
-
-			<div className='border mb-10 border-(--dock-border) animate__animated animate__fadeIn'></div>
 
 			{/* CANVAS MODE */}
 			{isCanvasMode && (

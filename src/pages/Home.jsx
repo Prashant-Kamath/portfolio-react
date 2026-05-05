@@ -12,13 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = worksData
 	.filter(w => w.selected)
-	.map(w => ({
-		name: w.title,
-		type: w.selectedType,
-		year: w.date,
-		gif: w.image,
-		size: w.size,
-	}));
+	.map(w => ({ name: w.title, type: w.selectedType, year: w.date, gif: w.image, size: w.size, tags: w.tags }));
 
 function Ruler() {
 	const TICKS = 80;
@@ -29,7 +23,6 @@ function Ruler() {
 					<div key={i} style={{ width: `${100 / TICKS}%`, height: i % 10 === 0 ? '16px' : '8px', borderLeft: `1px solid ${i % 10 === 0 ? '#888' : '#333'}`, flexShrink: 0 }} />
 				))}
 			</div>
-			{/* Labels */}
 			<div className='absolute top-4 left-0 w-full flex justify-around px-[10%]'>
 				{['-02', '-01', '00', '01', '02'].map((l) => (
 					<span key={l} className='text-[#555] text-[9px] font-mono tracking-widest'>
@@ -146,10 +139,19 @@ export default function Home({ onContactClick }) {
 									const isHovered = hoveredIndex === i;
 									const isOtherHovered = hoveredIndex !== null && hoveredIndex !== i;
 									return (
-										<li key={i} onMouseEnter={() => setHoveredIndex(i)} onMouseLeave={() => setHoveredIndex(null)} className={`flex items-center justify-between py-4 cursor-pointer transition-all duration-300 group ${isOtherHovered ? 'opacity-30' : 'opacity-100'}`}>
-											<span className={`text-sm md:text-base transition-all duration-300 ${isHovered ? 'text-white font-bold tracking-wide' : 'text-slate-300 font-thin'}`}>
-												{project.name}
-											</span>
+										<li key={i} onMouseEnter={() => setHoveredIndex(i)} onMouseLeave={() => setHoveredIndex(null)} className={`flex items-center justify-between py-4 cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group ${isOtherHovered ? 'opacity-30' : 'opacity-100'}`}>
+											<div className='flex flex-col'>
+												<span className={`text-sm md:text-base transition-all duration-300 ${isHovered ? 'text-white font-medium tracking-wide' : 'text-slate-300 font-thin'}`}>
+													{project.name}
+												</span>
+												<div className='flex flex-wrap gap-2 overflow-hidden transition-all duration-300' style={{ maxHeight: isHovered ? '40px' : '0px', opacity: isHovered ? 1 : 0, }}>
+													{project.tags.map((tag, idx) => (
+														<span key={idx} className='text-[10px] px-2 py-[2px] border border-white/20 rounded-full text-white/60 mt-2'>
+															{tag}
+														</span>
+													))}
+												</div>
+											</div>
 											<div className='flex items-center gap-3 ml-4 shrink-0'>
 												<span className={`hidden md:block h-px bg-white transition-all duration-500 ${isHovered ? 'w-24 opacity-100' : 'w-0 opacity-0'}`} />
 												<span className='text-xs text-gray-500 whitespace-nowrap'>
@@ -178,7 +180,6 @@ export default function Home({ onContactClick }) {
 										</div>
 									</div>
 								))}
-
 								<div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${hoveredIndex !== null ? 'opacity-0' : 'opacity-100'}`}>
 									<p className='text-thin text-white/50 text-sm tracking-widest uppercase'>
 										Hover on a project
@@ -193,8 +194,8 @@ export default function Home({ onContactClick }) {
 			<footer ref={footerRef} className='max-w-7xl mx-auto overflow-hidden mb-14 relative'>
 				<Ruler />
 				<div className='text-center pt-10 pb-2 px-4'>
-					<p className='text-white text-sm sm:text-base font-bold tracking-[0.15em] uppercase mb-0'>are you ready?</p>
-					<span className='text-[var(--accent)] uppercase leading-[0.85] whitespace-nowrap mb-14' style={{ fontWeight: 900, fontSize: 'clamp(15px, 12vw, 120px)', display: 'inline-block', transform: 'scaleY(2)', transformOrigin: 'top' }}>
+					<p className='text-white text-sm sm:text-base font-bold tracking-[0.15em] uppercase mb-4'>Next Step?</p>
+					<span className='text-[var(--accent)] uppercase leading-[0.85] whitespace-nowrap mb-18' style={{ fontWeight: 900, fontSize: 'clamp(15px, 10vw, 120px)', display: 'inline-block', transform: 'scaleY(2)', transformOrigin: 'top' }}>
 						Let&#39;s build<br />an experience
 					</span>
 					<div className='flex justify-center items-center mt-5 mb-8'>

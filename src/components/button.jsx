@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, forwardRef } from "react";
-import { gsap } from "gsap";
+import gsap from "gsap";
 
 const cn = (...classes) => classes.filter(Boolean).join(" ");
 

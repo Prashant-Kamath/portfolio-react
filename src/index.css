@@ -9,7 +9,7 @@
 :root {
 	--accent: #FFD600;
 	--background-color: #0F0F0F;
-	--dock-bg: #1a1a1a99;
+	--dock-bg: #1a1a1a80;
 	--dock-border: #2A2A2A;
 	--dock-shadow: #00000066;
 	--dock-inner-shadow: #FFFFFF1A;
@@ -41,9 +41,9 @@
 	--black-to-white: #000000;
 }*/
 
-body {cursor: url('./assets/arrowhead-rounded-outline.svg'), auto; scrollbar-width: none;} /*html, body, *, *::before, *::after*/
+html, body, *, *::before, *::after { scrollbar-width: none;}
+body {background: var(--background-color); color: #ffffff; font-family: 'Inter-Regular'; font-weight: 400; cursor: url('./assets/arrowhead-rounded-outline.svg'), auto;}
 .cursor-svg {cursor: url('./assets/arrowhead-rounded-outline.svg'), auto;}
-body {background: var(--background-color); color: #ffffff; font-family: 'Inter-Regular'; font-weight: 400;}
 img {-webkit-user-drag: none; user-select: none;}
 a {text-decoration: none; -webkit-user-drag: none;}
 ::selection {background: #ffd60a; color: #000000;}
