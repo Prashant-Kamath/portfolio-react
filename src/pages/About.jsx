@@ -3,7 +3,8 @@ import Modal from 'react-modal';
 import Button from '../components/Button';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { IoDownload, IoHeart, IoClose } from 'react-icons/io5';
+import { IoDownload } from 'react-icons/io5';
+import { Header, Footer } from "../components/HeaderFooter";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -52,13 +53,7 @@ const About = () => {
 	return (
 		<div className='relative' style={{ backgroundImage: 'linear-gradient(to right, rgba(158,158,158,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158,158,158,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: 'top left', }}>
 			<div className='max-w-7xl mx-auto p-4 md:p-8'>
-
-				<div className='flex justify-between items-center mb-8 animate__animated animate__fadeIn'>
-					<p className='text-xs text-neutral-500 uppercase tracking-widest'>Creative Studio / Digital Craft</p>
-					<Button className='font-normal flex items-center justify-center transition-all duration-300 text-xs px-3 py-1 gap-2 md:text-sm md:px-4 md:py-2 cursor-svg' style={{ color: 'white', background: 'var(--background-color)', border: '2px solid rgba(255, 255, 255, 0.5)', filter: 'drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.25))', animation: 'flickering 2s linear infinite both' }}>
-						<span className='w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-600 opacity-80 animate-pulse'></span>Available for work
-					</Button>
-				</div>
+				<Header />
 				<header ref={headerRef} className='border-b border-white pb-22 mt-22 mb-12 flex flex-col-reverse md:flex-row justify-between items-center gap-8'>
 					<h1 className='text-5xl md:text-8xl font-bold leading-tightest tracking-tight uppercase'>
 						Innovative Designer <br />
@@ -121,7 +116,7 @@ const About = () => {
 						<section>
 							<h3 className='mb-4 uppercase border-b border-white pb-4 w-full'>Education</h3>
 							<section className='w-full pt-8 '>
-								<Swiper spaceBetween={40} slidesPerView={3} mousewheel={{ passive: true }} onSwiper={(swiper) => (window.educationSwiper = swiper)}
+								<Swiper className='cursor-grab active:cursor-grabbing' spaceBetween={40} slidesPerView={3} mousewheel={{ passive: true }} onSwiper={(swiper) => (window.educationSwiper = swiper)}
 									breakpoints={{
 										320: { slidesPerView: 1 },
 										768: { slidesPerView: 2 },
@@ -167,9 +162,8 @@ const About = () => {
 						</section>
 					</div>
 				</div>
-				<footer ref={footerRef} style={{ borderTop: '1px solid rgba(255,255,255,0.1)', padding: '32px 0', margin: '42px 0 0 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', }}>
-					<p className='text-[#555] text-xs tracking-wider'>Hand crafted by<strong className='text-[#FFD600] font-bold tracking-widest'> PRASHANT</strong></p>
-					<p className='flex gap-2 text-[#555] text-xs tracking-wider'>With<strong className='text-[#FFD600] font-bold tracking-widest'><IoHeart /></strong> 2026</p>
+				<footer ref={footerRef} className='mt-14'>
+					<Footer />
 				</footer>
 			</div>
 		</div>

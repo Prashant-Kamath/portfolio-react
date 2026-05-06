@@ -1,6 +1,7 @@
 import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoHeart, IoArrowForwardCircle, IoArrowForward } from 'react-icons/io5';
+import { IoArrowForwardCircle } from 'react-icons/io5';
+import { Header, Footer } from "../components/HeaderFooter";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Button from '../components/Button';
@@ -104,24 +105,16 @@ export default function Home({ onContactClick }) {
 			<div className='relative' style={{ backgroundImage: 'linear-gradient(to right, rgba(158,158,158,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158,158,158,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: 'top left', }}>
 				<div className='max-w-7xl mx-auto p-4 md:p-8 flex flex-col min-h-[100dvh]'>
 					<section className='flex flex-col justify-end'>
+						<Header />
 						<div>
-							<div className='flex justify-between items-center mb-8 animate__animated animate__fadeIn'>
-								<p className='text-xs text-neutral-500 uppercase tracking-widest'>Creative Studio / Digital Craft</p>
-								<Button className='font-normal flex items-center justify-center transition-all duration-300 text-xs px-3 py-1 gap-2 md:text-sm md:px-4 md:py-2 cursor-svg' style={{ color: 'white', background: 'var(--background-color)', border: '2px solid rgba(255, 255, 255, 0.5)', filter: 'drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.25))', animation: 'flickering 2s linear infinite both' }}>
-									<span className='w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-600 opacity-80 animate-pulse'></span>Available for work
-								</Button>
-							</div>
-							<div>
-								<p className='font-black uppercase text-4xl md:text-5xl lg:text-6xl leading-none tracking-tight animate__animated animate__fadeIn'>HI, I&apos;M</p>
-								<h1 className='font-black uppercase leading-none -ml-1 w-full animate__animated animate__fadeIn' style={{ fontSize: 'clamp(3rem, 16vw, 13.6rem)' }}>PRASHANT</h1>
-							</div>
-							<h1 className='leading-[0.88] mt-12 animate__animated animate__fadeIn' style={{ fontFamily: '"DMSerifDisplay-Regular", serif', fontSize: 'clamp(3.5rem,2vw,4rem)', }}>
-								<span className='block mb-4 font-thin'>Crafting<span style={{ color: 'var(--accent)', fontWeight: '700' }}> bold<span className='animate-blink'>_</span></span></span>
-								<span className='block font-thin'>Digital<span className='text-neutral-600'> things.</span></span>
-							</h1>
+							<p className="font-black uppercase text-4xl md:text-5xl lg:text-6xl leading-none tracking-tight animate__animated animate__fadeIn">HI, I&apos;M</p>
+							<h1 className="font-black uppercase leading-none -ml-1 w-full animate__animated animate__fadeIn" style={{ fontSize: "clamp(3rem, 16vw, 13.6rem)" }}>PRASHANT</h1>
 						</div>
-
-						<div className='flex items-end justify-between mt-16 pb-10 border-t border-neutral-800 pt-6 animate__animated animate__fadeIn'>
+						<h1 className="leading-[0.88] my-12 animate__animated animate__fadeIn" style={{ fontFamily: '"DMSerifDisplay-Regular", serif', fontSize: "clamp(3.5rem, 2vw, 4rem)" }}>
+							<span className="block mb-4 font-thin">Crafting<span style={{ color: "var(--accent)", fontWeight: "700" }}>{" bold"}<span className="animate-blink">_</span></span></span>
+							<span className="block font-thin">Digital<span className="text-neutral-600"> things.</span></span>
+						</h1>
+						<div className='flex items-end justify-between py-10 my-2 border-t border-neutral-800 animate__animated animate__fadeIn'>
 							<p className='text-sm text-neutral-500 max-w-xs leading-relaxed'>
 								I craft digital experiences that live at the intersection
 								of design and engineering. Clean. Considered. Purposeful.
@@ -131,7 +124,7 @@ export default function Home({ onContactClick }) {
 					<div className='overflow-hidden py-5 border-y border-white/[0.1] my-6 z-5'>
 						<div className='marquee-track flex whitespace-nowrap gap-2' style={{ width: '200%' }}>
 							{Array(10).fill(null).map((_, i) => (
-								<span key={i} className='mono text-[11px] tracking-[0.3em] uppercase text-neutral-500 shrink-0'>
+								<span key={i} className='text-[12px] tracking-[0.3em] uppercase text-neutral-500 shrink-0'>
 									WebGL · React.js · Framer Motion · Three.js · GSAP · Shader Art ·&nbsp;
 								</span>
 							))}
@@ -189,7 +182,7 @@ export default function Home({ onContactClick }) {
 														e.stopPropagation();
 														if (project.slug) navigate(`/works/${project.slug}`);
 													}} className='md:hidden flex items-center justify-center'>
-														<IoArrowForward className={`text-white`} />
+														<IoArrowForwardCircle className={`text-white`} />
 													</button>
 												</div>
 											</div>
@@ -262,10 +255,7 @@ export default function Home({ onContactClick }) {
 						</div>
 					</div>
 				</div>
-				<div className='flex sm:flex-row items-center justify-between py-5 border-t border-[#1a1a1a] gap-4 flex-wrap'>
-					<p className='text-[#555] text-xs tracking-wider'>Hand crafted by<strong className='text-[#FFD600] font-bold tracking-widest'> PRASHANT</strong></p>
-					<p className='flex gap-2 text-[#555] text-xs tracking-wider'>With<strong className='text-[#FFD600] font-bold tracking-widest'> <IoHeart /></strong> 2026</p>
-				</div>
+				<Footer />
 			</footer>
 		</div>
 	);
