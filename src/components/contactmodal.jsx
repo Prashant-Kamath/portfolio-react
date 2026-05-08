@@ -1,8 +1,8 @@
 import { useRef, useCallback, useState, useEffect } from 'react';
+import ReactModal from 'react-modal';
 import Button from './Button';
-import { IoSend } from 'react-icons/io5';
+import { IoSend, IoClose } from 'react-icons/io5';
 
-// ─── BorderGlow helpers (inlined) ────────────────────────────────────────────
 function parseHSL(hslStr) {
 	const match = hslStr.match(/([\d.]+)\s*([\d.]+)%?\s*([\d.]+)%?/);
 	if (!match) return { h: 40, s: 80, l: 80 };
@@ -28,7 +28,6 @@ function buildBoxShadow(glowColor, intensity) {
 function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
 function easeInCubic(x) { return x * x * x; }
 
-// Returns a cancel fn. onEnd is NOT called if cancelled.
 function animateValue({ start = 0, end = 100, duration = 1000, delay = 0, ease = easeOutCubic, onUpdate, onEnd }) {
 	let cancelled = false;
 	const id = setTimeout(() => {
@@ -58,8 +57,6 @@ function buildMeshGradients(colors) {
 	return gradients;
 }
 
-// ─── Config ───────────────────────────────────────────────────────────────────
-
 const GLOW_CONFIG = {
 	edgeSensitivity: 30,
 	glowColor: '270 80 75',
@@ -71,14 +68,15 @@ const GLOW_CONFIG = {
 	colors: ['#c084fc', '#f472b6', '#38bdf8'],
 };
 
-const SWEEP_LOOP_GAP = 800; // ms pause between loop cycles
+const SWEEP_LOOP_GAP = 800;
 
-// ─── ContactModal ─────────────────────────────────────────────────────────────
+// ─── Bind react-modal to your app root (do this once, near app entry) ─────────
+// ReactModal.setAppElement('#root');
 
 function ContactModal({ show, onHide }) {
 	const cardRef = useRef(null);
-	const cancelsRef = useRef([]);    // cancel fns for in-flight animations
-	const loopRef = useRef(null);  // setTimeout id for next loop
+	const cancelsRef = useRef([]);
+	const loopRef = useRef(null);
 
 	const [isHovered, setIsHovered] = useState(false);
 	const [cursorAngle, setCursorAngle] = useState(45);
@@ -90,7 +88,6 @@ function ContactModal({ show, onHide }) {
 		glowIntensity, coneSpread, fillOpacity, colors,
 	} = GLOW_CONFIG;
 
-	// ── kill everything in flight ──
 	const cancelAll = useCallback(() => {
 		cancelsRef.current.forEach(fn => fn());
 		cancelsRef.current = [];
@@ -98,29 +95,21 @@ function ContactModal({ show, onHide }) {
 		loopRef.current = null;
 	}, []);
 
-	// ── one sweep cycle; schedules itself on completion ──
 	const runSweep = useCallback(() => {
 		const angleStart = 110, angleEnd = 465;
 		setSweepActive(true);
 		setCursorAngle(angleStart);
 
 		const fns = [
-			// fade in proximity
-			animateValue({
-				duration: 500,
-				onUpdate: v => setEdgeProximity(v / 100),
-			}),
-			// first half of rotation (ease-in)
+			animateValue({ duration: 500, onUpdate: v => setEdgeProximity(v / 100) }),
 			animateValue({
 				ease: easeInCubic, duration: 1500, end: 50,
 				onUpdate: v => setCursorAngle((angleEnd - angleStart) * (v / 100) + angleStart),
 			}),
-			// second half of rotation (ease-out)
 			animateValue({
 				ease: easeOutCubic, delay: 1500, duration: 2250, start: 50, end: 100,
 				onUpdate: v => setCursorAngle((angleEnd - angleStart) * (v / 100) + angleStart),
 			}),
-			// fade out proximity → schedule next loop on end
 			animateValue({
 				ease: easeInCubic, delay: 2750, duration: 1500, start: 100, end: 0,
 				onUpdate: v => setEdgeProximity(v / 100),
@@ -134,7 +123,6 @@ function ContactModal({ show, onHide }) {
 		cancelsRef.current = fns;
 	}, []);
 
-	// ── start / stop loop with modal visibility ──
 	useEffect(() => {
 		if (!show) {
 			cancelAll();
@@ -145,9 +133,8 @@ function ContactModal({ show, onHide }) {
 		}
 		runSweep();
 		return () => cancelAll();
-	}, [show]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [show]);
 
-	// ── pointer helpers ──
 	const getCenterOfElement = useCallback((el) => {
 		const { width, height } = el.getBoundingClientRect();
 		return [width / 2, height / 2];
@@ -180,17 +167,16 @@ function ContactModal({ show, onHide }) {
 	}, [getEdgeProximity, getCursorAngle]);
 
 	const handlePointerEnter = useCallback(() => {
-		cancelAll();           // stop the loop
+		cancelAll();
 		setSweepActive(false);
-		setIsHovered(true);    // hand off to mouse tracking
+		setIsHovered(true);
 	}, [cancelAll]);
 
 	const handlePointerLeave = useCallback(() => {
 		setIsHovered(false);
-		runSweep();            // restart loop from the top
+		runSweep();
 	}, [runSweep]);
 
-	// ── derived glow values ──
 	const colorSensitivity = edgeSensitivity + 20;
 	const isVisible = isHovered || sweepActive;
 	const borderOpacity = isVisible
@@ -205,23 +191,23 @@ function ContactModal({ show, onHide }) {
 	const fillBg = meshGradients.map(g => `${g} padding-box`);
 	const angleDeg = `${cursorAngle.toFixed(3)}deg`;
 
-	if (!show) return null;
-
 	const inputClass = 'w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm outline-none transition placeholder:text-white/30 focus:border-white/25 focus:bg-white/10';
 	const inputStyle = { color: 'var(--text-primary, #fff)' };
 
 	return (
-		<div className='fixed inset-0 z-[100] flex items-center justify-center p-4' onClick={onHide}>
-			<div className='absolute inset-0 bg-black/60 backdrop-blur-lg' />
-
-			{/* ── Modal card with inlined BorderGlow ── */}
+		<ReactModal
+			isOpen={show}
+			onRequestClose={onHide}
+			overlayClassName='fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-lg'
+			className='outline-none'
+			closeTimeoutMS={0}
+		>
 			<div
 				ref={cardRef}
 				onPointerMove={handlePointerMove}
 				onPointerEnter={handlePointerEnter}
 				onPointerLeave={handlePointerLeave}
-				onClick={(e) => e.stopPropagation()}
-				className='relative z-10 w-full max-w-5xl max-h-[90vh] isolate grid'
+				className='relative w-full max-w-5xl max-h-[90vh] isolate grid'
 				style={{
 					borderRadius: `${borderRadius}px`,
 					background: 'var(--white-to-black)',
@@ -304,13 +290,13 @@ function ContactModal({ show, onHide }) {
 					/>
 				</span>
 
-				{/* ── actual modal content ── */}
+				{/* ── actual modal content — unchanged ── */}
 				<div className='relative z-[2] flex flex-col overflow-auto'>
-					<button
+					<Button
 						onClick={onHide}
-						className='absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full text-xl leading-none transition hover:bg-white/10 z-10 cursor-pointer'
-						style={{ color: 'var(--text-secondary, #aaa)' }}
-						>✖</button>
+						className='absolute top-4 right-4 flex h-10 w-6 items-center justify-center rounded-full text-xl leading-none transition bg-transparent hover:bg-white/10 z-10 cursor-pointer'
+						style={{ color: 'var(--text-secondary, #aaa)' }}>✖
+					</Button>
 
 					<div className='p-8 md:p-12'>
 						<div className='flex flex-col gap-12 lg:flex-row lg:items-start'>
@@ -342,7 +328,7 @@ function ContactModal({ show, onHide }) {
 					</div>
 				</div>
 			</div>
-		</div>
+		</ReactModal>
 	);
 }
 

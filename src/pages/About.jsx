@@ -68,7 +68,7 @@ const About = () => {
 				<div className='grid grid-cols-1 lg:grid-cols-12 gap-16 text-lg'>
 					<div ref={leftRef} className='lg:col-span-4 space-y-12 self-start'>
 						<section>
-							<h2 className='text-2xl uppercase mb-4'><span className='me-2'>✦</span>Prashant Kamath</h2>
+							<h2 className='text-2xl uppercase mb-4'>Prashant Kamath</h2>
 							<p className='text-gray-400'>I'm a passionate UX/UI designer based in New York, dedicated to creating exceptional user experiences and building innovative products. With years of experience in the industry, I strive to bring value to every project and exceed client expectations.</p>
 						</section>
 						<section className='space-y-4 border-t border-gray-600 pt-8'>
