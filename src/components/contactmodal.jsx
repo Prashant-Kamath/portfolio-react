@@ -196,6 +196,7 @@ function ContactModal({ show, onHide }) {
 
 	return (
 		<ReactModal
+			appElement={document.getElementById('root')}
 			isOpen={show}
 			onRequestClose={onHide}
 			overlayClassName='fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-lg'
