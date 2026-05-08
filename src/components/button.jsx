@@ -4,7 +4,7 @@ import gsap from "gsap";
 const cn = (...classes) => classes.filter(Boolean).join(" ");
 
 const Button = forwardRef(
-	({ icon: Icon, children, onClick, className = "", style, variant = "default", size = "md", tilt = true, ...props }, ref) => {
+	({ icon: Icon, children, onClick, className = "", style, variant = "default", size = "md", tilt = true, disabled = false, ...props }, ref) => {
 		const btnRef = useRef(null);
 		const combinedRef = (node) => {
 			btnRef.current = node;
@@ -12,6 +12,7 @@ const Button = forwardRef(
 			else if (ref) ref.current = node;
 		};
 
+		// Tilt on hover
 		useEffect(() => {
 			if (!tilt) return;
 			const el = btnRef.current;
@@ -48,9 +49,22 @@ const Button = forwardRef(
 				el.removeEventListener("mousemove", handleMouseMove);
 				el.removeEventListener("mouseleave", handleMouseLeave);
 			};
-		}, [tilt]);
+		}, [tilt, disabled]);
+
+		// Click press animation
+		const handleClick = (e) => {
+			if (disabled) return;
+			const el = btnRef.current;
+			if (el) {
+				gsap.timeline()
+					.to(el, { scale: 0.8, duration: 0.1, ease: "power2.in" })
+					.to(el, { scale: 1, ease: "elastic.out(1.2, 0.4)", duration: 0.5 });
+			}
+			onClick?.(e);
+		};
 
 		const baseStyles = "flex items-center gap-2 rounded-full font-bold transition-transform duration-200 ease-out shadow-lg will-change-transform [transform-style:preserve-3d]";
+
 		const variants = {
 			default: "bg-[var(--black-to-white)] text-[var(--white-to-black)]",
 			primary: "bg-blue-500 text-white hover:bg-blue-600",
@@ -64,8 +78,10 @@ const Button = forwardRef(
 			lg: "px-6 py-3 text-base",
 		};
 
+		const disabledStyles = "opacity-40 cursor-not-allowed select-none";
+
 		return (
-			<button ref={combinedRef} onClick={onClick} className={cn(baseStyles, variants[variant], sizes[size], className)} style={style} {...props}>
+			<button ref={combinedRef} onClick={handleClick} disabled={disabled} aria-disabled={disabled} className={cn(baseStyles, variants[variant], sizes[size], disabled && disabledStyles, className)} style={style} {...props}>
 				{Icon && <Icon size={18} />}
 				{children}
 			</button>

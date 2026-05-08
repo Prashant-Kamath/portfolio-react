@@ -200,7 +200,7 @@ function ContactModal({ show, onHide }) {
 			isOpen={show}
 			onRequestClose={onHide}
 			overlayClassName='fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-lg'
-			className='outline-none'
+			className='outline-none animate__animated animate__fadeIn'
 			closeTimeoutMS={0}
 		>
 			<div

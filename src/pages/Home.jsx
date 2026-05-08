@@ -1,7 +1,7 @@
 import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoArrowForwardCircle } from 'react-icons/io5';
-import { Header, Footer } from "../components/HeaderFooter";
+import { Header, Footer } from '../components/HeaderFooter';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Button from '../components/Button';
@@ -46,13 +46,13 @@ export default function Home({ onContactClick }) {
 	const [isTouch, setIsTouch] = useState(false);
 
 	useEffect(() => {
-		const media = window.matchMedia("(pointer: coarse)");
+		const media = window.matchMedia('(pointer: coarse)');
 		setIsTouch(media.matches);
 
 		const handler = (e) => setIsTouch(e.matches);
-		media.addEventListener("change", handler);
+		media.addEventListener('change', handler);
 
-		return () => media.removeEventListener("change", handler);
+		return () => media.removeEventListener('change', handler);
 	}, []);
 
 	useEffect(() => {
@@ -107,12 +107,12 @@ export default function Home({ onContactClick }) {
 					<section className='flex flex-col justify-end'>
 						<Header />
 						<div>
-							<p className="font-black uppercase text-4xl md:text-5xl lg:text-6xl leading-none tracking-tight animate__animated animate__fadeIn ml-1">HI, I&apos;M</p>
-							<h1 className="font-black uppercase leading-none w-full animate__animated animate__fadeIn" style={{ fontSize: "clamp(3rem, 16vw, 13.6rem)" }}>PRASHANT</h1>
+							<p className='font-black uppercase text-4xl md:text-5xl lg:text-6xl leading-none tracking-tight animate__animated animate__fadeIn ml-1'>HI, I&apos;M</p>
+							<h1 className='font-black uppercase leading-none w-full animate__animated animate__fadeIn' style={{ fontSize: 'clamp(3rem, 16vw, 13.6rem)' }}>PRASHANT</h1>
 						</div>
-						<h1 className="leading-[0.88] my-12 animate__animated animate__fadeIn" style={{ fontFamily: '"DMSerifDisplay-Regular", serif', fontSize: "clamp(2rem, 5vw, 4rem)" }}>
-							<span className="block mb-4 font-thin">Crafting<span style={{ color: "var(--accent)", fontWeight: "700" }}>{" bold"}<span className="animate-blink">_</span></span></span>
-							<span className="block font-thin">Digital<span className="text-neutral-600"> things.</span></span>
+						<h1 className='leading-[0.88] my-12 animate__animated animate__fadeIn' style={{ fontFamily: '"DMSerifDisplay-Regular", serif', fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
+							<span className='block mb-4 font-thin'>Crafting<span style={{ color: 'var(--accent)', fontWeight: '700' }}>{' bold'}<span className='animate-blink'>_</span></span></span>
+							<span className='block font-thin'>Digital<span className='text-neutral-600'> things.</span></span>
 						</h1>
 						<div className='flex items-end justify-between py-10 my-2 border-t border-neutral-800 animate__animated animate__fadeIn'>
 							<p className='text-sm text-neutral-500 max-w-xs leading-relaxed'>

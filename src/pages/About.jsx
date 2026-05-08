@@ -4,11 +4,12 @@ import Button from '../components/Button';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { IoDownload } from 'react-icons/io5';
-import { Header, Footer } from "../components/HeaderFooter";
+import { Header, Footer } from '../components/HeaderFooter';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'animate.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,7 +55,7 @@ const About = () => {
 		<div className='relative' style={{ backgroundImage: 'linear-gradient(to right, rgba(158,158,158,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158,158,158,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: 'top left', }}>
 			<div className='max-w-7xl mx-auto p-4 md:p-8'>
 				<Header />
-				<header ref={headerRef} className='border-b border-white pb-22 mt-22 mb-12 flex flex-col-reverse md:flex-row justify-between items-center gap-8'>
+				<header ref={headerRef} className='border-b border-white pb-22 mt-22 mb-12 flex flex-col-reverse md:flex-row justify-between items-center gap-8 animate__animated animate__fadeIn'>
 					<h1 className='text-5xl md:text-8xl font-bold leading-tightest tracking-tight uppercase'>
 						Innovative Designer <br />
 						Driven<span className='font-extralight text-[var(--accent)]'> by Creavity.</span>
@@ -66,7 +67,7 @@ const About = () => {
 					</div>
 				</header>
 				<div className='grid grid-cols-1 lg:grid-cols-12 gap-16 text-lg'>
-					<div ref={leftRef} className='lg:col-span-4 space-y-12 self-start'>
+					<div ref={leftRef} className='lg:col-span-4 space-y-12 self-start animate__animated animate__fadeIn'>
 						<section>
 							<h2 className='text-2xl uppercase mb-4'>Prashant Kamath</h2>
 							<p className='text-gray-400'>I'm a passionate UX/UI designer based in New York, dedicated to creating exceptional user experiences and building innovative products. With years of experience in the industry, I strive to bring value to every project and exceed client expectations.</p>
@@ -90,7 +91,7 @@ const About = () => {
 							{isModalOpen && (<ResumeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />)}
 						</Suspense>
 					</div>
-					<div className='lg:col-span-8 space-y-12'>
+					<div className='lg:col-span-8 space-y-12 animate__animated animate__fadeIn'>
 						<section>
 							<h3 className='flex items-center gap-4 mb-4'>
 								<span className='uppercase border-b border-white pb-4 mb-4 w-full'><span className='me-2'>✦</span>Work Experience</span>

@@ -6,7 +6,7 @@ export function Header() {
 		<header>
 			<div className="flex justify-between items-center mb-8 pb-5 animate__animated animate__fadeIn">
 				<p className="text-xs text-neutral-500 uppercase tracking-tightest">Creative Studio / Digital Craft</p>
-				<Button className="font-normal flex items-center justify-center transition-all duration-300 text-xs px-3 py-1 gap-2 md:text-sm md:px-4 md:py-2 cursor-svg" style={{ color: "white", background: "var(--background-color)", border: "2px solid rgba(255, 255, 255, 0.5)", filter: "drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.25))", animation: "flickering 2s linear infinite both", }}>
+				<Button disabled className="font-normal flex items-center justify-center transition-all duration-300 text-xs px-3 py-1 gap-2 md:text-sm md:px-4 md:py-2 cursor-svg" style={{ color: "white", background: "var(--background-color)", border: "2px solid rgba(255, 255, 255, 0.5)", filter: "drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.25))", animation: "flickering 2s linear infinite both", }}>
 					<span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-600 opacity-80 animate-pulse" />Available for work
 				</Button>
 			</div>
