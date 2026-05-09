@@ -3,6 +3,7 @@ import logo from "../assets/logo-white.webp";
 import { IoHome, IoFolder, IoPerson, IoMail, IoAt, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter, IoLogoInstagram, IoClose, IoAppsSharp } from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "./Button";
+import gsap from "gsap";
 
 const BASE = 48;
 const PEAK = 76;
@@ -49,7 +50,8 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 	);
 
 	useEffect(() => { if (isCanvasMode) setIsCanvasMode(false); }, [location.pathname]);
-	useEffect(() => { if (!knowMoreOpen) return;
+	useEffect(() => {
+		if (!knowMoreOpen) return;
 		const handle = (e) => {
 			if (e.target.closest("[data-knowmore-trigger]")) return;
 			if (popoverRef.current && !popoverRef.current.contains(e.target)) { setKnowMoreOpen(false); }
@@ -60,10 +62,25 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 
 	const navbarBottom = 24 + 68 + 12; // 104px — just above the main dock
 	const socialDockHeight = BASE + 40;  // ~60px — height of the social pill + gap
-	const exitCanvasBottom = knowMoreOpen
-		? navbarBottom + socialDockHeight
-		: navbarBottom;
+	const exitCanvasBottom = knowMoreOpen ? navbarBottom + socialDockHeight : navbarBottom;
 
+	const buttonRefs = useRef({});
+	const animatePress = (id) => {
+		const el = buttonRefs.current[id];
+		if (!el) return;
+		gsap.killTweensOf(el);
+		gsap.timeline()
+			.to(el, {
+				scale: 0.8,
+				duration: 0.08,
+				ease: "power2.out",
+			})
+			.to(el, {
+				scale: 1,
+				duration: 0.45,
+				ease: "elastic.out(1, 0.4)",
+			});
+	};
 	return (
 		<>
 			<div ref={popoverRef} style={{ backgroundColor: "var(--dock-bg)", borderColor: "var(--dock-border)", boxShadow: "0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)", bottom: "calc(24px + 68px + 12px)", left: "50%", transform: "translateX(-50%)", transformOrigin: "bottom center", opacity: knowMoreOpen ? 1 : 0, scale: knowMoreOpen ? "1" : "0.92", pointerEvents: knowMoreOpen ? "all" : "none", transition: "opacity 220ms cubic-bezier(.4,0,.2,1), scale 220ms cubic-bezier(.4,0,.2,1)", }} className="fixed z-40 flex items-center gap-3 rounded-full border px-5 py-3 backdrop-blur-md">
@@ -93,12 +110,6 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 			)}
 
 			<nav style={{ backgroundColor: "var(--dock-bg)", borderColor: "var(--dock-border)", boxShadow: "0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)", }} className="fixed bottom-6 left-1/2 z-50 flex h-[68px] -translate-x-1/2 items-end gap-4 rounded-full border px-6 py-2 backdrop-blur-md">
-				{/* <div className="flex items-center self-center">
-					<img src={logoSrc} alt="Logo" className="h-[35px] w-[35px]" />
-				</div>
-
-				<div className="h-8 w-px shrink-0 self-center opacity-30" style={{ backgroundColor: "var(--text-secondary)" }} /> */}
-
 				{dockItems.map((item, index) => {
 					const size = sizes[index];
 					const scale = iconScale(size);
@@ -108,7 +119,7 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 					const Icon = item.icon;
 
 					return (
-						<button key={item.id} data-knowmore-trigger={isKnowMore ? true : undefined} onMouseEnter={() => setHoveredIndex(index)} onMouseLeave={() => setHoveredIndex(null)}
+						<button ref={(el) => (buttonRefs.current[item.id] = el)} key={item.id} data-knowmore-trigger={isKnowMore ? true : undefined} onMouseEnter={() => setHoveredIndex(index)} onMouseLeave={() => setHoveredIndex(null)} onMouseDown={() => animatePress(item.id)} onTouchStart={() => animatePress(item.id)}
 							onClick={() => {
 								if (isKnowMore) { setKnowMoreOpen((prev) => !prev); }
 								else if (item.onClick) { item.onClick(); }
