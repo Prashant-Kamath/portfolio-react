@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef, useEffect } from "react";
+import { useMemo, useState, useRef, useEffect, useCallback } from "react";
 import logo from "../assets/logo-white.webp";
 import { IoHome, IoFolder, IoPerson, IoMail, IoAt, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter, IoLogoInstagram, IoClose, IoAppsSharp } from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -40,16 +40,23 @@ function iconScale(size) {
 export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContactClick, isCanvasMode, setIsCanvasMode }) {
 	const [hoveredIndex, setHoveredIndex] = useState(null);
 	const [knowMoreOpen, setKnowMoreOpen] = useState(false);
+	const [isPhone, setIsPhone] = useState(() => window.matchMedia("(max-width: 767px)").matches);
 	const popoverRef = useRef(null);
 	const navigate = useNavigate();
 	const location = useLocation();
 	const dockItems = useMemo(() => buildDockItems(onContactClick), [onContactClick]);
 	const sizes = useMemo(
-		() => dockItems.map((_, i) => sizeForIndex(i, hoveredIndex)),
-		[hoveredIndex, dockItems]
+		() => dockItems.map((_, i) => sizeForIndex(i, isPhone ? null : hoveredIndex)),
+		[hoveredIndex, dockItems, isPhone]
 	);
 
 	useEffect(() => { if (isCanvasMode) setIsCanvasMode(false); }, [location.pathname]);
+	useEffect(() => {
+		const mq = window.matchMedia("(max-width: 767px)");
+		const handler = (e) => setIsPhone(e.matches);
+		mq.addEventListener("change", handler);
+		return () => mq.removeEventListener("change", handler);
+	}, []);
 	useEffect(() => {
 		if (!knowMoreOpen) return;
 		const handle = (e) => {
@@ -119,7 +126,7 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 					const Icon = item.icon;
 
 					return (
-						<button ref={(el) => (buttonRefs.current[item.id] = el)} key={item.id} data-knowmore-trigger={isKnowMore ? true : undefined} onMouseEnter={() => setHoveredIndex(index)} onMouseLeave={() => setHoveredIndex(null)} onMouseDown={() => animatePress(item.id)} onTouchStart={() => animatePress(item.id)}
+						<button ref={(el) => (buttonRefs.current[item.id] = el)} key={item.id} data-knowmore-trigger={isKnowMore ? true : undefined} onMouseEnter={() => setHoveredIndex(index)} onMouseLeave={() => setHoveredIndex(null)} onMouseDown={() => animatePress(item.id)} onTouchStart={() => { setHoveredIndex(index); animatePress(item.id); }} onTouchEnd={() => setTimeout(() => setHoveredIndex(null), 300)}
 							onClick={() => {
 								if (isKnowMore) { setKnowMoreOpen((prev) => !prev); }
 								else if (item.onClick) { item.onClick(); }

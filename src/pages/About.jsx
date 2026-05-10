@@ -197,7 +197,7 @@ const About = () => {
 						<section>
 							<h3 className='mb-4 uppercase border-b border-white pb-4 w-full'>Education</h3>
 							<section className='w-full pt-8'>
-								<Swiper className='cursor-grab active:cursor-grabbing' spaceBetween={40} slidesPerView={3} mousewheel={{ passive: true }} onSwiper={(swiper) => (window.educationSwiper = swiper)} breakpoints={{ 320: { slidesPerView: 1 }, 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }}>
+								<Swiper className='cursor-grab active:cursor-grabbing' spaceBetween={40} slidesPerView={3} mousewheel={{ passive: true }} onSwiper={(swiper) => (window.educationSwiper = swiper)} breakpoints={{ 320: { slidesPerView: 2 }, 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }}>
 									{timelineData.map((item, index) => (
 										<SwiperSlide key={index}>
 											<div className='px-2'>
