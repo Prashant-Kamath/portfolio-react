@@ -18,16 +18,29 @@ const projects = worksData
 function Ruler() {
 	const TICKS = 80;
 	return (
-		<div className='relative w-full h-8 border-b border-[#222] overflow-hidden flex items-start pt-1'>
-			<div className='flex w-full'>
-				{Array.from({ length: TICKS }).map((_, i) => (
-					<div key={i} style={{ width: `${100 / TICKS}%`, height: i % 10 === 0 ? '16px' : '8px', borderLeft: `1px solid ${i % 10 === 0 ? '#888' : '#333'}`, flexShrink: 0 }} />
-				))}
+		<div className='relative w-full h-8 border-b border-[#222] overflow-hidden'>
+			<div className='flex w-full h-full items-start pt-1'>
+				{Array.from({ length: TICKS }).map((_, i) => {
+					const major = i % 10 === 0;
+					return (
+						<div key={i} className='relative flex-shrink-0' style={{ width: `${100 / TICKS}%`, height: major ? '16px' : '8px', borderLeft: `1px solid ${major ? '#777' : '#2f2f2f'}` }} />
+					);
+				})}
 			</div>
-			<div className='absolute top-4 left-0 w-full flex justify-around px-[10%]'>
-				{['-02', '-01', '00', '01', '02'].map((l) => (
-					<span key={l} className='text-[#555] text-[9px] font-mono tracking-widest'>
-						{l}
+			<div className='absolute inset-0 pointer-events-none'>
+				{[
+					{ label: '-04', tick: 0 },
+					{ label: '-03', tick: 10 },
+					{ label: '-02', tick: 20 },
+					{ label: '-01', tick: 30 },
+					{ label: '00', tick: 40 },
+					{ label: '01', tick: 50 },
+					{ label: '02', tick: 60 },
+					{ label: '03', tick: 70 },
+					{ label: '04', tick: 80 },
+				].map((item) => (
+					<span key={item.label} className='absolute text-[9px] text-[#555] tracking-widest' style={{ left: `${(item.tick / TICKS) * 100}%`, top: '18px', transform: 'translateX(-50%)' }}>
+						{item.label}
 					</span>
 				))}
 			</div>
@@ -131,7 +144,7 @@ export default function Home({ onContactClick }) {
 						</div>
 					</div>
 				</div>
-				<div className='pointer-events-none absolute bottom-0 left-0 w-full' style={{ height: '240px', background: 'linear-gradient(to top, var(--background-color), transparent)', }} />
+				<div className='pointer-events-none absolute bottom-0 left-0 w-full' style={{ height: '240px', background: 'linear-gradient(to top, var(--background-color), transparent)'}} />
 			</div>
 
 			{/* WORKS */}
@@ -141,24 +154,19 @@ export default function Home({ onContactClick }) {
 					<div className='grid grid-cols-1 md:grid-cols-2 gap-12 items-start'>
 						<div>
 							<h2 className='text-5xl md:text-6xl mb-8' style={{ fontFamily: '"DMSerifDisplay-Regular", serif' }}>Selected <br /> Works</h2>
-							<ul className='divide-y divide-white/10'>
+							<ul>
 								{projects.map((project, i) => {
 									const isHovered = hoveredIndex === i;
 									const isOtherHovered = hoveredIndex !== null && hoveredIndex !== i;
 									const isActive = activeIndex === i;
 									const handleClick = () => {
-										if (isTouch) {
-											setActiveIndex(prev => (prev === i ? null : i));
-										}
+										if (isTouch) {setActiveIndex(prev => (prev === i ? null : i));}
 									};
 									return (
 										<li key={i} onMouseEnter={() => !isTouch && setHoveredIndex(i)} onMouseLeave={() => !isTouch && setHoveredIndex(null)}
 											onClick={() => {
-												if (isTouch) {
-													setActiveIndex(prev => (prev === i ? null : i));
-												} else if (project.slug) {
-													navigate(`/works/${project.slug}`);  // ← slug-based
-												}
+												if (isTouch) {setActiveIndex(prev => (prev === i ? null : i));}
+												else if (project.slug) {navigate(`/works/${project.slug}`);}
 											}}
 											className={`flex flex-col py-4 cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group ${!isTouch && isOtherHovered ? 'opacity-30' : 'opacity-100'}`}>
 											<div className='flex items-center justify-between'>
@@ -230,9 +238,10 @@ export default function Home({ onContactClick }) {
 					</span>
 					<div className='flex justify-center items-center mt-5 mb-8'>
 						<a onClick={onContactClick} ref={buttonRef} className='z-10 flex items-center no-underline'>
-							<Button className='font-bold flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 cursor-pointer' style={{ color: 'white', background: 'var(--background-color)', border: '2px solid rgba(255, 255, 255, 1)', filter: 'drop-shadow(0px 0px 20px rgba(26, 26, 26, 0.8))' }}>
-								<span className='text-base px-3 py-1 md:text-2xl md:px-4 md:py-2'>CONTACT</span>
-								<IoArrowForwardCircle className='w-8 h-8 md:w-16 md:h-16 text-[var(--accent)]' />
+							<Button className='group relative overflow-hidden font-bold flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 cursor-pointer border-2 border-white transition-all duration-300 ease-out hover:scale-[1.03] active:scale-[0.98]' style={{ color: 'white', background: 'var(--background-color)', filter: 'drop-shadow(0px 0px 20px rgba(26, 26, 26, 0.8))', }}>
+								<span className='absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0' style={{ background: 'var(--accent)', }} />
+								<span className='relative z-10 text-base px-3 py-1 md:text-2xl md:px-4 md:py-2 transition-colors duration-300 group-hover:text-black'>CONTACT</span>
+								<IoArrowForwardCircle className='relative z-10 w-8 h-8 md:w-16 md:h-16 text-[var(--accent)] group-hover:text-black group-hover:translate-x-1 transition-all duration-300' />
 							</Button>
 						</a>
 					</div>

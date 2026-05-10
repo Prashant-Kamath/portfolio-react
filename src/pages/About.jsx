@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState, Suspense, lazy } from 'react';
+import React, { useLayoutEffect, useRef, useState, Suspense, lazy, useEffect } from 'react';
 import Modal from 'react-modal';
 import Button from '../components/Button';
 import gsap from 'gsap';
@@ -13,36 +13,86 @@ import 'animate.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const WavePath = ({ className = '', strokeWidth = 2 }) => {
+
+	const wrapperRef = useRef(null);
+	const pathRef = useRef(null);
+	const progressRef = useRef(0);
+	const xRef = useRef(0.5);
+	const timeRef = useRef(Math.PI / 2);
+	const rafRef = useRef(null);
+
+	useEffect(() => {
+		updatePath(0);
+		const handleResize = () => { updatePath(progressRef.current); };
+		window.addEventListener('resize', handleResize);
+		return () => {
+			window.removeEventListener('resize', handleResize);
+			if (rafRef.current) { cancelAnimationFrame(rafRef.current); }
+		};
+	}, []);
+
+	const lerp = (start, end, amount) => start * (1 - amount) + end * amount;
+	const updatePath = (progress) => {
+		if (!pathRef.current || !wrapperRef.current) return;
+		const width = wrapperRef.current.offsetWidth;
+		pathRef.current.setAttribute('d', `M0 100 Q${width * xRef.current} ${100 + progress * 0.6}, ${width} 100`);
+	};
+
+	const resetAnimation = () => {
+		progressRef.current = 0;
+		timeRef.current = Math.PI / 2;
+	};
+
+	const animateOut = () => {
+		const progress = progressRef.current * Math.sin(timeRef.current);
+		progressRef.current = lerp(progressRef.current, 0, 0.025);
+		timeRef.current += 0.2;
+		updatePath(progress);
+		if (Math.abs(progressRef.current) > 0.75) { rafRef.current = requestAnimationFrame(animateOut); }
+		else { resetAnimation(); }
+	};
+
+	const handleMouseEnter = () => {
+		if (rafRef.current) cancelAnimationFrame(rafRef.current);
+		resetAnimation();
+	};
+
+	const handleMouseMove = (e) => {
+		if (!pathRef.current) return;
+		const { movementY, clientX } = e;
+		const bounds = pathRef.current.getBoundingClientRect();
+		xRef.current = (clientX - bounds.left) / bounds.width;
+		progressRef.current += movementY * 0.6;
+		updatePath(progressRef.current);
+	};
+
+	const handleMouseLeave = () => {
+		animateOut();
+	};
+
+	return (
+		<div ref={wrapperRef} className={`relative h-px w-full overflow-visible ${className}`}>
+			<div onMouseEnter={handleMouseEnter} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className='absolute left-0 top-[-20px] z-10 h-[40px] w-full cursor-pointer md:top-[-120px] md:h-[240px]' />
+			<svg className='pointer-events-none absolute left-0 top-[-100px] h-[300px] w-full overflow-visible'>
+				<path ref={pathRef} className='fill-none stroke-current' strokeWidth={strokeWidth} />
+			</svg>
+		</div>
+	);
+};
+
 const About = () => {
 	const headerRef = useRef(null);
 	const footerRef = useRef(null);
 	const leftRef = useRef(null);
-
-	const skills = [
-		{ name: 'UI / UX' }, { name: 'WEB DESGIN / DEV' }, { name: 'GRAPHIC DESIGN' },
-	];
-
 	const ResumeModal = lazy(() => import('../components/ResumeModal'));
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-	useLayoutEffect(() => {
-		const ctx = gsap.context(() => {
-			const mm = gsap.matchMedia();
-			mm.add('(min-width: 1024px)', () => {
-				ScrollTrigger.create({
-					trigger: headerRef.current,
-					start: 'bottom top',
-					endTrigger: footerRef.current,
-					end: 'top 600',
-					pin: leftRef.current,
-					pinSpacing: false,
-					markers: false,
-				});
-			});
-		}, headerRef);
-		return () => ctx.revert();
-	}, []);
+	const skills = [
+		{ name: 'UI / UX' },
+		{ name: 'WEB DESIGN / DEV' },
+		{ name: 'GRAPHIC DESIGN' },
+	];
 
 	const timelineData = [
 		{ year: '2001', title: 'Terrified Rachael', desc: 'There was something in the tree...' },
@@ -51,26 +101,54 @@ const About = () => {
 		{ year: '2006', title: 'Hope', desc: 'Hopes and dreams were dashed that day...' },
 	];
 
+	useLayoutEffect(() => {
+		const ctx = gsap.context(() => {
+			const mm = gsap.matchMedia();
+
+			mm.add('(min-width: 1024px)', () => {
+				ScrollTrigger.create({
+					trigger: headerRef.current,
+					start: 'bottom top',
+					endTrigger: footerRef.current,
+					end: 'top 700',
+					pin: leftRef.current,
+					pinSpacing: false,
+					markers: false,
+				});
+			});
+		}, headerRef);
+
+		return () => ctx.revert();
+	}, []);
+
 	return (
-		<div className='relative' style={{ backgroundImage: 'linear-gradient(to right, rgba(158,158,158,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158,158,158,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: 'top left', }}>
+		<div className='relative' style={{ backgroundImage: 'linear-gradient(to right, rgba(158,158,158,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158,158,158,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: 'top left' }}>
 			<div className='max-w-7xl mx-auto p-4 md:p-8'>
 				<Header />
-				<header ref={headerRef} className='border-b border-white pb-22 mt-22 mb-12 flex flex-col-reverse md:flex-row justify-between items-center gap-8 animate__animated animate__fadeIn'>
-					<h1 className='text-5xl md:text-8xl font-bold leading-tightest tracking-tight uppercase'>
-						Innovative Designer <br />
-						Driven<span className='font-extralight text-[var(--accent)]'> by Creavity.</span>
-					</h1>
-					<div className='relative'>
+				<header className='mt-14 mb-12 flex flex-col-reverse items-center justify-between gap-10 animate__animated animate__fadeIn md:flex-row'>
+					<div className='w-full flex-1'>
+						<h1 className='text-5xl font-bold uppercase tracking-tight md:text-8xl'>
+							Innovative Designer<br />Driven<span className='font-extralight text-[var(--accent)]'> by Creativity.</span>
+						</h1>
+					</div>
+					<div className='relative shrink-0'>
 						<div className='w-32 h-32 md:w-40 md:h-40 rounded-full bg-black overflow-hidden border-4 border-gray-600'>
 							<img src='/api/placeholder/160/160' alt='Prashant Kamath' className='w-full h-full object-cover' />
 						</div>
 					</div>
 				</header>
+				<div ref={headerRef} className='mb-12 text-white/60'>
+					<WavePath />
+				</div>
+
 				<div className='grid grid-cols-1 lg:grid-cols-12 gap-16 text-lg'>
 					<div ref={leftRef} className='lg:col-span-4 space-y-12 self-start animate__animated animate__fadeIn'>
 						<section>
 							<h2 className='text-2xl uppercase mb-4'>Prashant Kamath</h2>
-							<p className='text-gray-400'>I'm a passionate UX/UI designer based in New York, dedicated to creating exceptional user experiences and building innovative products. With years of experience in the industry, I strive to bring value to every project and exceed client expectations.</p>
+							<p className='text-gray-400'>
+								I'm a passionate UX/UI designer based in New York, dedicated to creating exceptional user experiences and building innovative products.
+								With years of experience in the industry, I strive to bring value to every project and exceed client expectations.
+							</p>
 						</section>
 						<section className='space-y-4 border-t border-gray-600 pt-8'>
 							<div className='flex justify-between border-b border-gray-600 py-2'>
@@ -86,11 +164,13 @@ const About = () => {
 								<span className='text-right text-gray-400'>MAAC</span>
 							</div>
 						</section>
-						<Button onClick={toggleModal} className='cursor-pointer w-full flex items-center justify-center gap-2'><IoDownload size={20} />Download My Resume</Button>
+						<Button onClick={toggleModal} className='cursor-pointer w-full flex items-center justify-center gap-2'>
+							<IoDownload size={20} />Download My Resume</Button>
 						<Suspense fallback={null}>
-							{isModalOpen && (<ResumeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />)}
+							{isModalOpen && <ResumeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
 						</Suspense>
 					</div>
+
 					<div className='lg:col-span-8 space-y-12 animate__animated animate__fadeIn'>
 						<section>
 							<h3 className='flex items-center gap-4 mb-4'>
@@ -116,35 +196,24 @@ const About = () => {
 						</section>
 						<section>
 							<h3 className='mb-4 uppercase border-b border-white pb-4 w-full'>Education</h3>
-							<section className='w-full pt-8 '>
-								<Swiper className='cursor-grab active:cursor-grabbing' spaceBetween={40} slidesPerView={3} mousewheel={{ passive: true }} onSwiper={(swiper) => (window.educationSwiper = swiper)}
-									breakpoints={{
-										320: { slidesPerView: 1 },
-										768: { slidesPerView: 2 },
-										1024: { slidesPerView: 3 },
-									}}>
+							<section className='w-full pt-8'>
+								<Swiper className='cursor-grab active:cursor-grabbing' spaceBetween={40} slidesPerView={3} mousewheel={{ passive: true }} onSwiper={(swiper) => (window.educationSwiper = swiper)} breakpoints={{ 320: { slidesPerView: 1 }, 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }}>
 									{timelineData.map((item, index) => (
 										<SwiperSlide key={index}>
 											<div className='px-2'>
 												<div className='flex items-center gap-4 mb-4'>
-													<span className='text-3xl font-bold'>
-														{item.year}
-													</span>
+													<span className='text-3xl font-bold'>{item.year}</span>
 													<div className='flex-1 h-px bg-gray-400'></div>
 												</div>
-												<h4 className='text-sm text-gray-400 mb-2'>
-													{item.title}
-												</h4>
-												<p className='text-sm text-gray-400 leading-relaxed max-w-[240px]'>
-													{item.desc}
-												</p>
+												<h4 className='text-sm text-gray-400 mb-2'>{item.title}</h4>
+												<p className='text-sm text-gray-400 leading-relaxed max-w-[240px]'>{item.desc}</p>
 											</div>
 										</SwiperSlide>
 									))}
 								</Swiper>
 								<div className='flex justify-between mt-10 text-black'>
-									<Button onClick={() => window.educationSwiper?.slidePrev()} className='cursor-pointer rounded-full px-6 py-3 text-xs font-semibold uppercase hover:bg-yellow-500 transition duration-300' style={{ background: 'var(--accent)' }}>Previous</Button>
-									<Button onClick={() => window.educationSwiper?.slideNext()} className='cursor-pointer rounded-full px-6 py-3 text-xs font-semibold uppercase hover:bg-yellow-500 transition duration-300' style={{ background: 'var(--accent)' }}>Next</Button>
+									<Button onClick={() => window.educationSwiper?.slidePrev()} className='cursor-pointer rounded-full px-6 py-3 text-xs font-semibold uppercase transition duration-300' style={{ background: 'var(--accent)' }}>Previous</Button>
+									<Button onClick={() => window.educationSwiper?.slideNext()} className='cursor-pointer rounded-full px-6 py-3 text-xs font-semibold uppercase transition duration-300' style={{ background: 'var(--accent)' }}>Next</Button>
 								</div>
 							</section>
 						</section>
@@ -163,6 +232,7 @@ const About = () => {
 						</section>
 					</div>
 				</div>
+
 				<footer ref={footerRef} className='mt-14'>
 					<Footer />
 				</footer>
