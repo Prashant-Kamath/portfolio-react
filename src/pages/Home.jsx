@@ -15,6 +15,68 @@ const projects = worksData
 	.filter(w => w.selected)
 	.map(w => ({ name: w.title, type: w.selectedType, year: w.date, gif: w.image, size: w.size, tags: w.tags, slug: w.slug }));
 
+function FaceCard() {
+	return (
+		<>
+			<style>
+				{`
+					.face-wrap { zoom: 0.8; z-index: 10; }
+					.face { position: relative; rotate:5deg; width: 300px; height: 350px; background: linear-gradient(180deg, #452824 184px, #f2bbad 34px); border-top-right-radius: 250px 350px; border-top-left-radius: 250px 350px; border-bottom-left-radius: 250px 250px; border-bottom-right-radius: 250px 250px; border: 5px solid black; }
+					.face-hairs { height: 180px; background-color: #f2bbad; position: absolute; width: 290px; border-top-right-radius: 250px 350px; border-top-left-radius: 250px 350px; top: 25px; }
+					.face-snow { transform: translateX(150px); transform-origin: right; }
+					.mountain-cap { position: absolute; top: 20px; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 40px solid #452824; }
+					.mountain-cap-1 { left: -65px; }
+					.mountain-cap-2 { left: -35px; }
+					.mountain-cap-3 { left: -5px; }
+					.mountain-cap-4 { left: 25px; }
+					.face-earL { border-top-right-radius: 250px 350px; border-top-left-radius: 250px 350px; border-bottom-left-radius: 250px 250px; border-bottom-right-radius: 250px 250px; height: 70px; width: 50px; background-color: #f2bbad; position: absolute; left: -30px; top: 150px; z-index: -1; border: 5px solid black; }
+					.face-earR { border-top-right-radius: 250px 350px; border-top-left-radius: 250px 350px; border-bottom-left-radius: 250px 250px; border-bottom-right-radius: 250px 250px; height: 70px; width: 50px; background-color: #f2bbad; position: absolute; right: -30px; top: 150px; z-index: -4; border: 5px solid black; }
+					.face-eyeR { border-top-right-radius: 250px 350px; border-top-left-radius: 250px 350px; border-bottom-left-radius: 250px 250px; border-bottom-right-radius: 250px 250px; height: 10px; width: 10px; background-color: black; position: absolute; left: 128px; top: 120px; z-index: 2; animation: faceBlink 5s infinite linear; }
+					.face-eyeL { border-top-right-radius: 250px 350px; border-top-left-radius: 250px 350px; border-bottom-left-radius: 250px 250px; border-bottom-right-radius: 250px 250px; height: 10px; width: 10px; background-color: black; position: absolute; right: 128px; top: 120px; z-index: 2; animation: faceBlink 5s infinite linear; }
+					@keyframes faceBlink { 98% { height: 10px; width: 10px; } 100% { height: 3px; width: 11px; } }
+					.face-mouth { position: absolute; top: 300px; left: 140px; background: #a36655; width: 25px; height: 18px; border: 5px solid black; border-radius: 50%; transition: all .3s linear; }
+					.face:active .face-mouth { top: 290px; width: 60px; height: 25px; left: 123px; border-radius: 7px 7px 130px 130px; }
+					.face-smileL { position: absolute; height: 0px; width: 0px; rotate: 310deg; top: 180px; left: 70px; transition: all .1s linear; }
+					.face-smileR { position: absolute; height: 0px; width: 0px; rotate: 310deg; top: 180px; right: 70px; transition: all .1s linear; }
+					.face:active .face-smileL, .face:active .face-smileR { height: 30px; width: 30px; }
+				`}
+			</style>
+			<div className='face-wrap'>
+				<div className='face'>
+					<div className='face-earL' />
+					<div className='face-earR' />
+					<div className='face-eyeL' />
+					<div className='face-eyeR' />
+					<div className='face-hairs' />
+					<div className='face-mouth' />
+					<div className='face-smileL'>
+						<svg xmlSpace='preserve' viewBox='0 0 65 65' xmlns='http://www.w3.org/2000/svg'>
+							<filter id='blurMe1'><feGaussianBlur in='SourceGraphic' stdDeviation={2} /></filter>
+							<path d='M25 19c-6 2-12 4-18 5-2 0-4-2-6-3 1-1 2-3 3-4 11-3 22-7 32-10 2-1 4 1 6 2-1 1-2 4-3 4-4 2-9 4-14 6z' fill='#EF7F71' filter='url(#blurMe1)' />
+							<path d='M35 35c-6 2-12 4-18 5-2 0-4-2-6-3 1-1 2-3 3-4 11-3 22-7 32-10 2-1 4 1 6 2-1 1-2 4-3 4-4 2-9 4-14 6z' fill='#EF7F71' filter='url(#blurMe1)' />
+							<path d='M45 50c-6 2-12 4-18 5-2 0-4-2-6-3 1-1 2-3 3-4 11-3 22-7 32-10 2-1 4 1 6 2-1 1-2 4-3 4-4 2-9 4-14 6z' fill='#EF7F71' filter='url(#blurMe1)' />
+						</svg>
+					</div>
+					<div className='face-smileR'>
+						<svg xmlSpace='preserve' viewBox='0 0 65 65' xmlns='http://www.w3.org/2000/svg'>
+							<filter id='blurMe2'><feGaussianBlur in='SourceGraphic' stdDeviation={2} /></filter>
+							<path d='M25 19c-6 2-12 4-18 5-2 0-4-2-6-3 1-1 2-3 3-4 11-3 22-7 32-10 2-1 4 1 6 2-1 1-2 4-3 4-4 2-9 4-14 6z' fill='#EF7F71' filter='url(#blurMe2)' />
+							<path d='M35 35c-6 2-12 4-18 5-2 0-4-2-6-3 1-1 2-3 3-4 11-3 22-7 32-10 2-1 4 1 6 2-1 1-2 4-3 4-4 2-9 4-14 6z' fill='#EF7F71' filter='url(#blurMe2)' />
+							<path d='M45 50c-6 2-12 4-18 5-2 0-4-2-6-3 1-1 2-3 3-4 11-3 22-7 32-10 2-1 4 1 6 2-1 1-2 4-3 4-4 2-9 4-14 6z' fill='#EF7F71' filter='url(#blurMe2)' />
+						</svg>
+					</div>
+					<div className='face-snow'>
+						<div className='mountain-cap mountain-cap-1' />
+						<div className='mountain-cap mountain-cap-2' />
+						<div className='mountain-cap mountain-cap-3' />
+						<div className='mountain-cap mountain-cap-4' />
+					</div>
+				</div>
+			</div>
+		</>
+	);
+}
+
 function Ruler() {
 	const TICKS = 80;
 	return (
@@ -61,19 +123,15 @@ export default function Home({ onContactClick }) {
 	useEffect(() => {
 		const media = window.matchMedia('(pointer: coarse)');
 		setIsTouch(media.matches);
-
 		const handler = (e) => setIsTouch(e.matches);
 		media.addEventListener('change', handler);
-
 		return () => media.removeEventListener('change', handler);
 	}, []);
 
 	useEffect(() => {
 		const ctx = gsap.context(() => {
 			gsap.utils.toArray('.marquee-track').forEach((el) => {
-				gsap.to(el, {
-					x: '-50%', duration: 18, ease: 'none', repeat: -1,
-				});
+				gsap.to(el, { x: '-50%', duration: 18, ease: 'none', repeat: -1 });
 			});
 		});
 		return () => ctx.revert();
@@ -93,19 +151,14 @@ export default function Home({ onContactClick }) {
 			const centerY = btnRect.height / 2;
 			const x = clientX - (button.offsetLeft + footerRect.left) - centerX;
 			const y = clientY - (button.offsetTop + footerRect.top) - centerY;
-
 			xTo(x);
 			yTo(y);
 		};
 
-		const handleMouseLeave = () => {
-			xTo(0);
-			yTo(0);
-		};
+		const handleMouseLeave = () => { xTo(0); yTo(0); };
 
 		footer.addEventListener('mousemove', handleMouseMove);
 		footer.addEventListener('mouseleave', handleMouseLeave);
-
 		return () => {
 			footer.removeEventListener('mousemove', handleMouseMove);
 			footer.removeEventListener('mouseleave', handleMouseLeave);
@@ -115,7 +168,7 @@ export default function Home({ onContactClick }) {
 	return (
 		<>
 			{/* HERO */}
-			<header className='relative' style={{ backgroundImage: 'linear-gradient(to right, rgba(158,158,158,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158,158,158,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: 'top left', }}>
+			<header className='relative' style={{ backgroundImage: 'linear-gradient(to right, rgba(158,158,158,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158,158,158,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: 'top left' }}>
 				<div className='max-w-7xl mx-auto p-4 md:p-8 flex flex-col min-h-dvh'>
 					<section className='flex flex-col justify-end'>
 						<Header />
@@ -144,12 +197,30 @@ export default function Home({ onContactClick }) {
 						</div>
 					</div>
 				</div>
-				<div className='pointer-events-none absolute bottom-0 left-0 w-full' style={{ height: '240px', background: 'linear-gradient(to top, var(--background-color), transparent)'}} />
+				<div className='pointer-events-none absolute bottom-0 left-0 w-full' style={{ height: '240px', background: 'linear-gradient(to top, var(--background-color), transparent)' }} />
 			</header>
 
-			{/* ABOUTM ME */}
-			<section className='max-w-7xl mx-auto p-4 md:p-8'>
-				<h2 className='text-5xl md:text-6xl mb-8'>A <span style={{ fontFamily: '"DMSerifDisplay-Regular", serif' }}> Human</span><br/>before a <span style={{ fontFamily: '"DMSerifDisplay-Regular", serif' }}>User</span></h2>
+			{/* ABOUT ME */}
+			<section className='max-w-7xl mx-auto p-4 md:p-8 min-h-dvh flex justify-center items-center'>
+				<div className='text-center flex flex-col items-center w-full'>
+					<p className='text-xl'>A Little</p>
+					<h1 className='text-7xl md:text-[10rem] font-black uppercase tracking-tight text-white mb-8'>About Me</h1>
+					<div className='grid grid-cols-1 md:grid-cols-[70%_30%] gap-12 items-center w-full'>
+						{/* Left Column — 70% */}
+						<div className='flex flex-col space-y-6 items-center'>
+							<p className='text-lg md:text-2xl leading-relaxed text-neutral-300 font-medium text-center'>
+								With over five years of experience in design,<br />
+								I specialize in branding, web design, and user experience.<br />
+								I love collaborating with businesses that want to stand out and showcase their best side.<br />
+								Let&apos;s create something amazing together!
+							</p>
+						</div>
+						{/* Right Column — 30% */}
+						<div className='relative w-full flex items-center justify-center'>
+							<FaceCard />
+						</div>
+					</div>
+				</div>
 			</section>
 
 			{/* WORKS */}
@@ -164,22 +235,21 @@ export default function Home({ onContactClick }) {
 									const isHovered = hoveredIndex === i;
 									const isOtherHovered = hoveredIndex !== null && hoveredIndex !== i;
 									const isActive = activeIndex === i;
-									const handleClick = () => {
-										if (isTouch) {setActiveIndex(prev => (prev === i ? null : i));}
-									};
 									return (
-										<li key={i} onMouseEnter={() => !isTouch && setHoveredIndex(i)} onMouseLeave={() => !isTouch && setHoveredIndex(null)}
+										<li key={i}
+											onMouseEnter={() => !isTouch && setHoveredIndex(i)}
+											onMouseLeave={() => !isTouch && setHoveredIndex(null)}
 											onClick={() => {
-												if (isTouch) {setActiveIndex(prev => (prev === i ? null : i));}
-												else if (project.slug) {navigate(`/works/${project.slug}`);}
+												if (isTouch) { setActiveIndex(prev => (prev === i ? null : i)); }
+												else if (project.slug) { navigate(`/works/${project.slug}`); }
 											}}
-											className={`flex flex-col py-4 cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group ${!isTouch && isOtherHovered ? 'opacity-30' : 'opacity-100'}`}>
+											className={`flex flex-col py-4 cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group ${!isTouch && isOtherHovered ? 'opacity-80 blur-[2px]' : 'opacity-100'}`}>
 											<div className='flex items-center justify-between'>
 												<div className='flex flex-col'>
 													<span className={`text-sm md:text-base transition-all duration-300 ${isHovered || isActive ? 'text-white font-medium tracking-wide' : 'text-slate-300 font-thin'}`}>
 														{project.name}
 													</span>
-													<div className='flex flex-wrap gap-2 overflow-hidden transition-all duration-300' style={{ maxHeight: isHovered || isActive ? '40px' : '0px', opacity: isHovered || isActive ? 1 : 0, }}>
+													<div className='flex flex-wrap gap-2 overflow-hidden transition-all duration-300' style={{ maxHeight: isHovered || isActive ? '40px' : '0px', opacity: isHovered || isActive ? 1 : 0 }}>
 														{project.tags.map((tag, idx) => (
 															<span key={idx} className='text-[10px] px-2 py-0.5 border border-white/20 rounded-full text-white/60 mt-2'>
 																{tag}
@@ -195,7 +265,7 @@ export default function Home({ onContactClick }) {
 														e.stopPropagation();
 														if (project.slug) navigate(`/works/${project.slug}`);
 													}} className='md:hidden flex items-center justify-center'>
-														<IoArrowForwardCircle className={`text-white`} />
+														<IoArrowForwardCircle className='text-white' />
 													</button>
 												</div>
 											</div>
@@ -224,9 +294,7 @@ export default function Home({ onContactClick }) {
 									</div>
 								))}
 								<div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${hoveredIndex !== null ? 'opacity-0' : 'opacity-100'}`}>
-									<p className='text-thin text-white/50 text-sm tracking-widest uppercase'>
-										Hover on a project
-									</p>
+									<p className='text-thin text-white/50 text-sm tracking-widest uppercase'>Hover on a project</p>
 								</div>
 							</div>
 						</div>
@@ -244,8 +312,8 @@ export default function Home({ onContactClick }) {
 					</span>
 					<div className='flex justify-center items-center mt-5 mb-8'>
 						<a onClick={onContactClick} ref={buttonRef} className='z-10 flex items-center no-underline'>
-							<Button className='group relative overflow-hidden font-bold flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 cursor-pointer border-2 border-white transition-all duration-300 ease-out hover:scale-[1.03] active:scale-[0.98]' style={{ color: 'white', background: 'var(--background-color)', filter: 'drop-shadow(0px 0px 20px rgba(26, 26, 26, 0.8))', }}>
-								<span className='absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0' style={{ background: 'var(--accent)', }} />
+							<Button className='group relative overflow-hidden font-bold flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 cursor-pointer border-2 border-white transition-all duration-300 ease-out hover:scale-[1.03] active:scale-[0.98]' style={{ color: 'white', background: 'var(--background-color)', filter: 'drop-shadow(0px 0px 20px rgba(26, 26, 26, 0.8))' }}>
+								<span className='absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0' style={{ background: 'var(--accent)' }} />
 								<span className='relative z-10 text-base px-3 py-1 md:text-2xl md:px-4 md:py-2 transition-colors duration-300 group-hover:text-black'>CONTACT</span>
 								<IoArrowForwardCircle className='relative z-10 w-8 h-8 md:w-16 md:h-16 text-(--accent) group-hover:text-black group-hover:translate-x-1 transition-all duration-300' />
 							</Button>
