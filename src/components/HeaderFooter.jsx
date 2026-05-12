@@ -55,9 +55,9 @@ export function Header() {
 export function Footer() {
 	return (
 		<footer>
-			<div className='flex sm:flex-row items-center justify-between pb-5 pt-8 border-t border-[#313131] gap-4 flex-wrap'>
-				<p className='text-[#555] text-xs tracking-wider'>Hand crafted by<strong className='text-[#FFD600] font-bold tracking-widest'>{' '}PRASHANT</strong></p>
-				<p className='flex gap-2 items-center text-[#555] text-xs tracking-wider'>With<strong className='text-[#FFD600] font-bold tracking-widest'><IoHeart /></strong>2026</p>
+			<div className='flex sm:flex-row items-center justify-between pb-5 pt-8 text-gray-400 border-t border-neutral-600 gap-4 flex-wrap'>
+				<p className='text-xs tracking-wider [word-spacing:4px] z-15'>© 2026<strong className='text-[#FFD600] font-regular tracking-widest'>{' '}PRASHANT</strong></p>
+				<p className='flex gap-2 items-center text-xs tracking-wider [word-spacing:4px] z-15'>With<strong className='text-[#FFD600] font-bold tracking-widest'><IoHeart /></strong></p>
 			</div>
 		</footer>
 	);

@@ -18,7 +18,7 @@ const projects = worksData
 function Ruler() {
 	const TICKS = 80;
 	return (
-		<div className='relative w-full h-8 border-b border-[#222] overflow-hidden'>
+		<div className='relative w-full h-8 border-b border-neutral-600 overflow-hidden'>
 			<div className='flex w-full h-full items-start pt-1'>
 				{Array.from({ length: TICKS }).map((_, i) => {
 					const major = i % 10 === 0;
@@ -246,14 +246,14 @@ export default function Home({ onContactClick }) {
 						</a>
 					</div>
 				</div>
-				<div className='grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] border-t border-[#222]'>
+				<div className='grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] border-t border-neutral-700'>
 					<div className='flex items-center px-8 py-7'>
 						<p className='text-white uppercase text-xs sm:text-sm font-semibold tracking-widest leading-relaxed max-w-sm'>
 							Got some exciting ideas? Let&apos;s connect and create something extraordinary together!
 						</p>
 					</div>
-					<div className='hidden md:block bg-[#222]' />
-					<div className='flex items-center px-8 py-7 overflow-hidden border-t border-[#222] md:border-t-0'>
+					<div className='hidden md:block bg-neutral-700' />
+					<div className='flex items-center px-8 py-7 overflow-hidden border-t border-neutral-700 md:border-t-0'>
 						<div className='w-full overflow-hidden'>
 							<div className='marquee-track flex items-center gap-4 whitespace-nowrap text-white font-semibold tracking-wide' style={{ fontSize: 'clamp(18px, 3vw, 36px)' }}>
 								<span className='text-[#FFD600]'>✦</span>

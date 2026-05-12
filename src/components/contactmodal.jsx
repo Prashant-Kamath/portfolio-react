@@ -3,6 +3,9 @@ import ReactModal from 'react-modal';
 import Button from './Button';
 import { IoSend, IoClose } from 'react-icons/io5';
 
+const IS_TOUCH_DEVICE =
+	typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+
 function parseHSL(hslStr) {
 	const match = hslStr.match(/([\d.]+)\s*([\d.]+)%?\s*([\d.]+)%?/);
 	if (!match) return { h: 40, s: 80, l: 80 };
@@ -70,10 +73,36 @@ const GLOW_CONFIG = {
 
 const SWEEP_LOOP_GAP = 800;
 
-// ─── Bind react-modal to your app root (do this once, near app entry) ─────────
-// ReactModal.setAppElement('#root');
+// ─── Static touch glow: just a soft border + box-shadow, zero JS animation ───
+function StaticGlowCard({ borderRadius, children }) {
+	return (
+		<div
+			style={{
+				borderRadius: `${borderRadius}px`,
+				background: 'var(--white-to-black)',
+				// Single subtle border derived from the same purple/pink palette
+				border: '1px solid rgba(192, 132, 252, 0.25)',
+				boxShadow: [
+					'rgba(0,0,0,0.1) 0 1px 2px',
+					'rgba(0,0,0,0.1) 0 2px 4px',
+					'rgba(0,0,0,0.1) 0 4px 8px',
+					'rgba(0,0,0,0.2) 0 8px 16px',
+					'rgba(0,0,0,0.2) 0 32px 64px',
+					// soft ambient glow — cheap, GPU-friendly
+					'0 0 18px 2px rgba(192, 132, 252, 0.18)',
+				].join(', '),
+				backdropFilter: 'blur(12px)',
+				transform: 'translate3d(0, 0, 0.01px)',
+				position: 'relative',
+			}}
+		>
+			{children}
+		</div>
+	);
+}
 
-function ContactModal({ show, onHide }) {
+// ─── Animated glow card (unchanged from original) ────────────────────────────
+function AnimatedGlowCard({ children }) {
 	const cardRef = useRef(null);
 	const cancelsRef = useRef([]);
 	const loopRef = useRef(null);
@@ -123,17 +152,12 @@ function ContactModal({ show, onHide }) {
 		cancelsRef.current = fns;
 	}, []);
 
+	// Expose start/stop to parent via show prop — replicated here via an
+	// always-on approach (card mounts only when modal is open).
 	useEffect(() => {
-		if (!show) {
-			cancelAll();
-			setSweepActive(false);
-			setIsHovered(false);
-			setEdgeProximity(0);
-			return;
-		}
 		runSweep();
 		return () => cancelAll();
-	}, [show]);
+	}, []);
 
 	const getCenterOfElement = useCallback((el) => {
 		const { width, height } = el.getBoundingClientRect();
@@ -191,144 +215,160 @@ function ContactModal({ show, onHide }) {
 	const fillBg = meshGradients.map(g => `${g} padding-box`);
 	const angleDeg = `${cursorAngle.toFixed(3)}deg`;
 
+	return (
+		<div
+			ref={cardRef}
+			onPointerMove={handlePointerMove}
+			onPointerEnter={handlePointerEnter}
+			onPointerLeave={handlePointerLeave}
+			className='relative w-full max-w-5xl max-h-[90vh] isolate grid'
+			style={{
+				borderRadius: `${borderRadius}px`,
+				background: 'var(--white-to-black)',
+				border: '1px solid rgb(255 255 255 / 0.1)',
+				boxShadow: 'rgba(0,0,0,0.1) 0 1px 2px, rgba(0,0,0,0.1) 0 2px 4px, rgba(0,0,0,0.1) 0 4px 8px, rgba(0,0,0,0.2) 0 8px 16px, rgba(0,0,0,0.2) 0 32px 64px',
+				transform: 'translate3d(0, 0, 0.01px)',
+				backdropFilter: 'blur(12px)',
+			}}
+		>
+			{/* mesh gradient border layer */}
+			<div
+				className='absolute inset-0 rounded-[inherit] pointer-events-none'
+				style={{
+					zIndex: -1,
+					border: '1px solid transparent',
+					background: [
+						'linear-gradient(var(--white-to-black, #1a1a2e) 0 100%) padding-box',
+						'linear-gradient(rgb(255 255 255 / 0%) 0% 100%) border-box',
+						...borderBg,
+					].join(', '),
+					opacity: borderOpacity,
+					maskImage: `conic-gradient(from ${angleDeg} at center, black ${coneSpread}%, transparent ${coneSpread + 15}%, transparent ${100 - coneSpread - 15}%, black ${100 - coneSpread}%)`,
+					WebkitMaskImage: `conic-gradient(from ${angleDeg} at center, black ${coneSpread}%, transparent ${coneSpread + 15}%, transparent ${100 - coneSpread - 15}%, black ${100 - coneSpread}%)`,
+					transition: isVisible ? 'opacity 0.25s ease-out' : 'opacity 0.75s ease-in-out',
+				}}
+			/>
+
+			{/* mesh gradient fill near edges */}
+			<div
+				className='absolute inset-0 rounded-[inherit] pointer-events-none'
+				style={{
+					zIndex: -1,
+					border: '1px solid transparent',
+					background: fillBg.join(', '),
+					maskImage: [
+						'linear-gradient(to bottom, black, black)',
+						'radial-gradient(ellipse at 50% 50%, black 40%, transparent 65%)',
+						'radial-gradient(ellipse at 66% 66%, black 5%, transparent 40%)',
+						'radial-gradient(ellipse at 33% 33%, black 5%, transparent 40%)',
+						'radial-gradient(ellipse at 66% 33%, black 5%, transparent 40%)',
+						'radial-gradient(ellipse at 33% 66%, black 5%, transparent 40%)',
+						`conic-gradient(from ${angleDeg} at center, transparent 5%, black 15%, black 85%, transparent 95%)`,
+					].join(', '),
+					WebkitMaskImage: [
+						'linear-gradient(to bottom, black, black)',
+						'radial-gradient(ellipse at 50% 50%, black 40%, transparent 65%)',
+						'radial-gradient(ellipse at 66% 66%, black 5%, transparent 40%)',
+						'radial-gradient(ellipse at 33% 33%, black 5%, transparent 40%)',
+						'radial-gradient(ellipse at 66% 33%, black 5%, transparent 40%)',
+						'radial-gradient(ellipse at 33% 66%, black 5%, transparent 40%)',
+						`conic-gradient(from ${angleDeg} at center, transparent 5%, black 15%, black 85%, transparent 95%)`,
+					].join(', '),
+					maskComposite: 'subtract, add, add, add, add, add',
+					WebkitMaskComposite: 'source-out, source-over, source-over, source-over, source-over, source-over',
+					opacity: borderOpacity * fillOpacity,
+					mixBlendMode: 'soft-light',
+					transition: isVisible ? 'opacity 0.25s ease-out' : 'opacity 0.75s ease-in-out',
+				}}
+			/>
+
+			{/* outer glow */}
+			<span
+				className='absolute pointer-events-none rounded-[inherit]'
+				style={{
+					zIndex: 1,
+					inset: `${-glowRadius}px`,
+					maskImage: `conic-gradient(from ${angleDeg} at center, black 2.5%, transparent 10%, transparent 90%, black 97.5%)`,
+					WebkitMaskImage: `conic-gradient(from ${angleDeg} at center, black 2.5%, transparent 10%, transparent 90%, black 97.5%)`,
+					opacity: glowOpacity,
+					mixBlendMode: 'plus-lighter',
+					transition: isVisible ? 'opacity 0.25s ease-out' : 'opacity 0.75s ease-in-out',
+				}}
+			>
+				<span
+					className='absolute rounded-[inherit]'
+					style={{
+						inset: `${glowRadius}px`,
+						boxShadow: buildBoxShadow(glowColor, glowIntensity),
+					}}
+				/>
+			</span>
+
+			{children}
+		</div>
+	);
+}
+
+// ─── Bind react-modal to your app root (do this once, near app entry) ────────
+// ReactModal.setAppElement('#root');
+
+function ContactModal({ show, onHide }) {
+	const { borderRadius } = GLOW_CONFIG;
+
 	const inputClass = 'w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm outline-none transition placeholder:text-white/30 focus:border-white/25 focus:bg-white/10';
 	const inputStyle = { color: 'var(--text-primary, #fff)' };
 
-	return (
-		<ReactModal
-			appElement={document.getElementById('root')}
-			isOpen={show}
-			onRequestClose={onHide}
-			overlayClassName='fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-lg'
-			className='outline-none animate__animated animate__fadeIn'
-			closeTimeoutMS={0}
-		>
-			<div
-				ref={cardRef}
-				onPointerMove={handlePointerMove}
-				onPointerEnter={handlePointerEnter}
-				onPointerLeave={handlePointerLeave}
-				className='relative w-full max-w-5xl max-h-[90vh] isolate grid'
-				style={{
-					borderRadius: `${borderRadius}px`,
-					background: 'var(--white-to-black)',
-					border: '1px solid rgb(255 255 255 / 0.1)',
-					boxShadow: 'rgba(0,0,0,0.1) 0 1px 2px, rgba(0,0,0,0.1) 0 2px 4px, rgba(0,0,0,0.1) 0 4px 8px, rgba(0,0,0,0.2) 0 8px 16px, rgba(0,0,0,0.2) 0 32px 64px',
-					transform: 'translate3d(0, 0, 0.01px)',
-					backdropFilter: 'blur(12px)',
-				}}
-			>
-				{/* mesh gradient border layer */}
-				<div
-					className='absolute inset-0 rounded-[inherit] pointer-events-none'
-					style={{
-						zIndex: -1,
-						border: '1px solid transparent',
-						background: [
-							'linear-gradient(var(--white-to-black, #1a1a2e) 0 100%) padding-box',
-							'linear-gradient(rgb(255 255 255 / 0%) 0% 100%) border-box',
-							...borderBg,
-						].join(', '),
-						opacity: borderOpacity,
-						maskImage: `conic-gradient(from ${angleDeg} at center, black ${coneSpread}%, transparent ${coneSpread + 15}%, transparent ${100 - coneSpread - 15}%, black ${100 - coneSpread}%)`,
-						WebkitMaskImage: `conic-gradient(from ${angleDeg} at center, black ${coneSpread}%, transparent ${coneSpread + 15}%, transparent ${100 - coneSpread - 15}%, black ${100 - coneSpread}%)`,
-						transition: isVisible ? 'opacity 0.25s ease-out' : 'opacity 0.75s ease-in-out',
-					}}
-				/>
+	// Shared inner content — identical on both paths
+	const modalContent = (
+		<div className='relative z-[2] flex flex-col overflow-auto'>
+			<Button
+				onClick={onHide}
+				className='absolute top-4 right-4 flex h-10 w-6 items-center justify-center rounded-full text-xl leading-none transition bg-transparent hover:bg-white/10 z-10 cursor-pointer'
+				style={{ color: 'var(--text-secondary, #aaa)' }}>✖
+			</Button>
 
-				{/* mesh gradient fill near edges */}
-				<div
-					className='absolute inset-0 rounded-[inherit] pointer-events-none'
-					style={{
-						zIndex: -1,
-						border: '1px solid transparent',
-						background: fillBg.join(', '),
-						maskImage: [
-							'linear-gradient(to bottom, black, black)',
-							'radial-gradient(ellipse at 50% 50%, black 40%, transparent 65%)',
-							'radial-gradient(ellipse at 66% 66%, black 5%, transparent 40%)',
-							'radial-gradient(ellipse at 33% 33%, black 5%, transparent 40%)',
-							'radial-gradient(ellipse at 66% 33%, black 5%, transparent 40%)',
-							'radial-gradient(ellipse at 33% 66%, black 5%, transparent 40%)',
-							`conic-gradient(from ${angleDeg} at center, transparent 5%, black 15%, black 85%, transparent 95%)`,
-						].join(', '),
-						WebkitMaskImage: [
-							'linear-gradient(to bottom, black, black)',
-							'radial-gradient(ellipse at 50% 50%, black 40%, transparent 65%)',
-							'radial-gradient(ellipse at 66% 66%, black 5%, transparent 40%)',
-							'radial-gradient(ellipse at 33% 33%, black 5%, transparent 40%)',
-							'radial-gradient(ellipse at 66% 33%, black 5%, transparent 40%)',
-							'radial-gradient(ellipse at 33% 66%, black 5%, transparent 40%)',
-							`conic-gradient(from ${angleDeg} at center, transparent 5%, black 15%, black 85%, transparent 95%)`,
-						].join(', '),
-						maskComposite: 'subtract, add, add, add, add, add',
-						WebkitMaskComposite: 'source-out, source-over, source-over, source-over, source-over, source-over',
-						opacity: borderOpacity * fillOpacity,
-						mixBlendMode: 'soft-light',
-						transition: isVisible ? 'opacity 0.25s ease-out' : 'opacity 0.75s ease-in-out',
-					}}
-				/>
-
-				{/* outer glow */}
-				<span
-					className='absolute pointer-events-none rounded-[inherit]'
-					style={{
-						zIndex: 1,
-						inset: `${-glowRadius}px`,
-						maskImage: `conic-gradient(from ${angleDeg} at center, black 2.5%, transparent 10%, transparent 90%, black 97.5%)`,
-						WebkitMaskImage: `conic-gradient(from ${angleDeg} at center, black 2.5%, transparent 10%, transparent 90%, black 97.5%)`,
-						opacity: glowOpacity,
-						mixBlendMode: 'plus-lighter',
-						transition: isVisible ? 'opacity 0.25s ease-out' : 'opacity 0.75s ease-in-out',
-					}}
-				>
-					<span
-						className='absolute rounded-[inherit]'
-						style={{
-							inset: `${glowRadius}px`,
-							boxShadow: buildBoxShadow(glowColor, glowIntensity),
-						}}
-					/>
-				</span>
-
-				{/* ── actual modal content — unchanged ── */}
-				<div className='relative z-[2] flex flex-col overflow-auto'>
-					<Button
-						onClick={onHide}
-						className='absolute top-4 right-4 flex h-10 w-6 items-center justify-center rounded-full text-xl leading-none transition bg-transparent hover:bg-white/10 z-10 cursor-pointer'
-						style={{ color: 'var(--text-secondary, #aaa)' }}>✖
-					</Button>
-
-					<div className='p-8 md:p-12'>
-						<div className='flex flex-col gap-12 lg:flex-row lg:items-start'>
-							<div className='flex-1 lg:basis-7/12'>
-								<h2 className='mb-8 text-3xl font-semibold leading-snug' style={{ color: 'var(--text-primary, #fff)' }}>
-									Wanna contact me?<br />Fill the form.
-								</h2>
-								<div className='flex flex-col gap-4'>
-									<div className='flex gap-4'>
-										<input type='text' placeholder='First name' className={inputClass} style={inputStyle} />
-										<input type='text' placeholder='Last name' className={inputClass} style={inputStyle} />
-									</div>
-									<input type='email' placeholder='Email' className={inputClass} style={inputStyle} />
-									<textarea rows={5} placeholder='Write your message' className={`resize-none ${inputClass}`} style={inputStyle} />
-									<div className='mt-1'>
-										<Button className='cursor-pointer' icon={IoSend}>Send Message</Button>
-									</div>
-								</div>
+			<div className='p-8 md:p-12'>
+				<div className='flex flex-col gap-12 lg:flex-row lg:items-start'>
+					<div className='flex-1 lg:basis-7/12'>
+						<h2 className='mb-8 text-3xl font-semibold leading-snug' style={{ color: 'var(--text-primary, #fff)' }}>
+							Wanna contact me?<br />Fill the form.
+						</h2>
+						<div className='flex flex-col gap-4'>
+							<div className='flex gap-4'>
+								<input type='text' placeholder='First name' className={inputClass} style={inputStyle} />
+								<input type='text' placeholder='Last name' className={inputClass} style={inputStyle} />
 							</div>
-							<div className='hidden lg:block w-px self-stretch bg-white/10' />
-							<div className='lg:hidden h-px w-full bg-white/10' />
-							<div className='lg:basis-4/12'>
-								<h3 className='mb-4 text-xl font-semibold' style={{ color: 'var(--text-primary, #fff)' }}>Let's talk about everything.</h3>
-								<p className='text-sm leading-relaxed' style={{ color: 'var(--text-secondary, #aaa)' }}>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil deleniti itaque similique magni. Magni, laboriosam perferendis maxime!
-								</p>
+							<input type='email' placeholder='Email' className={inputClass} style={inputStyle} />
+							<textarea rows={5} placeholder='Write your message' className={`resize-none ${inputClass}`} style={inputStyle} />
+							<div className='mt-1'>
+								<Button className='cursor-pointer' icon={IoSend}>Send Message</Button>
 							</div>
 						</div>
 					</div>
+					<div className='hidden lg:block w-px self-stretch bg-white/10' />
+					<div className='lg:hidden h-px w-full bg-white/10' />
+					<div className='lg:basis-4/12'>
+						<h3 className='mb-4 text-xl font-semibold' style={{ color: 'var(--text-primary, #fff)' }}>Let's talk about everything.</h3>
+						<p className='text-sm leading-relaxed' style={{ color: 'var(--text-secondary, #aaa)' }}>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil deleniti itaque similique magni. Magni, laboriosam perferendis maxime!
+						</p>
+					</div>
 				</div>
 			</div>
+		</div>
+	);
+
+	return (
+		<ReactModal appElement={document.getElementById('root')} isOpen={show} onRequestClose={onHide} overlayClassName='fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-lg' className='outline-none animate__animated animate__fadeIn w-full max-w-5xl max-h-[90vh]' closeTimeoutMS={0}>
+			{IS_TOUCH_DEVICE ? (
+				<StaticGlowCard borderRadius={borderRadius}>
+					{modalContent}
+				</StaticGlowCard>
+			) : (
+				<AnimatedGlowCard>
+					{modalContent}
+				</AnimatedGlowCard>
+			)}
 		</ReactModal>
 	);
 }

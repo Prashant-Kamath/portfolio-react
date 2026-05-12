@@ -235,6 +235,7 @@ const About = () => {
 
 				<footer ref={footerRef} className='mt-14'>
 					<Footer />
+					<div className='pointer-events-none absolute bottom-0 left-0 w-full' style={{ height: '180px', background: 'linear-gradient(to top, var(--background-color), transparent)'}} />
 				</footer>
 			</div>
 		</div>
