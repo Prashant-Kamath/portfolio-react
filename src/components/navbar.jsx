@@ -94,7 +94,7 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 				{SOCIALS.map((social) => {
 					const Icon = social.icon;
 					return (
-						<a key={social.id} href={social.href} target="_blank" rel="noopener noreferrer" title={social.label} style={{ width: BASE, height: BASE, color: "var(--icon-color)" }} className="group relative flex items-center justify-center rounded-full hover:bg-[var(--item-bg)] transition-colors duration-150">
+						<a key={social.id} href={social.href} target="_blank" rel="noopener noreferrer" title={social.label} style={{ width: BASE, height: BASE, color: "var(--icon-color)" }} className="group relative flex items-center justify-center rounded-full hover:bg-(--item-bg) transition-colors duration-150">
 							<div className="absolute -top-9 scale-0 group-hover:scale-100 transition-transform duration-200 rounded px-2 py-1 text-xs whitespace-nowrap z-50 pointer-events-none" style={{ backgroundColor: "var(--tooltip-bg)", color: "var(--tooltip-text)", backdropFilter: "blur(8px)" }}>
 								{social.label}
 							</div>
@@ -103,7 +103,7 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 					);
 				})}
 				<div className="h-8 w-px shrink-0 self-center opacity-30" style={{ backgroundColor: "var(--text-secondary)" }} />
-				<button onClick={() => setKnowMoreOpen(false)} title="Close" style={{ width: BASE, height: BASE, color: "var(--icon-color)" }} className="flex items-center justify-center rounded-full hover:bg-[var(--item-bg)] transition-colors duration-150 cursor-pointer">
+				<button onClick={() => setKnowMoreOpen(false)} title="Close" style={{ width: BASE, height: BASE, color: "var(--icon-color)" }} className="flex items-center justify-center rounded-full hover:bg-(--item-bg) transition-colors duration-150 cursor-pointer">
 					<IoClose size={20} />
 				</button>
 			</div>
@@ -116,7 +116,7 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 				</div>
 			)}
 
-			<nav style={{ backgroundColor: "var(--dock-bg)", borderColor: "var(--dock-border)", boxShadow: "0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)", }} className="fixed bottom-6 left-1/2 z-50 flex h-[68px] -translate-x-1/2 items-end gap-4 rounded-full border px-6 py-2 backdrop-blur-md">
+			<nav style={{ backgroundColor: "var(--dock-bg)", borderColor: "var(--dock-border)", boxShadow: "0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)", }} className="fixed bottom-6 left-1/2 z-50 flex h-17 -translate-x-1/2 items-end gap-4 rounded-full border px-6 py-2 backdrop-blur-md">
 				{dockItems.map((item, index) => {
 					const size = sizes[index];
 					const scale = iconScale(size);
@@ -133,7 +133,7 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 								else if (item.path) { navigate(item.path); }
 							}}
 							style={{ width: size, height: size, transition: "width 200ms ease, height 200ms ease", backgroundColor: (isActive || isKnowMoreActive) ? "var(--white-to-black)" : undefined, }}
-							className={`group relative flex items-center justify-center rounded-full cursor-pointer ${!(isActive || isKnowMoreActive) ? "hover:bg-[var(--item-bg)]" : ""}`}>
+							className={`group relative flex items-center justify-center rounded-full cursor-pointer ${!(isActive || isKnowMoreActive) ? "hover:bg-(--item-bg)" : ""}`}>
 							<div className="absolute -top-10 scale-0 group-hover:scale-100 transition-transform duration-200 rounded px-2 py-1 text-xs whitespace-nowrap z-50 pointer-events-none" style={{ backgroundColor: "var(--tooltip-bg)", color: "var(--tooltip-text)", backdropFilter: "blur(8px)" }}>
 								{item.label}
 							</div>

@@ -320,7 +320,7 @@ function ContactModal({ show, onHide }) {
 
 	// Shared inner content — identical on both paths
 	const modalContent = (
-		<div className='relative z-[2] flex flex-col overflow-auto'>
+		<div className='relative z-2 flex flex-col overflow-auto'>
 			<Button
 				onClick={onHide}
 				className='absolute top-4 right-4 flex h-10 w-6 items-center justify-center rounded-full text-xl leading-none transition bg-transparent hover:bg-white/10 z-10 cursor-pointer'

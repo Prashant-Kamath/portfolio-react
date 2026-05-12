@@ -12,9 +12,12 @@ const Button = forwardRef(
 			else if (ref) ref.current = node;
 		};
 
-		// Tilt on hover
+		// Tilt on hover (skipped on touch devices)
 		useEffect(() => {
 			if (!tilt) return;
+			const isTouchDevice = window.matchMedia("(hover: none)").matches;
+			if (isTouchDevice) return;
+
 			const el = btnRef.current;
 			if (!el) return;
 			const handleMouseMove = (e) => {

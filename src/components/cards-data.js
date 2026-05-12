@@ -46,7 +46,7 @@ export const worksData = [
 	{
 		id: 5,
 		title: "Luck of World",
-		image: "https://i.pinimg.com/originals/83/52/39/8352391aecd2f7e11cf371a42c68dc48.gif",
+		image: "https://mir-s3-cdn-cf.behance.net/project_modules/source/b95f3d28573043.55c76ee08b61c.gif",
 		tags: ["WebGL", "Figma"],
 		date: "Sept 2022",
 		size: "square",

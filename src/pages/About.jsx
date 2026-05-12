@@ -72,9 +72,9 @@ const WavePath = ({ className = '', strokeWidth = 2 }) => {
 	};
 
 	return (
-		<div ref={wrapperRef} className={`relative h-px w-full overflow-visible ${className}`}>
-			<div onMouseEnter={handleMouseEnter} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className='absolute left-0 top-[-20px] z-10 h-[40px] w-full cursor-pointer md:top-[-120px] md:h-[240px]' />
-			<svg className='pointer-events-none absolute left-0 top-[-100px] h-[300px] w-full overflow-visible'>
+		<div ref={wrapperRef} className={`relative h-px w-full overflow-visible z-0 ${className}`}>
+			<div onMouseEnter={handleMouseEnter} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className='cursor-svg absolute left-0 -top-5 z-10 h-10 w-full md:-top-30 md:h-60' />
+			<svg className='pointer-events-none absolute left-0 -top-25 h-75 w-full overflow-visible'>
 				<path ref={pathRef} className='fill-none stroke-current' strokeWidth={strokeWidth} />
 			</svg>
 		</div>
@@ -128,7 +128,7 @@ const About = () => {
 				<header className='mt-14 mb-12 flex flex-col-reverse items-center justify-between gap-10 animate__animated animate__fadeIn md:flex-row'>
 					<div className='w-full flex-1'>
 						<h1 className='text-5xl font-bold uppercase tracking-tight md:text-8xl'>
-							Innovative Designer<br />Driven<span className='font-extralight text-[var(--accent)]'> by Creativity.</span>
+							Innovative Designer<br />Driven<span className='font-extralight text-(--accent)'> by Creativity.</span>
 						</h1>
 					</div>
 					<div className='relative shrink-0'>
@@ -141,7 +141,7 @@ const About = () => {
 					<WavePath />
 				</div>
 
-				<div className='grid grid-cols-1 lg:grid-cols-12 gap-16 text-lg'>
+				<div className='relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16'>
 					<div ref={leftRef} className='lg:col-span-4 space-y-12 self-start animate__animated animate__fadeIn'>
 						<section>
 							<h2 className='text-2xl uppercase mb-4'>Prashant Kamath</h2>
@@ -206,7 +206,7 @@ const About = () => {
 													<div className='flex-1 h-px bg-gray-400'></div>
 												</div>
 												<h4 className='text-sm text-gray-400 mb-2'>{item.title}</h4>
-												<p className='text-sm text-gray-400 leading-relaxed max-w-[240px]'>{item.desc}</p>
+												<p className='text-sm text-gray-400 leading-relaxed max-w-60'>{item.desc}</p>
 											</div>
 										</SwiperSlide>
 									))}
@@ -235,7 +235,7 @@ const About = () => {
 
 				<footer ref={footerRef} className='mt-14'>
 					<Footer />
-					<div className='pointer-events-none absolute bottom-0 left-0 w-full' style={{ height: '180px', background: 'linear-gradient(to top, var(--background-color), transparent)'}} />
+					<div className='pointer-events-none absolute bottom-0 left-0 w-full' style={{ height: '180px', background: 'linear-gradient(to top, var(--background-color), transparent)' }} />
 				</footer>
 			</div>
 		</div>

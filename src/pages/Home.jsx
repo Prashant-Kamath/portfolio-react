@@ -23,21 +23,21 @@ function Ruler() {
 				{Array.from({ length: TICKS }).map((_, i) => {
 					const major = i % 10 === 0;
 					return (
-						<div key={i} className='relative flex-shrink-0' style={{ width: `${100 / TICKS}%`, height: major ? '16px' : '8px', borderLeft: `1px solid ${major ? '#777' : '#2f2f2f'}` }} />
+						<div key={i} className='relative shrink-0' style={{ width: `${100 / TICKS}%`, height: major ? '16px' : '8px', borderLeft: `1px solid ${major ? '#777' : '#2f2f2f'}` }} />
 					);
 				})}
 			</div>
 			<div className='absolute inset-0 pointer-events-none'>
 				{[
-					{ label: '-04', tick: 0 },
-					{ label: '-03', tick: 10 },
-					{ label: '-02', tick: 20 },
-					{ label: '-01', tick: 30 },
-					{ label: '00', tick: 40 },
-					{ label: '01', tick: 50 },
-					{ label: '02', tick: 60 },
-					{ label: '03', tick: 70 },
-					{ label: '04', tick: 80 },
+					{ label: '-4', tick: 0 },
+					{ label: '-3', tick: 10 },
+					{ label: '-2', tick: 20 },
+					{ label: '-1', tick: 30 },
+					{ label: '0', tick: 40 },
+					{ label: '1', tick: 50 },
+					{ label: '2', tick: 60 },
+					{ label: '3', tick: 70 },
+					{ label: '4', tick: 80 },
 				].map((item) => (
 					<span key={item.label} className='absolute text-[9px] text-[#555] tracking-widest' style={{ left: `${(item.tick / TICKS) * 100}%`, top: '18px', transform: 'translateX(-50%)' }}>
 						{item.label}
@@ -113,10 +113,10 @@ export default function Home({ onContactClick }) {
 	}, []);
 
 	return (
-		<div>
+		<>
 			{/* HERO */}
-			<div className='relative' style={{ backgroundImage: 'linear-gradient(to right, rgba(158,158,158,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158,158,158,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: 'top left', }}>
-				<div className='max-w-7xl mx-auto p-4 md:p-8 flex flex-col min-h-[100dvh]'>
+			<header className='relative' style={{ backgroundImage: 'linear-gradient(to right, rgba(158,158,158,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158,158,158,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: 'top left', }}>
+				<div className='max-w-7xl mx-auto p-4 md:p-8 flex flex-col min-h-dvh'>
 					<section className='flex flex-col justify-end'>
 						<Header />
 						<div>
@@ -134,7 +134,7 @@ export default function Home({ onContactClick }) {
 							</p>
 						</div>
 					</section>
-					<div className='overflow-hidden py-5 border-y border-white/[0.1] mt-auto mb-2 z-5'>
+					<div className='overflow-hidden py-5 border-y border-white/10 mt-auto mb-2 z-5'>
 						<div className='marquee-track flex whitespace-nowrap gap-2' style={{ width: '200%' }}>
 							{Array(10).fill(null).map((_, i) => (
 								<span key={i} className='text-[12px] tracking-[0.3em] uppercase text-neutral-500 shrink-0'>
@@ -145,10 +145,15 @@ export default function Home({ onContactClick }) {
 					</div>
 				</div>
 				<div className='pointer-events-none absolute bottom-0 left-0 w-full' style={{ height: '240px', background: 'linear-gradient(to top, var(--background-color), transparent)'}} />
-			</div>
+			</header>
+
+			{/* ABOUTM ME */}
+			<section className='max-w-7xl mx-auto p-4 md:p-8'>
+				<h2 className='text-5xl md:text-6xl mb-8'>A <span style={{ fontFamily: '"DMSerifDisplay-Regular", serif' }}> Human</span><br/>before a <span style={{ fontFamily: '"DMSerifDisplay-Regular", serif' }}>User</span></h2>
+			</section>
 
 			{/* WORKS */}
-			<div className='max-w-7xl mx-auto p-4 md:p-8 min-h-[100dvh]'>
+			<main className='max-w-7xl mx-auto p-4 md:p-8 mb-24'>
 				<section className='text-white'>
 					<p className='text-xs tracking-widest uppercase text-gray-500 mb-6 font-light'>Area of Expertise</p>
 					<div className='grid grid-cols-1 md:grid-cols-2 gap-12 items-start'>
@@ -176,7 +181,7 @@ export default function Home({ onContactClick }) {
 													</span>
 													<div className='flex flex-wrap gap-2 overflow-hidden transition-all duration-300' style={{ maxHeight: isHovered || isActive ? '40px' : '0px', opacity: isHovered || isActive ? 1 : 0, }}>
 														{project.tags.map((tag, idx) => (
-															<span key={idx} className='text-[10px] px-2 py-[2px] border border-white/20 rounded-full text-white/60 mt-2'>
+															<span key={idx} className='text-[10px] px-2 py-0.5 border border-white/20 rounded-full text-white/60 mt-2'>
 																{tag}
 															</span>
 														))}
@@ -184,8 +189,8 @@ export default function Home({ onContactClick }) {
 												</div>
 												<div className='flex items-center gap-3 ml-4 shrink-0'>
 													<span className={`hidden md:block h-px bg-white transition-all duration-500 ${isHovered ? 'w-24 opacity-100' : 'w-0 opacity-0'}`} />
-													<span className='text-xs text-gray-500 whitespace-nowrap'>{project.type}</span>
-													<span className='text-xs text-gray-500 whitespace-nowrap'>{project.year}</span>
+													<span className='text-xs text-neutral-500 whitespace-nowrap'>{project.type}</span>
+													<span className='text-xs text-neutral-500 whitespace-nowrap'>{project.year}</span>
 													<button onClick={(e) => {
 														e.stopPropagation();
 														if (project.slug) navigate(`/works/${project.slug}`);
@@ -227,13 +232,14 @@ export default function Home({ onContactClick }) {
 						</div>
 					</div>
 				</section>
-			</div>
+			</main>
+
 			{/* Footer */}
 			<footer ref={footerRef} className='max-w-7xl mx-auto overflow-hidden mb-14 relative'>
 				<Ruler />
 				<div className='text-center pt-10 pb-2 px-4'>
 					<p className='text-white text-sm sm:text-base font-bold tracking-[0.15em] uppercase mb-4'>Next Step?</p>
-					<span className='text-[var(--accent)] uppercase leading-[0.85] whitespace-nowrap mb-18' style={{ fontWeight: 900, fontSize: 'clamp(15px, 10vw, 120px)', display: 'inline-block', transform: 'scaleY(2)', transformOrigin: 'top' }}>
+					<span className='text-(--accent) uppercase leading-[0.85] whitespace-nowrap mb-18' style={{ fontWeight: 900, fontSize: 'clamp(15px, 10vw, 120px)', display: 'inline-block', transform: 'scaleY(2)', transformOrigin: 'top' }}>
 						Let&#39;s build<br />an experience
 					</span>
 					<div className='flex justify-center items-center mt-5 mb-8'>
@@ -241,7 +247,7 @@ export default function Home({ onContactClick }) {
 							<Button className='group relative overflow-hidden font-bold flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 cursor-pointer border-2 border-white transition-all duration-300 ease-out hover:scale-[1.03] active:scale-[0.98]' style={{ color: 'white', background: 'var(--background-color)', filter: 'drop-shadow(0px 0px 20px rgba(26, 26, 26, 0.8))', }}>
 								<span className='absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0' style={{ background: 'var(--accent)', }} />
 								<span className='relative z-10 text-base px-3 py-1 md:text-2xl md:px-4 md:py-2 transition-colors duration-300 group-hover:text-black'>CONTACT</span>
-								<IoArrowForwardCircle className='relative z-10 w-8 h-8 md:w-16 md:h-16 text-[var(--accent)] group-hover:text-black group-hover:translate-x-1 transition-all duration-300' />
+								<IoArrowForwardCircle className='relative z-10 w-8 h-8 md:w-16 md:h-16 text-(--accent) group-hover:text-black group-hover:translate-x-1 transition-all duration-300' />
 							</Button>
 						</a>
 					</div>
@@ -266,6 +272,6 @@ export default function Home({ onContactClick }) {
 				</div>
 				<Footer />
 			</footer>
-		</div>
+		</>
 	);
 }
