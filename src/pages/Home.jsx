@@ -20,28 +20,35 @@ function FaceCard() {
 		<>
 			<style>
 				{`
-					.face-wrap { zoom: 0.8; z-index: 10; }
-					.face { position: relative; rotate:5deg; width: 300px; height: 350px; background: linear-gradient(180deg, #452824 184px, #f2bbad 34px); border-top-right-radius: 250px 350px; border-top-left-radius: 250px 350px; border-bottom-left-radius: 250px 250px; border-bottom-right-radius: 250px 250px; border: 5px solid black; }
-					.face-hairs { height: 180px; background-color: #f2bbad; position: absolute; width: 290px; border-top-right-radius: 250px 350px; border-top-left-radius: 250px 350px; top: 25px; }
-					.face-snow { transform: translateX(150px); transform-origin: right; }
-					.mountain-cap { position: absolute; top: 20px; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 40px solid #452824; }
+					.face-wrap {z-index: 10; transform-origin: top center;}
+					.face {position: relative; rotate: 5deg; width: min(300px, 78vw); height: min(350px, 91vw); background: linear-gradient(180deg, #452824 184px, #f2bbad 34px); border-top-right-radius: 250px 350px; border-top-left-radius: 250px 350px; border-bottom-left-radius: 250px 250px; border-bottom-right-radius: 250px 250px; border: 5px solid black;}
+					.face-hairs {position: absolute; top: 25px; width: calc(100% - 10px); height: 180px; background-color: #f2bbad; border-top-right-radius: 250px 350px; border-top-left-radius: 250px 350px;}
+					.face-snow {transform: translateX(150px); transform-origin: right;}
+					.mountain-cap {position: absolute; top: 20px; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 40px solid #452824;}
 					.mountain-cap-1 { left: -65px; }
 					.mountain-cap-2 { left: -35px; }
 					.mountain-cap-3 { left: -5px; }
 					.mountain-cap-4 { left: 25px; }
-					.face-earL { border-top-right-radius: 250px 350px; border-top-left-radius: 250px 350px; border-bottom-left-radius: 250px 250px; border-bottom-right-radius: 250px 250px; height: 70px; width: 50px; background-color: #f2bbad; position: absolute; left: -30px; top: 150px; z-index: -1; border: 5px solid black; }
-					.face-earR { border-top-right-radius: 250px 350px; border-top-left-radius: 250px 350px; border-bottom-left-radius: 250px 250px; border-bottom-right-radius: 250px 250px; height: 70px; width: 50px; background-color: #f2bbad; position: absolute; right: -30px; top: 150px; z-index: -4; border: 5px solid black; }
-					.face-eyeR { border-top-right-radius: 250px 350px; border-top-left-radius: 250px 350px; border-bottom-left-radius: 250px 250px; border-bottom-right-radius: 250px 250px; height: 10px; width: 10px; background-color: black; position: absolute; left: 128px; top: 120px; z-index: 2; animation: faceBlink 5s infinite linear; }
-					.face-eyeL { border-top-right-radius: 250px 350px; border-top-left-radius: 250px 350px; border-bottom-left-radius: 250px 250px; border-bottom-right-radius: 250px 250px; height: 10px; width: 10px; background-color: black; position: absolute; right: 128px; top: 120px; z-index: 2; animation: faceBlink 5s infinite linear; }
-					@keyframes faceBlink { 98% { height: 10px; width: 10px; } 100% { height: 3px; width: 11px; } }
-					.face-mouth { position: absolute; top: 300px; left: 140px; background: #a36655; width: 25px; height: 18px; border: 5px solid black; border-radius: 50%; transition: all .3s linear; }
-					.face:active .face-mouth { top: 290px; width: 60px; height: 25px; left: 123px; border-radius: 7px 7px 130px 130px; }
-					.face-smileL { position: absolute; height: 0px; width: 0px; rotate: 310deg; top: 180px; left: 70px; transition: all .1s linear; }
-					.face-smileR { position: absolute; height: 0px; width: 0px; rotate: 310deg; top: 180px; right: 70px; transition: all .1s linear; }
-					.face:active .face-smileL, .face:active .face-smileR { height: 30px; width: 30px; }
+					.face-earL, .face-earR {position: absolute; width: 50px; height: 70px; background-color: #f2bbad; border: 5px solid black; border-top-right-radius: 250px 350px;border-top-left-radius: 250px 350px; border-bottom-left-radius: 250px 250px; border-bottom-right-radius: 250px 250px;}
+					.face-earL {left: -30px; top: 150px; z-index: -1;}
+					.face-earR {right: -30px; top: 150px; z-index: -4;}
+					.face-eyeL, .face-eyeR {position: absolute; top: 120px; width: 10px; height: 10px; background-color: black; border-radius: 9999px; z-index: 2; animation: faceBlink 5s infinite linear;}
+					.face-eyeL {right: 128px;}
+					.face-eyeR {left: 128px;}
+					@keyframes faceBlink {98% { height: 10px; width: 10px; } 100% {height: 3px; width: 11px; }}
+					.face-mouth {position: absolute; top: 300px; left: 140px; width: 25px; height: 18px; background: #a36655; border: 5px solid black; border-radius: 50%; transition: all .3s linear;}
+					.face:hover .face-mouth {top: 290px; left: 123px; width: 60px; height: 25px; border-radius: 7px 7px 130px 130px;}
+					.face-smileL, .face-smileR {position: absolute; width: 0; height: 0; top: 180px; rotate: 310deg; transition: all .15s linear;}
+					.face-smileL {left: 70px;}
+					.face-smileR {right: 70px;}
+					.face:hover .face-smileL, .face:hover .face-smileR {width: 30px; height: 30px;}
+					@media (max-width: 640px) {
+						.face {border-width: 4px;}
+						.face-earL, .face-earR, .face-mouth {border-width: 4px;}
+					}
 				`}
 			</style>
-			<div className='face-wrap'>
+			<div className='face-wrap mt-2 scale-64 sm:scale-68 lg:scale-80'>
 				<div className='face'>
 					<div className='face-earL' />
 					<div className='face-earR' />
@@ -51,7 +58,6 @@ function FaceCard() {
 					<div className='face-mouth' />
 					<div className='face-smileL'>
 						<svg xmlSpace='preserve' viewBox='0 0 65 65' xmlns='http://www.w3.org/2000/svg'>
-							<filter id='blurMe1'><feGaussianBlur in='SourceGraphic' stdDeviation={2} /></filter>
 							<path d='M25 19c-6 2-12 4-18 5-2 0-4-2-6-3 1-1 2-3 3-4 11-3 22-7 32-10 2-1 4 1 6 2-1 1-2 4-3 4-4 2-9 4-14 6z' fill='#EF7F71' filter='url(#blurMe1)' />
 							<path d='M35 35c-6 2-12 4-18 5-2 0-4-2-6-3 1-1 2-3 3-4 11-3 22-7 32-10 2-1 4 1 6 2-1 1-2 4-3 4-4 2-9 4-14 6z' fill='#EF7F71' filter='url(#blurMe1)' />
 							<path d='M45 50c-6 2-12 4-18 5-2 0-4-2-6-3 1-1 2-3 3-4 11-3 22-7 32-10 2-1 4 1 6 2-1 1-2 4-3 4-4 2-9 4-14 6z' fill='#EF7F71' filter='url(#blurMe1)' />
@@ -59,7 +65,6 @@ function FaceCard() {
 					</div>
 					<div className='face-smileR'>
 						<svg xmlSpace='preserve' viewBox='0 0 65 65' xmlns='http://www.w3.org/2000/svg'>
-							<filter id='blurMe2'><feGaussianBlur in='SourceGraphic' stdDeviation={2} /></filter>
 							<path d='M25 19c-6 2-12 4-18 5-2 0-4-2-6-3 1-1 2-3 3-4 11-3 22-7 32-10 2-1 4 1 6 2-1 1-2 4-3 4-4 2-9 4-14 6z' fill='#EF7F71' filter='url(#blurMe2)' />
 							<path d='M35 35c-6 2-12 4-18 5-2 0-4-2-6-3 1-1 2-3 3-4 11-3 22-7 32-10 2-1 4 1 6 2-1 1-2 4-3 4-4 2-9 4-14 6z' fill='#EF7F71' filter='url(#blurMe2)' />
 							<path d='M45 50c-6 2-12 4-18 5-2 0-4-2-6-3 1-1 2-3 3-4 11-3 22-7 32-10 2-1 4 1 6 2-1 1-2 4-3 4-4 2-9 4-14 6z' fill='#EF7F71' filter='url(#blurMe2)' />
@@ -170,16 +175,16 @@ export default function Home({ onContactClick }) {
 			{/* HERO */}
 			<header className='relative' style={{ backgroundImage: 'linear-gradient(to right, rgba(158,158,158,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158,158,158,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: 'top left' }}>
 				<div className='max-w-7xl mx-auto p-4 md:p-8 flex flex-col min-h-dvh'>
-					<section className='flex flex-col justify-end'>
+					<section className='flex flex-col justify-end gap-6 md:gap-8 lg:gap-8'>
 						<Header />
 						<div>
 							<p className='font-black uppercase text-4xl md:text-5xl lg:text-6xl leading-none tracking-tight animate__animated animate__fadeIn ml-1'>HI, I&apos;M</p>
 							<h1 className='font-black uppercase leading-none w-full animate__animated animate__fadeIn' style={{ fontSize: 'clamp(3rem, 16vw, 13.6rem)' }}>PRASHANT</h1>
 						</div>
-						<h1 className='leading-[0.88] my-12 animate__animated animate__fadeIn' style={{ fontFamily: '"DMSerifDisplay-Regular", serif', fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
+						<h2 className='leading-[0.88] animate__animated animate__fadeIn' style={{ fontFamily: '"DMSerifDisplay-Regular", serif', fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
 							<span className='block mb-4 font-thin'>Crafting<span style={{ color: 'var(--accent)', fontWeight: '700' }}>{' bold'}<span className='animate-blink'>_</span></span></span>
 							<span className='block font-thin'>Digital<span className='text-neutral-600'> things.</span></span>
-						</h1>
+						</h2>
 						<div className='flex items-end justify-between py-10 my-2 border-t border-neutral-800 animate__animated animate__fadeIn'>
 							<p className='text-sm text-neutral-500 max-w-xs leading-relaxed'>
 								I craft digital experiences that live at the intersection
@@ -205,9 +210,9 @@ export default function Home({ onContactClick }) {
 				<div className='text-center flex flex-col items-center w-full'>
 					<p className='text-xl'>A Little</p>
 					<h1 className='text-7xl md:text-[10rem] font-black uppercase tracking-tight text-white mb-8'>About Me</h1>
-					<div className='grid grid-cols-1 md:grid-cols-[70%_30%] gap-12 items-center w-full'>
+					<div className='grid grid-cols-1 md:grid-cols-[70%_30%] gap-4 w-full'> {/* items-center */}
 						{/* Left Column — 70% */}
-						<div className='flex flex-col space-y-6 items-center'>
+						<div className='flex flex-col space-y-6 items-center my-4 md:my-6 lg:my-8'>
 							<p className='text-lg md:text-2xl leading-relaxed text-neutral-300 font-medium text-center'>
 								With over five years of experience in design,<br />
 								I specialize in branding, web design, and user experience.<br />

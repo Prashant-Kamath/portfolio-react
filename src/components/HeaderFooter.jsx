@@ -30,7 +30,7 @@ export function Header() {
 	}, []);
 	return (
 		<header>
-			<div className='flex justify-between items-center mb-8 pb-5 animate__animated animate__fadeIn'>
+			<div className='flex justify-between items-center mb-4 pb-2 animate__animated animate__fadeIn'>
 				<div className='flex gap-3'>
 					<img src='../src/assets/logo-white.webp' alt='' width={36} />
 					<div className='flex-row'>
