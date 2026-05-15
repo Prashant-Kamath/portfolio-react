@@ -221,9 +221,9 @@ const About = () => {
 							<h3 className='uppercase border-b border-white pb-4 mb-8 w-full'>Skills</h3>
 							<div className='flex flex-wrap gap-3'>
 								{skills.map((skill) => (
-									<Button key={skill.name} className='text-xs uppercase tracking-widest px-4 py-1 rounded-full border bg-blue-50 text-black border-blue-200'>
+									<span key={skill.name} className='text-xs uppercase tracking-widest px-4 py-1 rounded-full border bg-blue-50 text-black border-blue-200'>
 										{skill.name}
-									</Button>
+									</span>
 								))}
 							</div>
 						</section>

@@ -4,12 +4,15 @@ import { IoArrowForwardCircle } from 'react-icons/io5';
 import { Header, Footer } from '../components/HeaderFooter';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
 import Button from '../components/Button';
 import { worksData } from '../components/Cards-Data';
 import { sizeClasses } from '../components/WorksCard';
 import 'animate.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const projects = worksData
 	.filter(w => w.selected)
@@ -120,10 +123,21 @@ export default function Home({ onContactClick }) {
 	const footerRef = useRef(null);
 	const buttonRef = useRef(null);
 	const marqRef = useRef(null);
+	const aboutSmallLabelRef = useRef(null);
+	const aboutHeadingRef = useRef(null);
+	const aboutParaRef = useRef(null);
 	const navigate = useNavigate();
 
 	const [activeIndex, setActiveIndex] = useState(null);
 	const [isTouch, setIsTouch] = useState(false);
+
+	useEffect(() => {
+		AOS.init({
+			duration: 800,
+			easing: 'ease-in-out-cubic',
+			once: false,
+		});
+	}, []);
 
 	useEffect(() => {
 		const media = window.matchMedia('(pointer: coarse)');
@@ -137,6 +151,59 @@ export default function Home({ onContactClick }) {
 		const ctx = gsap.context(() => {
 			gsap.utils.toArray('.marquee-track').forEach((el) => {
 				gsap.to(el, { x: '-50%', duration: 18, ease: 'none', repeat: -1 });
+			});
+		});
+		return () => ctx.revert();
+	}, []);
+
+	useEffect(() => {
+		const el = aboutHeadingRef.current;
+		if (!el) return;
+		el.style.setProperty('--fill-progress', '0%');
+		const ctx = gsap.context(() => {
+			gsap.to(el, {
+				'--fill-progress': '100%',
+				ease: 'none',
+				scrollTrigger: {
+					trigger: el,
+					start: 'top 80%',
+					end: 'bottom 40%',
+					scrub: 1,
+				},
+			});
+		});
+		return () => ctx.revert();
+	}, []);
+	useEffect(() => {
+		const ctx = gsap.context(() => {
+			const aLittleSplit = new SplitText(aboutSmallLabelRef.current, { type: 'chars' });
+			gsap.from(aLittleSplit.chars, {
+				opacity: 0,
+				y: 20,
+				stagger: 0.05,
+				duration: 0.6,
+				ease: 'power2.out',
+				scrollTrigger: {
+					trigger: aboutSmallLabelRef.current,
+					start: 'top 85%',
+					end: 'center 50%',
+					scrub: 1.2,
+				},
+			});
+			const paraSplit = new SplitText(aboutParaRef.current, { type: 'lines' });
+			gsap.from(paraSplit.lines, {
+				opacity: 0,
+				// filter: "blur(4px)",
+				y: 24,
+				stagger: 0.08,
+				duration: 0.8,
+				ease: 'power2.out',
+				scrollTrigger: {
+					trigger: aboutParaRef.current,
+					start: 'top 80%', //was 85%
+					end: 'center 50%',
+					scrub: 1.2,
+				},
 			});
 		});
 		return () => ctx.revert();
@@ -159,9 +226,7 @@ export default function Home({ onContactClick }) {
 			xTo(x);
 			yTo(y);
 		};
-
 		const handleMouseLeave = () => { xTo(0); yTo(0); };
-
 		footer.addEventListener('mousemove', handleMouseMove);
 		footer.addEventListener('mouseleave', handleMouseLeave);
 		return () => {
@@ -208,12 +273,13 @@ export default function Home({ onContactClick }) {
 			{/* ABOUT ME */}
 			<section className='max-w-7xl mx-auto p-4 md:p-8 min-h-dvh flex justify-center items-center'>
 				<div className='text-center flex flex-col items-center w-full'>
-					<p className='text-xl'>A Little</p>
-					<h1 className='text-7xl md:text-[10rem] font-black uppercase tracking-tight text-white mb-8'>About Me</h1>
+					<p ref={aboutSmallLabelRef} className='text-xl'>A Little</p>
+					<style>{`.about-heading {--fill-progress: 0%; color: transparent; -webkit-text-stroke: 2px white; background-image: linear-gradient(to right, white var(--fill-progress), transparent var(--fill-progress)); -webkit-background-clip: text; background-clip: text;}`}</style>
+					<h1 ref={aboutHeadingRef} className='about-heading text-7xl md:text-[10rem] font-black uppercase tracking-tight mb-8'>About Me</h1>
 					<div className='grid grid-cols-1 md:grid-cols-[70%_30%] gap-4 w-full'> {/* items-center */}
 						{/* Left Column — 70% */}
 						<div className='flex flex-col space-y-6 items-center my-4 md:my-6 lg:my-8'>
-							<p className='text-lg md:text-2xl leading-relaxed text-neutral-300 font-medium text-center'>
+							<p ref={aboutParaRef} className='text-lg md:text-2xl leading-relaxed text-neutral-300 font-medium text-center'>
 								With over five years of experience in design,<br />
 								I specialize in branding, web design, and user experience.<br />
 								I love collaborating with businesses that want to stand out and showcase their best side.<br />
@@ -231,9 +297,9 @@ export default function Home({ onContactClick }) {
 			{/* WORKS */}
 			<main className='max-w-7xl mx-auto p-4 md:p-8 mb-24'>
 				<section className='text-white'>
-					<p className='text-xs tracking-widest uppercase text-gray-500 mb-6 font-light'>Area of Expertise</p>
+					<p data-aos='fade-up' className='text-xs tracking-widest uppercase text-gray-500 mb-6 font-light'>Area of Expertise</p>
 					<div className='grid grid-cols-1 md:grid-cols-2 gap-12 items-start'>
-						<div>
+						<div data-aos='fade-up'>
 							<h2 className='text-5xl md:text-6xl mb-8' style={{ fontFamily: '"DMSerifDisplay-Regular", serif' }}>Selected <br /> Works</h2>
 							<ul>
 								{projects.map((project, i) => {
@@ -276,7 +342,9 @@ export default function Home({ onContactClick }) {
 											</div>
 											<div className={`md:hidden overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isActive ? 'mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
 												<div className={`w-full rounded-sm overflow-hidden border border-white/10 bg-[#1a1a1a] transform transition-transform duration-500 ${isActive ? 'scale-100' : 'scale-95'}`}>
-													<img src={project.gif} alt={project.name} className='w-full h-auto object-contain' />
+													{isActive && (
+														<img src={project.gif} alt={project.name} className='w-full h-auto object-contain' />
+													)}
 												</div>
 											</div>
 										</li>
@@ -294,7 +362,9 @@ export default function Home({ onContactClick }) {
 								{projects.map((project, i) => (
 									<div key={i} className={`absolute transition-all duration-300 ${sizeClasses[project.size] ?? 'aspect-video'} ${hoveredIndex === i ? 'opacity-100 scale-75' : 'opacity-0 scale-0 pointer-events-none'}`}>
 										<div className='w-full h-full rounded-sm overflow-hidden border border-white/10 bg-[#1a1a1a]'>
-											<img src={project.gif} alt={project.name} className='w-full h-full object-cover' onError={e => { e.target.style.display = 'none'; }} />
+											{hoveredIndex === i && (
+												<img src={project.gif} alt={project.name} className='w-full h-full object-cover' />
+											)}
 										</div>
 									</div>
 								))}
