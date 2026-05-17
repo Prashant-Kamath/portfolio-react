@@ -244,23 +244,23 @@ export default function Home({ onContactClick }) {
 						<Header />
 						<div>
 							<p className='font-black uppercase text-4xl md:text-5xl lg:text-6xl leading-none tracking-tight animate__animated animate__fadeIn ml-1'>HI, I&apos;M</p>
-							<h1 className='font-black uppercase leading-none w-full animate__animated animate__fadeIn' style={{ fontSize: 'clamp(3rem, 16vw, 13.6rem)' }}>PRASHANT</h1>
+							<h1 className='font-black uppercase leading-none w-full animate__animated animate__fadeIn' style={{ fontSize: 'clamp(3rem, 16vw, 13.5rem)' }}>PRASHANT</h1>
 						</div>
 						<h2 className='leading-[0.88] animate__animated animate__fadeIn' style={{ fontFamily: '"DMSerifDisplay-Regular", serif', fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
 							<span className='block mb-4 font-thin'>Crafting<span style={{ color: 'var(--accent)', fontWeight: '700' }}>{' bold'}<span className='animate-blink'>_</span></span></span>
 							<span className='block font-thin'>Digital<span className='text-neutral-600'> things.</span></span>
 						</h2>
-						<div className='flex items-end justify-between py-10 my-2 border-t border-neutral-800 animate__animated animate__fadeIn'>
+						{/* <div className='flex items-end justify-between py-10 my-2 border-t border-neutral-800 animate__animated animate__fadeIn'>
 							<p className='text-sm text-neutral-500 max-w-xs leading-relaxed'>
 								I craft digital experiences that live at the intersection
 								of design and engineering. Clean. Considered. Purposeful.
 							</p>
-						</div>
+						</div> */}
 					</section>
 					<div className='overflow-hidden py-5 border-y border-white/10 mt-auto mb-2 z-5'>
 						<div className='marquee-track flex whitespace-nowrap gap-2' style={{ width: '200%' }}>
 							{Array(10).fill(null).map((_, i) => (
-								<span key={i} className='text-[12px] tracking-[0.3em] uppercase text-neutral-500 shrink-0'>
+								<span key={i} className='text-sm tracking-widest uppercase text-neutral-500 shrink-0'>
 									WebGL · React.js · Framer Motion · Three.js · GSAP · Shader Art ·&nbsp;
 								</span>
 							))}
@@ -271,7 +271,7 @@ export default function Home({ onContactClick }) {
 			</header>
 
 			{/* ABOUT ME */}
-			<section className='max-w-7xl mx-auto p-4 md:p-8 min-h-dvh flex justify-center items-center'>
+			<section className='max-w-7xl mx-auto p-4 md:p-8 my-8 flex justify-center items-center'>
 				<div className='text-center flex flex-col items-center w-full'>
 					<p ref={aboutSmallLabelRef} className='text-xl'>A Little</p>
 					<style>{`.about-heading {--fill-progress: 0%; color: transparent; -webkit-text-stroke: 2px white; background-image: linear-gradient(to right, white var(--fill-progress), transparent var(--fill-progress)); -webkit-background-clip: text; background-clip: text;}`}</style>
@@ -287,7 +287,7 @@ export default function Home({ onContactClick }) {
 							</p>
 						</div>
 						{/* Right Column — 30% */}
-						<div className='relative w-full flex items-center justify-center'>
+						<div data-aos='flip-right' data-aos-delay="200" className='relative w-full flex items-center justify-center'>
 							<FaceCard />
 						</div>
 					</div>
@@ -300,16 +300,14 @@ export default function Home({ onContactClick }) {
 					<p data-aos='fade-up' className='text-xs tracking-widest uppercase text-gray-500 mb-6 font-light'>Area of Expertise</p>
 					<div className='grid grid-cols-1 md:grid-cols-2 gap-12 items-start'>
 						<div data-aos='fade-up'>
-							<h2 className='text-5xl md:text-6xl mb-8' style={{ fontFamily: '"DMSerifDisplay-Regular", serif' }}>Selected <br /> Works</h2>
+							<h2 className='text-5xl md:text-6xl mb-8' style={{ fontFamily: '"DMSerifDisplay-Regular", serif' }}>Selected<br />Works</h2>
 							<ul>
 								{projects.map((project, i) => {
 									const isHovered = hoveredIndex === i;
 									const isOtherHovered = hoveredIndex !== null && hoveredIndex !== i;
 									const isActive = activeIndex === i;
 									return (
-										<li key={i}
-											onMouseEnter={() => !isTouch && setHoveredIndex(i)}
-											onMouseLeave={() => !isTouch && setHoveredIndex(null)}
+										<li key={i} onMouseEnter={() => !isTouch && setHoveredIndex(i)} onMouseLeave={() => !isTouch && setHoveredIndex(null)}
 											onClick={() => {
 												if (isTouch) { setActiveIndex(prev => (prev === i ? null : i)); }
 												else if (project.slug) { navigate(`/works/${project.slug}`); }
@@ -341,7 +339,7 @@ export default function Home({ onContactClick }) {
 												</div>
 											</div>
 											<div className={`md:hidden overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isActive ? 'mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
-												<div className={`w-full rounded-sm overflow-hidden border border-white/10 bg-[#1a1a1a] transform transition-transform duration-500 ${isActive ? 'scale-100' : 'scale-95'}`}>
+												<div className={`w-full rounded-sm overflow-hidden border border-white/10 bg-(--item-bg) transform transition-transform duration-500 ${isActive ? 'scale-100' : 'scale-95'}`}>
 													{isActive && (
 														<img src={project.gif} alt={project.name} className='w-full h-auto object-contain' />
 													)}
@@ -351,7 +349,7 @@ export default function Home({ onContactClick }) {
 									);
 								})}
 							</ul>
-							<div className='mt-12'>
+							<div className='mt-12 flex justify-evenly'>
 								<Link to='/works' className='inline-flex items-center gap-2 text-sm font-medium underline underline-offset-4 tracking-widest uppercase hover:opacity-60 transition-opacity duration-200'>
 									<span className='text-base'>↗</span>See All Projects
 								</Link>
@@ -382,7 +380,8 @@ export default function Home({ onContactClick }) {
 				<Ruler />
 				<div className='text-center pt-10 pb-2 px-4'>
 					<p className='text-white text-sm sm:text-base font-bold tracking-[0.15em] uppercase mb-4'>Next Step?</p>
-					<span className='text-(--accent) uppercase leading-[0.85] whitespace-nowrap mb-18' style={{ fontWeight: 900, fontSize: 'clamp(15px, 10vw, 120px)', display: 'inline-block', transform: 'scaleY(2)', transformOrigin: 'top' }}>
+					{/* <span className='text-(--accent) uppercase leading-[0.85] whitespace-nowrap mb-18' style={{ fontWeight: 900, fontSize: 'clamp(1rem, 10vw, 7.5rem)', display: 'inline-block', transform: 'scaleY(2)', transformOrigin: 'top' }}> */}
+					<span className='text-(--accent) text-5xl md:text-7xl lg:text-9xl font-black uppercase' style={{ display: 'inline-block', transform: 'scaleY(1.25)', transformOrigin: 'top' }}>
 						Let&#39;s build<br />an experience
 					</span>
 					<div className='flex justify-center items-center mt-5 mb-8'>
@@ -404,11 +403,11 @@ export default function Home({ onContactClick }) {
 					<div className='hidden md:block bg-neutral-700' />
 					<div className='flex items-center px-8 py-7 overflow-hidden border-t border-neutral-700 md:border-t-0'>
 						<div className='w-full overflow-hidden'>
-							<div className='marquee-track flex items-center gap-4 whitespace-nowrap text-white font-semibold tracking-wide' style={{ fontSize: 'clamp(18px, 3vw, 36px)' }}>
-								<span className='text-[#FFD600]'>✦</span>
-								<span>Click This Floating Button</span>
-								<span className='text-[#FFD600] ml-8'>✦</span>
-								<span>Or The Mail Icon On the Dock</span>
+							<div className='marquee-track flex items-center gap-4 whitespace-nowrap text-white font-semibold tracking-wide' style={{ fontSize: 'clamp(1.1rem, 3vw, 2.25rem)' }}>
+								<span className='text-(--accent)'>✦</span>
+								<span>click this floating button</span>
+								<span className='text-(--accent) ml-8'>✦</span>
+								<span>or the Mail icon on the Dock</span>
 							</div>
 						</div>
 					</div>
