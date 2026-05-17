@@ -23,6 +23,7 @@ export const worksData = [
 		date: "Sept 2022",
 		size: "square",
 		canvasPosition: { relativeTo: 1, side: "right" },
+		selected: true,
 	},
 	{
 		id: 3,
@@ -42,6 +43,7 @@ export const worksData = [
 		date: "Sept 2022",
 		size: "landscape",
 		canvasPosition: { relativeTo: 1, side: "bottom" },
+		selected: true,
 	},
 	{
 		id: 5,
@@ -71,5 +73,6 @@ export const worksData = [
 		date: "Sept 2022",
 		size: "square",
 		canvasPosition: { relativeTo: 3, side: "bottom" },
+		selected: true,
 	},
 ];
