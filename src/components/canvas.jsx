@@ -60,7 +60,7 @@ const resolvePositions = (items) => {
 				y = parentPos.y - mySize.height - GAP;
 				break;
 			default:
-				console.warn(`Card id:${item.id} has unknown side: "${side}"`);
+				console.warn(`Card id:${item.id} has unknown side: '${side}'`);
 				x = parentPos.x;
 				y = parentPos.y;
 		}
@@ -75,7 +75,7 @@ const resolvePositions = (items) => {
 
 const Canvas = () => {
 	const nodes = useMemo(() => {
-		const visibleData = worksData.filter(p => !p.hidden?.includes("canvas"));
+		const visibleData = worksData.filter(p => !p.hidden?.includes('canvas'));
 		const positions = resolvePositions(visibleData);
 
 		return visibleData.map((project) => {

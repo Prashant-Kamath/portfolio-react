@@ -160,7 +160,7 @@ export default function Home({ onContactClick }) {
 			const paraSplit = new SplitText(aboutParaRef.current, { type: 'lines' });
 			gsap.from(paraSplit.lines, {
 				opacity: 0,
-				// filter: "blur(4px)",
+				// filter: 'blur(4px)',
 				y: 24,
 				stagger: 0.08,
 				duration: 0.8,
@@ -255,7 +255,7 @@ export default function Home({ onContactClick }) {
 								</p>
 							</div>
 							{/* Right Column — 30% */}
-							<div data-aos='flip-right' data-aos-delay="200" className='relative w-full flex items-center justify-center'>
+							<div data-aos='flip-right' data-aos-delay='200' className='relative w-full flex items-center justify-center'>
 								<FaceCard />
 							</div>
 						</div>

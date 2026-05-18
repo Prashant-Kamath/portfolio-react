@@ -1,9 +1,9 @@
-import { useMemo, useState, useRef, useEffect, useCallback } from "react";
-import logo from "../assets/logo-white.webp";
-import { IoHome, IoFolder, IoPerson, IoMail, IoAt, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter, IoLogoInstagram, IoClose, IoAppsSharp } from "react-icons/io5";
-import { useNavigate, useLocation } from "react-router-dom";
-import Button from "./Button";
-import gsap from "gsap";
+import { useMemo, useState, useRef, useEffect, useCallback } from 'react';
+import logo from '../assets/logo-white.webp';
+import { IoHome, IoFolder, IoPerson, IoMail, IoAt, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter, IoLogoInstagram, IoClose, IoAppsSharp } from 'react-icons/io5';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Button from './Button';
+import gsap from 'gsap';
 
 const BASE = 48;
 const PEAK = 76;
@@ -11,18 +11,18 @@ const SPREAD = 2;
 const eased = (t) => Math.pow(Math.max(0, t), 1.8);
 
 const buildDockItems = (onContactClick) => [
-	{ id: "home", label: "Home", path: "/", icon: IoHome },
-	{ id: "works", label: "Works", path: "/works", icon: IoFolder },
-	{ id: "about", label: "About Me", path: "/about", icon: IoPerson },
-	{ id: "contact", label: "Get in Touch", icon: IoMail, onClick: onContactClick },
-	{ id: "burger-menu", label: "Socials", icon: IoAt },
+	{ id: 'home', label: 'Home', path: '/', icon: IoHome },
+	{ id: 'works', label: 'Works', path: '/works', icon: IoFolder },
+	{ id: 'about', label: 'About Me', path: '/about', icon: IoPerson },
+	{ id: 'contact', label: 'Get in Touch', icon: IoMail, onClick: onContactClick },
+	{ id: 'burger-menu', label: 'Socials', icon: IoAt },
 ];
 
 const SOCIALS = [
-	{ id: "github", label: "GitHub", icon: IoLogoGithub, href: "https://github.com/Prashant-Kamath" },
-	{ id: "linkedin", label: "LinkedIn", icon: IoLogoLinkedin, href: "https://linkedin.com/in/yourusername" },
-	{ id: "twitter", label: "Twitter", icon: IoLogoTwitter, href: "https://twitter.com/yourusername" },
-	{ id: "instagram", label: "Instagram", icon: IoLogoInstagram, href: "https://instagram.com/yourusername" },
+	{ id: 'github', label: 'GitHub', icon: IoLogoGithub, href: 'https://github.com/Prashant-Kamath' },
+	{ id: 'linkedin', label: 'LinkedIn', icon: IoLogoLinkedin, href: 'https://linkedin.com/in/yourusername' },
+	{ id: 'twitter', label: 'Twitter', icon: IoLogoTwitter, href: 'https://twitter.com/yourusername' },
+	{ id: 'instagram', label: 'Instagram', icon: IoLogoInstagram, href: 'https://instagram.com/yourusername' },
 ];
 
 function sizeForIndex(index, hoveredIndex) {
@@ -40,7 +40,7 @@ function iconScale(size) {
 export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContactClick, isCanvasMode, setIsCanvasMode }) {
 	const [hoveredIndex, setHoveredIndex] = useState(null);
 	const [knowMoreOpen, setKnowMoreOpen] = useState(false);
-	const [isPhone, setIsPhone] = useState(() => window.matchMedia("(max-width: 767px)").matches);
+	const [isPhone, setIsPhone] = useState(() => window.matchMedia('(max-width: 767px)').matches);
 	const popoverRef = useRef(null);
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -52,19 +52,19 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 
 	useEffect(() => { if (isCanvasMode) setIsCanvasMode(false); }, [location.pathname]);
 	useEffect(() => {
-		const mq = window.matchMedia("(max-width: 767px)");
+		const mq = window.matchMedia('(max-width: 767px)');
 		const handler = (e) => setIsPhone(e.matches);
-		mq.addEventListener("change", handler);
-		return () => mq.removeEventListener("change", handler);
+		mq.addEventListener('change', handler);
+		return () => mq.removeEventListener('change', handler);
 	}, []);
 	useEffect(() => {
 		if (!knowMoreOpen) return;
 		const handle = (e) => {
-			if (e.target.closest("[data-knowmore-trigger]")) return;
+			if (e.target.closest('[data-knowmore-trigger]')) return;
 			if (popoverRef.current && !popoverRef.current.contains(e.target)) { setKnowMoreOpen(false); }
 		};
-		document.addEventListener("mousedown", handle);
-		return () => document.removeEventListener("mousedown", handle);
+		document.addEventListener('mousedown', handle);
+		return () => document.removeEventListener('mousedown', handle);
 	}, [knowMoreOpen]);
 
 	const navbarBottom = 24 + 68 + 12; // 104px — just above the main dock
@@ -80,48 +80,48 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 			.to(el, {
 				scale: 0.8,
 				duration: 0.08,
-				ease: "power2.out",
+				ease: 'power2.out',
 			})
 			.to(el, {
 				scale: 1,
 				duration: 0.45,
-				ease: "elastic.out(1, 0.4)",
+				ease: 'elastic.out(1, 0.4)',
 			});
 	};
 	return (
 		<>
-			<div ref={popoverRef} style={{ backgroundColor: "var(--dock-bg)", borderColor: "var(--dock-border)", boxShadow: "0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)", bottom: "calc(24px + 68px + 12px)", left: "50%", transform: "translateX(-50%)", transformOrigin: "bottom center", opacity: knowMoreOpen ? 1 : 0, scale: knowMoreOpen ? "1" : "0.92", pointerEvents: knowMoreOpen ? "all" : "none", transition: "opacity 220ms cubic-bezier(.4,0,.2,1), scale 220ms cubic-bezier(.4,0,.2,1)", }} className="fixed z-40 flex items-center gap-3 rounded-full border px-5 py-3 backdrop-blur-md">
+			<div ref={popoverRef} style={{ backgroundColor: 'var(--dock-bg)', borderColor: 'var(--dock-border)', boxShadow: '0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)', bottom: 'calc(24px + 68px + 12px)', left: '50%', transform: 'translateX(-50%)', transformOrigin: 'bottom center', opacity: knowMoreOpen ? 1 : 0, scale: knowMoreOpen ? '1' : '0.92', pointerEvents: knowMoreOpen ? 'all' : 'none', transition: 'opacity 220ms cubic-bezier(.4,0,.2,1), scale 220ms cubic-bezier(.4,0,.2,1)', }} className='fixed z-40 flex items-center gap-3 rounded-full border px-5 py-3 backdrop-blur-md'>
 				{SOCIALS.map((social) => {
 					const Icon = social.icon;
 					return (
-						<a key={social.id} href={social.href} target="_blank" rel="noopener noreferrer" title={social.label} style={{ width: BASE, height: BASE, color: "var(--icon-color)" }} className="group relative flex items-center justify-center rounded-full hover:bg-(--item-bg) transition-colors duration-150">
-							<div className="absolute -top-9 scale-0 group-hover:scale-100 transition-transform duration-200 rounded px-2 py-1 text-xs whitespace-nowrap z-50 pointer-events-none" style={{ backgroundColor: "var(--tooltip-bg)", color: "var(--tooltip-text)", backdropFilter: "blur(8px)" }}>
+						<a key={social.id} href={social.href} target='_blank' rel='noopener noreferrer' title={social.label} style={{ width: BASE, height: BASE, color: 'var(--icon-color)' }} className='group relative flex items-center justify-center rounded-full hover:bg-(--item-bg) transition-colors duration-150'>
+							<div className='absolute -top-9 scale-0 group-hover:scale-100 transition-transform duration-200 rounded px-2 py-1 text-xs whitespace-nowrap z-50 pointer-events-none' style={{ backgroundColor: 'var(--tooltip-bg)', color: 'var(--tooltip-text)', backdropFilter: 'blur(8px)' }}>
 								{social.label}
 							</div>
 							<Icon size={22} />
 						</a>
 					);
 				})}
-				<div className="h-8 w-px shrink-0 self-center opacity-30" style={{ backgroundColor: "var(--text-secondary)" }} />
-				<button onClick={() => setKnowMoreOpen(false)} title="Close" style={{ width: BASE, height: BASE, color: "var(--icon-color)" }} className="flex items-center justify-center rounded-full hover:bg-(--item-bg) transition-colors duration-150 cursor-pointer">
+				<div className='h-8 w-px shrink-0 self-center opacity-30' style={{ backgroundColor: 'var(--text-secondary)' }} />
+				<button onClick={() => setKnowMoreOpen(false)} title='Close' style={{ width: BASE, height: BASE, color: 'var(--icon-color)' }} className='flex items-center justify-center rounded-full hover:bg-(--item-bg) transition-colors duration-150 cursor-pointer'>
 					<IoClose size={20} />
 				</button>
 			</div>
 
 			{isCanvasMode && (
-				<div className="fixed left-1/2 -translate-x-1/2 z-50" style={{ bottom: exitCanvasBottom, transition: "bottom 220ms cubic-bezier(.4,0,.2,1)", }}>
+				<div className='fixed left-1/2 -translate-x-1/2 z-50' style={{ bottom: exitCanvasBottom, transition: 'bottom 220ms cubic-bezier(.4,0,.2,1)', }}>
 					<Button className='cursor-pointer' icon={IoAppsSharp} onClick={() => setIsCanvasMode(false)}>
 						Exit Canvas
 					</Button>
 				</div>
 			)}
 
-			<nav style={{ backgroundColor: "var(--dock-bg)", borderColor: "var(--dock-border)", boxShadow: "0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)", }} className="fixed bottom-6 left-1/2 z-50 flex h-17 -translate-x-1/2 items-end gap-4 rounded-full border px-6 py-2 backdrop-blur-md">
+			<nav style={{ backgroundColor: 'var(--dock-bg)', borderColor: 'var(--dock-border)', boxShadow: '0 4px 24px var(--dock-shadow), inset 0 1px 0 var(--dock-inner-shadow)', }} className='fixed bottom-6 left-1/2 z-50 flex h-17 -translate-x-1/2 items-end gap-4 rounded-full border px-6 py-2 backdrop-blur-md'>
 				{dockItems.map((item, index) => {
 					const size = sizes[index];
 					const scale = iconScale(size);
 					const isActive = item.path && location.pathname === item.path;
-					const isKnowMore = item.id === "burger-menu";
+					const isKnowMore = item.id === 'burger-menu';
 					const isKnowMoreActive = isKnowMore && knowMoreOpen;
 					const Icon = item.icon;
 
@@ -132,12 +132,12 @@ export default function MacDockNavbar({ logoSrc = logo, onThemeToggle, onContact
 								else if (item.onClick) { item.onClick(); }
 								else if (item.path) { navigate(item.path); }
 							}}
-							style={{ width: size, height: size, transition: "width 200ms ease, height 200ms ease", backgroundColor: (isActive || isKnowMoreActive) ? "var(--white-to-black)" : undefined, }}
-							className={`group relative flex items-center justify-center rounded-full cursor-pointer ${!(isActive || isKnowMoreActive) ? "hover:bg-(--item-bg)" : ""}`}>
-							<div className="absolute -top-10 scale-0 group-hover:scale-100 transition-transform duration-200 rounded px-2 py-1 text-xs whitespace-nowrap z-50 pointer-events-none" style={{ backgroundColor: "var(--tooltip-bg)", color: "var(--tooltip-text)", backdropFilter: "blur(8px)" }}>
+							style={{ width: size, height: size, transition: 'width 200ms ease, height 200ms ease', backgroundColor: (isActive || isKnowMoreActive) ? 'var(--white-to-black)' : undefined, }}
+							className={`group relative flex items-center justify-center rounded-full cursor-pointer ${!(isActive || isKnowMoreActive) ? 'hover:bg-(--item-bg)' : ''}`}>
+							<div className='absolute -top-10 scale-0 group-hover:scale-100 transition-transform duration-200 rounded px-2 py-1 text-xs whitespace-nowrap z-50 pointer-events-none' style={{ backgroundColor: 'var(--tooltip-bg)', color: 'var(--tooltip-text)', backdropFilter: 'blur(8px)' }}>
 								{item.label}
 							</div>
-							<Icon size={22} style={{ color: (isActive || isKnowMoreActive) ? "var(--black-to-white)" : "var(--icon-color)", transform: `scale(${scale})`, transition: "transform 200ms ease", }} />
+							<Icon size={22} style={{ color: (isActive || isKnowMoreActive) ? 'var(--black-to-white)' : 'var(--icon-color)', transform: `scale(${scale})`, transition: 'transform 200ms ease', }} />
 						</button>
 					);
 				})}
