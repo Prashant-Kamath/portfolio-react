@@ -122,7 +122,7 @@ const About = () => {
 	}, []);
 
 	return (
-		<div className='relative' style={{ backgroundImage: 'linear-gradient(to right, rgba(158,158,158,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158,158,158,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: 'top left' }}>
+		<div className='relative'> {/* style={{ backgroundImage: 'linear-gradient(to right, rgba(158,158,158,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158,158,158,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: 'top left' }} */}
 			<div className='max-w-7xl mx-auto p-4 md:p-8'>
 				<Header />
 				<header className='mt-14 mb-12 flex flex-col-reverse items-center justify-between gap-10 animate__animated animate__fadeIn md:flex-row'>

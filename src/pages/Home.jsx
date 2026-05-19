@@ -9,6 +9,7 @@ import Button from '../components/Button';
 import { worksData } from '../components/Cards-Data';
 import { sizeClasses } from '../components/WorksCard';
 import 'animate.css';
+import { annotate } from 'rough-notation';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -98,6 +99,38 @@ export default function Home({ onContactClick }) {
 	const [activeIndex, setActiveIndex] = useState(null);
 	const [isTouch, setIsTouch] = useState(false);
 
+	// TYPEWRITER
+	const TYPEWRITER_WORDS = ['bold', 'minimal', 'sleek'];
+	const [twDisplayed, setTwDisplayed] = useState('');
+	const [twWordIdx, setTwWordIdx] = useState(0);
+	const [twIsDeleting, setTwIsDeleting] = useState(false);
+
+	useEffect(() => {
+		const currentWord = TYPEWRITER_WORDS[twWordIdx];
+		const typeSpeed = twIsDeleting ? 80 : 120;
+		const pauseBeforeDelete = 1800;
+		const pauseBeforeType = 400;
+
+		let timeout;
+		if (!twIsDeleting && twDisplayed === currentWord) {
+			timeout = setTimeout(() => setTwIsDeleting(true), pauseBeforeDelete);
+		} else if (twIsDeleting && twDisplayed === '') {
+			timeout = setTimeout(() => {
+				setTwIsDeleting(false);
+				setTwWordIdx((i) => (i + 1) % TYPEWRITER_WORDS.length);
+			}, pauseBeforeType);
+		} else {
+			timeout = setTimeout(() => {
+				setTwDisplayed(twIsDeleting
+					? currentWord.slice(0, twDisplayed.length - 1)
+					: currentWord.slice(0, twDisplayed.length + 1)
+				);
+			}, typeSpeed);
+		}
+		return () => clearTimeout(timeout);
+	}, [twDisplayed, twWordIdx, twIsDeleting]);
+	//
+
 	useEffect(() => {
 		AOS.init({
 			duration: 800,
@@ -134,15 +167,10 @@ export default function Home({ onContactClick }) {
 				scrollTrigger: {
 					trigger: el,
 					start: 'top 80%',
-					end: 'bottom 40%',
+					end: 'bottom 50%',
 					scrub: 1,
 				},
 			});
-		});
-		return () => ctx.revert();
-	}, []);
-	useEffect(() => {
-		const ctx = gsap.context(() => {
 			const aLittleSplit = new SplitText(aboutSmallLabelRef.current, { type: 'chars' });
 			gsap.from(aLittleSplit.chars, {
 				opacity: 0,
@@ -160,14 +188,13 @@ export default function Home({ onContactClick }) {
 			const paraSplit = new SplitText(aboutParaRef.current, { type: 'lines' });
 			gsap.from(paraSplit.lines, {
 				opacity: 0,
-				// filter: 'blur(4px)',
 				y: 24,
 				stagger: 0.08,
 				duration: 0.8,
 				ease: 'power2.out',
 				scrollTrigger: {
 					trigger: aboutParaRef.current,
-					start: 'top 80%', //was 85%
+					start: 'top 80%',
 					end: 'center 50%',
 					scrub: 1.2,
 				},
@@ -202,20 +229,33 @@ export default function Home({ onContactClick }) {
 		};
 	}, []);
 
+	const titleRef = useRef(null);
+	useEffect(() => {
+		if (titleRef.current) {
+			const annotation = annotate(titleRef.current, {
+				type: 'underline',
+				color: '#FFD600',
+				strokeWidth: 1,
+				animate: true,
+			});
+			annotation.show();
+		}
+	}, []);
+
 	return (
 		<>
-			<div style={{ position: 'relative', zIndex: 1, backgroundColor: 'var(--background-color)' }}>
+			<div className='max-w-7xl mx-auto p-4 md:p-8' style={{ position: 'relative', zIndex: 1, backgroundColor: 'var(--background-color)' }}>
 				{/* HERO */}
-				<header className='relative' style={{ backgroundImage: 'linear-gradient(to right, rgba(158,158,158,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158,158,158,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: 'top left' }}>
-					<div className='max-w-7xl mx-auto p-4 md:p-8 flex flex-col min-h-dvh'>
+				<header className='relative' > {/* style={{ backgroundImage: 'linear-gradient(to right, rgba(158,158,158,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(158,158,158,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: 'top left' }} */}
+					<div className='flex flex-col min-h-dvh'>
 						<section className='flex flex-col justify-end gap-6 md:gap-8 lg:gap-8'>
 							<Header />
 							<div>
 								<p className='font-black uppercase text-4xl md:text-5xl lg:text-6xl leading-none tracking-tight animate__animated animate__fadeIn ml-1'>HI, I&apos;M</p>
-								<h1 className='font-black uppercase leading-none w-full animate__animated animate__fadeIn' style={{ fontSize: 'clamp(3rem, 16vw, 13.5rem)' }}>PRASHANT</h1>
+								<h1 ref={titleRef} className='font-black uppercase leading-none w-full animate__animated animate__fadeIn' style={{ fontSize: 'clamp(4rem, 16vw, 13.5rem)' }}>PRASHANT</h1>
 							</div>
-							<h2 className='leading-[0.88] animate__animated animate__fadeIn' style={{ fontFamily: '"DMSerifDisplay-Regular", serif', fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
-								<span className='block mb-4 font-thin'>Crafting<span style={{ color: 'var(--accent)', fontWeight: '700' }}>{' bold'}<span className='animate-blink'>_</span></span></span>
+							<h2 className='leading-[0.88] animate__animated animate__fadeIn' style={{ fontFamily: '"DMSerifDisplay-Regular", serif', fontSize: 'clamp(2rem, 5vw, 3rem)' }}>
+								<span className='block mb-4 font-thin'>Crafting<span style={{ color: 'var(--accent)', fontWeight: '700' }}>{' '}{twDisplayed}<span className='animate-blink'>_</span></span></span>
 								<span className='block font-thin'>Digital<span className='text-neutral-600'> things.</span></span>
 							</h2>
 							{/* <div className='flex items-end justify-between py-10 my-2 border-t border-neutral-800 animate__animated animate__fadeIn'>
@@ -225,7 +265,7 @@ export default function Home({ onContactClick }) {
 								</p>
 							</div> */}
 						</section>
-						<div className='overflow-hidden py-5 border-y border-white/10 mt-auto mb-2 z-5'>
+						<div className='overflow-hidden py-5 border-y border-white/10 mt-auto mb-12 z-5'>
 							<div className='marquee-track flex whitespace-nowrap gap-2' style={{ width: '200%' }}>
 								{Array(10).fill(null).map((_, i) => (
 									<span key={i} className='text-sm tracking-widest uppercase text-neutral-500 shrink-0'>
@@ -239,37 +279,37 @@ export default function Home({ onContactClick }) {
 				</header>
 
 				{/* ABOUT ME */}
-				<section className='max-w-7xl mx-auto p-4 md:p-8 my-8 flex justify-center items-center'>
+				<section className='my-30 flex justify-center items-center'>
 					<div className='text-center flex flex-col items-center w-full'>
 						<p ref={aboutSmallLabelRef} className='text-xl'>A Little</p>
 						<style>{`.about-heading {--fill-progress: 0%; color: transparent; -webkit-text-stroke: 2px white; background-image: linear-gradient(to right, white var(--fill-progress), transparent var(--fill-progress)); -webkit-background-clip: text; background-clip: text;}`}</style>
 						<h1 ref={aboutHeadingRef} className='about-heading text-7xl md:text-[10rem] font-black uppercase tracking-tight mb-8'>About Me</h1>
-						<div className='grid grid-cols-1 md:grid-cols-[70%_30%] w-full'> {/* items-center */}
-							{/* Left Column — 70% */}
+						<div className='w-full'> {/* grid grid-cols-1 md:grid-cols-[70%_30%]*/} {/*items-center */}
+							{/* Left Column */}
 							<div className='flex flex-col space-y-6 items-center my-4 md:my-6 lg:my-8'>
-								<p ref={aboutParaRef} className='text-lg md:text-2xl leading-relaxed text-neutral-300 font-medium text-center'>
+								<p ref={aboutParaRef} className='text-lg md:text-2xl leading-relaxed text-neutral-300 text-center'>
 									With over five years of experience in design,<br />
 									I specialize in branding, web design, and user experience.<br />
 									I love collaborating with businesses that want to stand out and showcase their best side.<br />
 									Let&apos;s create something amazing together!
 								</p>
 							</div>
-							{/* Right Column — 30% */}
+							{/* Right Column */}
 							<div data-aos='flip-right' data-aos-delay='200' className='relative w-full flex items-center justify-center'>
-								<FaceCard />
+								{/* <FaceCard /> */}
 							</div>
 						</div>
 					</div>
 				</section>
 
 				{/* WORKS */}
-				<main className='max-w-7xl mx-auto p-4 md:p-8 mb-8'>
+				<main className='mb-8'>
 					<section className='text-white'>
-						<p data-aos='fade-up' className='text-xs tracking-widest uppercase text-gray-500 mb-6 font-light'>Area of Expertise</p>
+						<p data-aos='fade-right' className='text-xs tracking-widest uppercase text-gray-500 mb-6 font-light'>Area of Expertise</p>
 						<div className='grid grid-cols-1 md:grid-cols-2 gap-12 items-start'>
-							<div data-aos='fade-up'>
-								<h2 className='text-5xl md:text-6xl mb-8' style={{ fontFamily: '"DMSerifDisplay-Regular", serif' }}>Featured<br />Works</h2>
-								<ul>
+							<div>
+								<h2 data-aos='fade-right' className='text-5xl md:text-6xl mb-8' style={{ fontFamily: '"DMSerifDisplay-Regular", serif' }}>Featured<br />Works</h2>
+								<ul data-aos='fade' data-aos-duration='1200'>
 									{projects.map((project, i) => {
 										const isHovered = hoveredIndex === i;
 										const isOtherHovered = hoveredIndex !== null && hoveredIndex !== i;
@@ -317,7 +357,7 @@ export default function Home({ onContactClick }) {
 										);
 									})}
 								</ul>
-								<div className='mt-12 flex justify-evenly'>
+								<div data-aos='fade' className='mt-12 flex justify-evenly'>
 									<Link to='/works' className='inline-flex items-center gap-2 text-sm font-medium underline underline-offset-4 tracking-widest uppercase hover:opacity-60 transition-opacity duration-200'>
 										<span className='text-base'>↗</span>See All Projects
 									</Link>
